@@ -45,6 +45,11 @@ const GlobalStyle = createGlobalStyle`
     transition-duration: 0.1s;
     transition-timing-function: ease;
 
+    &.white {
+      color: var(--primaryColor);
+      background-color: white;
+    }
+
     :hover {
       background-color: #bbe1fa;
       color: var(--primaryColor);

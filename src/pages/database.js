@@ -1,11 +1,12 @@
 // Gatsby supports TypeScript natively!
 import React from "react"
 import styled from "styled-components"
-import { FaUpload, FaDownload, FaFilter } from "react-icons/fa"
+import { FaDownload, FaFilter } from "react-icons/fa"
 
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import DatabaseTable from "../components/DatabaseTable"
+import data from "../components/DatabaseTable/data"
 
 const Container = styled.div`
   display: flex;
@@ -25,20 +26,17 @@ const Container = styled.div`
         font-weight: bold;
         color: var(--primaryColor);
         font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+
+        .change-button {
+          margin-left: 1rem;
+        }
       }
 
       .actions {
         display: flex;
         align-items: center;
-
-        .action {
-          background-color: white;
-          color: #0f4c75;
-
-          :hover {
-            background-color: #bbe1fa;
-          }
-        }
 
         .upload-button,
         .download-button {
@@ -66,14 +64,17 @@ const Database = () => {
         <div className="database-content">
           <div className="database-header">
             <span className="dataset-title">
-              Dataset: Harvard Univserity Concussion Study
+              Harvard Univserity Concussion Study
+              <button className="button white change-button">
+                <div className="button-text">Change Dataset</div>
+              </button>
             </span>
             <div className="actions">
-              <button className="button action filter-button">
+              <button className="button white filter-button">
                 <FaFilter size="1rem" color="#0f4c75" />
                 <div className="button-text">Filters</div>
               </button>
-              <button className="button action download-button">
+              <button className="button white download-button">
                 <FaDownload size="1rem" color="#0f4c75" />
                 <div className="button-text">Download</div>
               </button>
@@ -84,7 +85,7 @@ const Database = () => {
             </div>
           </div>
           <div className="database-table">
-            <DatabaseTable />
+            <DatabaseTable data={data} rowsPerPage={12} />
           </div>
         </div>
       </Container>
