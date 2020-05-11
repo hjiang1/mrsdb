@@ -15,7 +15,9 @@ const DatabaseRow = ({ cells, last }) => {
   return (
     <Container>
       {cells.map((cell, i) => (
-        <td key={i} className="table-cell">{cell}</td>
+        <td key={i} className="table-cell">
+          {cell}
+        </td>
       ))}
     </Container>
   )
