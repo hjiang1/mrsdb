@@ -17,7 +17,7 @@ import "./layout.css"
 
 const Container = styled.main`
   margin: 0 auto;
-  height: calc(100vh - var(--headerHeight));
+  min-height: calc(100vh - var(--headerHeight));
   display: flex;
 `
 

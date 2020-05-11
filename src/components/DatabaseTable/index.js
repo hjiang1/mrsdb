@@ -7,15 +7,13 @@ import Pagination from "./Pagination"
 
 const Container = styled.div``
 
-const DatabaseTable = ({ data }) => {
+const DatabaseTable = ({ data, rowsPerPage }) => {
   const [multiPage, setMultiPage] = useState(false)
   const [pageNumber, setPageNumber] = useState(0)
   const [pages, setPages] = useState([])
 
-  const maxNumRows = 10
-
   useEffect(() => {
-    if (data.items.length > maxNumRows) {
+    if (data.items.length > rowsPerPage) {
       setMultiPage(true)
     }
   }, [setMultiPage, data])
@@ -30,7 +28,7 @@ const DatabaseTable = ({ data }) => {
       )
       newPage.push(row)
 
-      if (newPage.length === maxNumRows || i === data.items.length - 1) {
+      if (newPage.length === rowsPerPage || i === data.items.length - 1) {
         newPages.push(newPage)
         newPage = []
       }

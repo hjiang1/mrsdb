@@ -85,7 +85,7 @@ const Database = () => {
             </div>
           </div>
           <div className="database-table">
-            <DatabaseTable data={data} />
+            <DatabaseTable data={data} rowsPerPage={12} />
           </div>
         </div>
       </Container>
