@@ -58,37 +58,38 @@ const Container = styled.div`
 
 const Database = () => {
   return (
-    <Container>
+    <Layout pageTitle="Database">
       <SEO title="Database" />
-
-      <div className="database-content">
-        <div className="database-header">
-          <span className="dataset-title">
-            Harvard Univserity Concussion Study
-            <button className="button white change-button">
-              <div className="button-text">Change Dataset</div>
-            </button>
-          </span>
-          <div className="actions">
-            <button className="button white filter-button">
-              <FaFilter size="1rem" color="#0f4c75" />
-              <div className="button-text">Filters</div>
-            </button>
-            <button className="button white download-button">
-              <FaDownload size="1rem" color="#0f4c75" />
-              <div className="button-text">Download</div>
-            </button>
-            {/* <button className="button action upload-button">
+      <Container>
+        <div className="database-content">
+          <div className="database-header">
+            <span className="dataset-title">
+              Harvard Univserity Concussion Study
+              <button className="button white change-button">
+                <div className="button-text">Change Dataset</div>
+              </button>
+            </span>
+            <div className="actions">
+              <button className="button white filter-button">
+                <FaFilter size="1rem" color="#0f4c75" />
+                <div className="button-text">Filters</div>
+              </button>
+              <button className="button white download-button">
+                <FaDownload size="1rem" color="#0f4c75" />
+                <div className="button-text">Download</div>
+              </button>
+              {/* <button className="button action upload-button">
                 <FaUpload size="1rem" color="#0f4c75" />
                 <div className="button-text">Add Entry</div>
               </button> */}
+            </div>
+          </div>
+          <div className="database-table">
+            <DatabaseTable data={data} rowsPerPage={12} />
           </div>
         </div>
-        <div className="database-table">
-          <DatabaseTable data={data} rowsPerPage={12} />
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </Layout>
   )
 }
 
