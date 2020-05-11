@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 
 import Layout from "../components/Layout"
-import SEO from "../components/SiteSEO"
+import SEO from "../components/SEO"
 
 const Container = styled.div`
   display: flex;
