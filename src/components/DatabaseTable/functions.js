@@ -11,12 +11,12 @@ export const recursiveHeaderSort = (a, b, headers, headerIndex, sortBy) => {
   }
   // Else sort by sortBy value
   else {
-    return (a[currentId] > b[currentId]) ? 1 : -1
+    return a[currentId] > b[currentId] ? 1 : -1
   }
 }
 
 export const sortAB = (sortBy, sortDirection, headers) => (a, b) => {
-  let sorted;
+  let sorted
 
   // If sortBy value is equal, subsort based on other headers
   if (a[sortBy] === b[sortBy]) {
@@ -24,8 +24,8 @@ export const sortAB = (sortBy, sortDirection, headers) => (a, b) => {
   }
   // Else sort by sortBy value
   else {
-    sorted = (a[sortBy] > b[sortBy]) ? 1 : -1
+    sorted = a[sortBy] > b[sortBy] ? 1 : -1
   }
 
-  return (sortDirection === 'ascending') ? sorted : -sorted
+  return sortDirection === "ascending" ? sorted : -sorted
 }
