@@ -39,7 +39,6 @@ const DatabaseHeader = ({ headers, sortBy, sortDirection, setSortBy, setSortDire
       setSortDirection(sortDirection === 'ascending' ? 'descending' : 'ascending')
     } else {
       setSortBy(id)
-      setSortDirection('descending')
     }
   }
 

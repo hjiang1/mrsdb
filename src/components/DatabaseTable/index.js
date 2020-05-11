@@ -17,17 +17,42 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
   const [sortBy, setSortBy] = useState("id")
   const [sortDirection, setSortDirection] = useState("ascending")
 
+  const recursiveHeaderSort = (a, b, headerIndex) => {
+    const currentId = data.headers[headerIndex].id
+
+    // If two entries at equal at the last header, then the two are identical
+    if (headerIndex === data.headers.length - 1) {
+      return 1
+    }
+    // If current header is equal or the sortBy header, check next one
+    else if (a[currentId] === b[currentId] || currentId === sortBy) {
+      return recursiveHeaderSort(a, b, headerIndex + 1)
+    }
+    // Else sort by sortBy value
+    else {
+      return (a[currentId] > b[currentId]) ? 1 : -1
+    }
+  }
+
+  const sortAB = () => (a, b) => {
+    let sorted;
+
+    // If sortBy value is equal, subsort based on other headers
+    if (a[sortBy] === b[sortBy]) {
+      sorted = recursiveHeaderSort(a, b, 0)
+    }
+    // Else sort by sortBy value
+    else {
+      sorted = (a[sortBy] > b[sortBy]) ? 1 : -1
+    }
+
+    return (sortDirection === 'ascending') ? sorted : -sorted
+  }
+
   useEffect(() => {
     const newItems = [...data.items]
-    console.log('sorting by', sortBy)
 
-    if (sortDirection === 'ascending') {
-      newItems.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : -1)
-
-    } else {
-      newItems.sort((a, b) => (a[sortBy] < b[sortBy]) ? 1 : -1)
-
-    }
+    newItems.sort(sortAB())
 
     setSortedItems(newItems)
   }, [data.items, sortBy, sortDirection])
