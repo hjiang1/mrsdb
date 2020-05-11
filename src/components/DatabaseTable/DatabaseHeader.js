@@ -33,10 +33,18 @@ const Container = styled.thead`
   }
 `
 
-const DatabaseHeader = ({ headers, sortBy, sortDirection, setSortBy, setSortDirection }) => {
+const DatabaseHeader = ({
+  headers,
+  sortBy,
+  sortDirection,
+  setSortBy,
+  setSortDirection,
+}) => {
   const handleCellClick = id => {
     if (id === sortBy) {
-      setSortDirection(sortDirection === 'ascending' ? 'descending' : 'ascending')
+      setSortDirection(
+        sortDirection === "ascending" ? "descending" : "ascending"
+      )
     } else {
       setSortBy(id)
     }
@@ -46,10 +54,16 @@ const DatabaseHeader = ({ headers, sortBy, sortDirection, setSortBy, setSortDire
     <Container>
       <tr>
         {headers.map((header, i) => (
-          <th key={`header${i}`} className="header-cell" onClick={() => handleCellClick(header.id)}>
+          <th
+            key={`header${i}`}
+            className="header-cell"
+            onClick={() => handleCellClick(header.id)}
+          >
             <div className="header-cell-content">
               {header.text}
-              {sortBy !== header.id && <FaCaretDown className="placeholder-icon" />}
+              {sortBy !== header.id && (
+                <FaCaretDown className="placeholder-icon" />
+              )}
               {sortBy === header.id && sortDirection === "descending" && (
                 <FaCaretDown className="sort-icon" />
               )}

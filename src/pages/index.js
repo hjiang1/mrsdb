@@ -39,38 +39,37 @@ const Container = styled.div`
 `
 
 const IndexPage = () => (
-  <Layout>
+  <Container>
     <SEO title="Home" />
-    <Container>
-      <h1 className="landing-title">MRS Database</h1>
-      <p className="landing-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium
-        dictum tellus. Donec eu erat non arcu tempus consectetur. Sed luctus,
-        lectus id convallis gravida, lectus tortor lacinia quam, nec tempor diam
-        nunc sed leo. Vestibulum ante ipsum primis in faucibus orci luctus et
-        ultrices posuere cubilia curae; Nunc malesuada ligula tortor, a aliquet
-        augue sagittis ac. Proin viverra dolor et lobortis ornare. Curabitur non
-        mattis sem. Aenean tincidunt elit semper lorem faucibus euismod.
-      </p>
-      <p className="landing-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium
-        dictum tellus. Donec eu erat non arcu tempus consectetur. Sed luctus,
-        lectus id convallis gravida, lectus tortor lacinia quam, nec tempor diam
-        nunc sed leo.
-      </p>
-      <p className="landing-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium
-        dictum tellus. Donec eu erat non arcu tempus consectetur. Sed luctus,
-        lectus id convallis gravida, lectus tortor lacinia quam, nec tempor diam
-        nunc sed leo.
-      </p>
-      <button className="button landing-button">
-        <Link className="nav-link" to="/database/">
-          View Database
-        </Link>
-      </button>
-    </Container>
-  </Layout>
+
+    <h1 className="landing-title">MRS Database</h1>
+    <p className="landing-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium
+      dictum tellus. Donec eu erat non arcu tempus consectetur. Sed luctus,
+      lectus id convallis gravida, lectus tortor lacinia quam, nec tempor diam
+      nunc sed leo. Vestibulum ante ipsum primis in faucibus orci luctus et
+      ultrices posuere cubilia curae; Nunc malesuada ligula tortor, a aliquet
+      augue sagittis ac. Proin viverra dolor et lobortis ornare. Curabitur non
+      mattis sem. Aenean tincidunt elit semper lorem faucibus euismod.
+    </p>
+    <p className="landing-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium
+      dictum tellus. Donec eu erat non arcu tempus consectetur. Sed luctus,
+      lectus id convallis gravida, lectus tortor lacinia quam, nec tempor diam
+      nunc sed leo.
+    </p>
+    <p className="landing-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium
+      dictum tellus. Donec eu erat non arcu tempus consectetur. Sed luctus,
+      lectus id convallis gravida, lectus tortor lacinia quam, nec tempor diam
+      nunc sed leo.
+    </p>
+    <button className="button landing-button">
+      <Link className="nav-link" to="/database/">
+        View Database
+      </Link>
+    </button>
+  </Container>
 )
 
 export default IndexPage
