@@ -5,13 +5,14 @@ import styled from "styled-components"
 const Container = styled.tr`
   background-color: white;
   border-top: 1px solid var(--primaryColor);
+  color: #1b262c;
 
   .table-cell {
     border: none;
   }
 `
 
-const DatabaseRow = ({ cells, last }) => {
+const DatabaseRow = ({ cells }) => {
   return (
     <Container>
       {cells.map((cell, i) => (

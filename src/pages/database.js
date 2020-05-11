@@ -1,11 +1,12 @@
 // Gatsby supports TypeScript natively!
 import React from "react"
 import styled from "styled-components"
-import { FaUpload, FaDownload, FaFilter } from "react-icons/fa"
+import { FaDownload, FaFilter } from "react-icons/fa"
 
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import DatabaseTable from "../components/DatabaseTable"
+import data from "../components/DatabaseTable/data"
 
 const Container = styled.div`
   display: flex;
@@ -84,7 +85,7 @@ const Database = () => {
             </div>
           </div>
           <div className="database-table">
-            <DatabaseTable />
+            <DatabaseTable data={data} />
           </div>
         </div>
       </Container>

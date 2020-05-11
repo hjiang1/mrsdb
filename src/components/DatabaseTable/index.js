@@ -1,37 +1,83 @@
-import React, { useMemo } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import styled from "styled-components"
 
-import data from "./data"
+import DatabaseHeader from "./DatabaseHeader"
 import DatabaseRow from "./DatabaseRow"
+import Pagination from "./Pagination"
 
-const Container = styled.table`
-  /* border: 1px solid var(--primaryColor); */
-  /* box-shadow: 5px 5px lightgray; */
+const Container = styled.div``
 
-  .table-header {
-    background-color: #bbe1fa;
+const DatabaseTable = ({ data }) => {
+  const [multiPage, setMultiPage] = useState(false)
+  const [pageNumber, setPageNumber] = useState(0)
+  const [pages, setPages] = useState([])
+
+  const maxNumRows = 10
+
+  useEffect(() => {
+    if (data.items.length > maxNumRows) {
+      setMultiPage(true)
+    }
+  }, [setMultiPage, data])
+
+  useEffect(() => {
+    const newPages = []
+    let newPage = []
+
+    data.items.forEach((item, i) => {
+      const row = data.headers.map(header =>
+        !item[header.id] || item[header.id] === "" ? "-" : item[header.id]
+      )
+      newPage.push(row)
+
+      if (newPage.length === maxNumRows || i === data.items.length - 1) {
+        newPages.push(newPage)
+        newPage = []
+      }
+    })
+
+    setPages(newPages)
+  }, [data.items, data.headers])
+
+  const getTableRows = (rows = []) =>
+    rows.map((row, i) => <DatabaseRow key={`row${i}`} cells={row} />)
+
+  const decrementPage = () => {
+    if (pageNumber !== 0) {
+      setPageNumber(pageNumber - 1)
+    }
   }
-`
 
-const getTableHeaders = headers =>
-  headers.map((header, i) => <th key={`header${i}`}>{header.text}</th>)
+  const incrementPage = () => {
+    if (pageNumber !== pages.length - 1) {
+      setPageNumber(pageNumber + 1)
+    }
+  }
 
-const getTableRows = rows =>
-  rows.map((row, i) => <DatabaseRow key={`row${i}`} cells={row} />)
-
-const DatabaseTable = props => {
-  const rows = data.items.map(item =>
-    data.headers.map(header =>
-      !item[header.id] || item[header.id] === "" ? "-" : item[header.id]
-    )
-  )
+  const currentPageRows = pages[pageNumber]
 
   return (
     <Container>
-      <thead className="table-header">
-        <tr>{useMemo(() => getTableHeaders(data.headers), [])}</tr>
-      </thead>
-      <tbody>{useMemo(() => getTableRows(rows), [rows])}</tbody>
+      <table>
+        {useMemo(
+          () => (
+            <DatabaseHeader headers={data.headers} />
+          ),
+          [data.headers]
+        )}
+        <tbody>
+          {useMemo(() => getTableRows(currentPageRows), [currentPageRows])}
+        </tbody>
+      </table>
+      {multiPage && (
+        <Pagination
+          numPages={pages.length}
+          pageNumber={pageNumber}
+          incrementPage={incrementPage}
+          decrementPage={decrementPage}
+          setPageNumber={setPageNumber}
+        />
+      )}
     </Container>
   )
 }
