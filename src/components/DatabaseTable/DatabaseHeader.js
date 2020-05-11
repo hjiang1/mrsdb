@@ -35,7 +35,6 @@ const Container = styled.thead`
 
 const DatabaseHeader = ({ headers, sortBy, sortDirection, setSortBy, setSortDirection }) => {
   const handleCellClick = id => {
-    console.log( id, sortBy)
     if (id === sortBy) {
       setSortDirection(sortDirection === 'ascending' ? 'descending' : 'ascending')
     } else {

@@ -8,6 +8,8 @@ import Pagination from "./Pagination"
 const Container = styled.div``
 
 const DatabaseTable = ({ data, rowsPerPage }) => {
+  const [sortedItems, setSortedItems] = useState([])
+
   const [multiPage, setMultiPage] = useState(false)
   const [pageNumber, setPageNumber] = useState(0)
   const [pages, setPages] = useState([])
@@ -16,29 +18,44 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
   const [sortDirection, setSortDirection] = useState("ascending")
 
   useEffect(() => {
-    if (data.items.length > rowsPerPage) {
+    const newItems = [...data.items]
+    console.log('sorting by', sortBy)
+
+    if (sortDirection === 'ascending') {
+      newItems.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : -1)
+
+    } else {
+      newItems.sort((a, b) => (a[sortBy] < b[sortBy]) ? 1 : -1)
+
+    }
+
+    setSortedItems(newItems)
+  }, [data.items, sortBy, sortDirection])
+
+  useEffect(() => {
+    if (sortedItems.length > rowsPerPage) {
       setMultiPage(true)
     }
-  }, [setMultiPage, data, rowsPerPage])
+  }, [setMultiPage, sortedItems, rowsPerPage])
 
   useEffect(() => {
     const newPages = []
     let newPage = []
 
-    data.items.forEach((item, i) => {
+    sortedItems.forEach((item, i) => {
       const row = data.headers.map(header =>
         !item[header.id] || item[header.id] === "" ? "-" : item[header.id]
       )
       newPage.push(row)
 
-      if (newPage.length === rowsPerPage || i === data.items.length - 1) {
+      if (newPage.length === rowsPerPage || i === sortedItems.length - 1) {
         newPages.push(newPage)
         newPage = []
       }
     })
 
     setPages(newPages)
-  }, [data.items, data.headers, rowsPerPage])
+  }, [sortedItems, data.headers, rowsPerPage])
 
   const getTableRows = (rows = []) =>
     rows.map((row, i) => <DatabaseRow key={`row${i}`} cells={row} />)
