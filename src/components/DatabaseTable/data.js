@@ -1,6 +1,10 @@
 const data = {
   headers: [
     {
+      id: "id",
+      text: "#",
+    },
+    {
       id: "studyID",
       text: "Study ID",
     },
@@ -35,6 +39,7 @@ const data = {
   ],
   items: [
     {
+      id: "1",
       studyID: "HU_BC_01",
       sex: "Female",
       dob: "7/24/2001",
@@ -45,6 +50,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "2",
       studyID: "HU_BC_02",
       sex: "Female",
       dob: "7/24/2001",
@@ -55,6 +61,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "3",
       studyID: "HU_BC_03",
       sex: "Female",
       dob: "7/5/2001",
@@ -65,6 +72,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "4",
       studyID: "HU_BC_04",
       sex: "Male",
       dob: "",
@@ -75,6 +83,7 @@ const data = {
       sport: "",
     },
     {
+      id: "5",
       studyID: "HU_Conc_01",
       sex: "Male",
       dob: "5/28/2001",
@@ -85,6 +94,7 @@ const data = {
       sport: "Football",
     },
     {
+      id: "6",
       studyID: "HU_BC_01",
       sex: "Female",
       dob: "7/24/2001",
@@ -95,6 +105,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "7",
       studyID: "HU_BC_02",
       sex: "Female",
       dob: "7/24/2001",
@@ -105,6 +116,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "8",
       studyID: "HU_BC_03",
       sex: "Female",
       dob: "7/5/2001",
@@ -115,6 +127,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "9",
       studyID: "HU_BC_04",
       sex: "Male",
       dob: "",
@@ -125,6 +138,7 @@ const data = {
       sport: "",
     },
     {
+      id: "10",
       studyID: "HU_Conc_01",
       sex: "Male",
       dob: "5/28/2001",
@@ -135,6 +149,7 @@ const data = {
       sport: "Football",
     },
     {
+      id: "11",
       studyID: "HU_BC_01",
       sex: "Female",
       dob: "7/24/2001",
@@ -145,6 +160,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "12",
       studyID: "HU_BC_02",
       sex: "Female",
       dob: "7/24/2001",
@@ -155,6 +171,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "13",
       studyID: "HU_BC_03",
       sex: "Female",
       dob: "7/5/2001",
@@ -165,6 +182,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "14",
       studyID: "HU_BC_04",
       sex: "Male",
       dob: "",
@@ -175,6 +193,7 @@ const data = {
       sport: "",
     },
     {
+      id: "15",
       studyID: "HU_Conc_01",
       sex: "Male",
       dob: "5/28/2001",
@@ -185,6 +204,7 @@ const data = {
       sport: "Football",
     },
     {
+      id: "16",
       studyID: "HU_BC_01",
       sex: "Female",
       dob: "7/24/2001",
@@ -195,6 +215,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "17",
       studyID: "HU_BC_02",
       sex: "Female",
       dob: "7/24/2001",
@@ -205,6 +226,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "18",
       studyID: "HU_BC_03",
       sex: "Female",
       dob: "7/5/2001",
@@ -215,6 +237,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "19",
       studyID: "HU_BC_04",
       sex: "Male",
       dob: "",
@@ -225,6 +248,7 @@ const data = {
       sport: "",
     },
     {
+      id: "20",
       studyID: "HU_Conc_01",
       sex: "Male",
       dob: "5/28/2001",
@@ -235,6 +259,7 @@ const data = {
       sport: "Football",
     },
     {
+      id: "21",
       studyID: "HU_BC_01",
       sex: "Female",
       dob: "7/24/2001",
@@ -245,6 +270,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "22",
       studyID: "HU_BC_02",
       sex: "Female",
       dob: "7/24/2001",
@@ -255,6 +281,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "23",
       studyID: "HU_BC_03",
       sex: "Female",
       dob: "7/5/2001",
@@ -265,6 +292,7 @@ const data = {
       sport: "Soccer",
     },
     {
+      id: "24",
       studyID: "HU_BC_04",
       sex: "Male",
       dob: "",
@@ -275,6 +303,7 @@ const data = {
       sport: "",
     },
     {
+      id: "25",
       studyID: "HU_Conc_01",
       sex: "Male",
       dob: "5/28/2001",

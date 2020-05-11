@@ -12,11 +12,14 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
   const [pageNumber, setPageNumber] = useState(0)
   const [pages, setPages] = useState([])
 
+  const [sortBy, setSortBy] = useState("id")
+  const [sortDirection, setSortDirection] = useState("ascending")
+
   useEffect(() => {
     if (data.items.length > rowsPerPage) {
       setMultiPage(true)
     }
-  }, [setMultiPage, data])
+  }, [setMultiPage, data, rowsPerPage])
 
   useEffect(() => {
     const newPages = []
@@ -35,7 +38,7 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
     })
 
     setPages(newPages)
-  }, [data.items, data.headers])
+  }, [data.items, data.headers, rowsPerPage])
 
   const getTableRows = (rows = []) =>
     rows.map((row, i) => <DatabaseRow key={`row${i}`} cells={row} />)
@@ -59,9 +62,15 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
       <table>
         {useMemo(
           () => (
-            <DatabaseHeader headers={data.headers} />
+            <DatabaseHeader
+              headers={data.headers}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
+              setSortBy={setSortBy}
+              setSortDirection={setSortDirection}
+            />
           ),
-          [data.headers]
+          [data.headers, sortBy, sortDirection]
         )}
         <tbody>
           {useMemo(() => getTableRows(currentPageRows), [currentPageRows])}
