@@ -72,18 +72,24 @@ const Pagination = ({ numPages, pageNumber, setPageNumber }) => {
 
   return (
     <Container>
-      <button className={cn("paginate-button", { disabled: pageNumber === 0 })}>
+      <button
+        className={cn("paginate-button", { disabled: pageNumber === 0 })}
+        disabled={pageNumber === 0}
+        onClick={goToFirstPage}
+      >
         <FaAngleDoubleLeft
           color={pageNumber === 0 ? "darkgray" : "var(--primaryColor"}
           size="2.5rem"
-          onClick={goToFirstPage}
         />
       </button>
-      <button className={cn("paginate-button", { disabled: pageNumber === 0 })}>
+      <button
+        className={cn("paginate-button", { disabled: pageNumber === 0 })}
+        disabled={pageNumber === 0}
+        onClick={decrementPage}
+      >
         <FaAngleLeft
           color={pageNumber === 0 ? "darkgray" : "var(--primaryColor"}
           size="2.5rem"
-          onClick={decrementPage}
         />
       </button>
       {Array.from(Array(numPages)).map((page, i) => (
@@ -97,28 +103,30 @@ const Pagination = ({ numPages, pageNumber, setPageNumber }) => {
       ))}
       <button
         className={cn("paginate-button", {
-          disabled: pageNumber === numPages - 1,
+          disabled: pageNumber >= numPages - 1,
         })}
+        disabled={pageNumber >= numPages - 1}
+        onClick={incrementPage}
       >
         <FaAngleRight
           color={
-            pageNumber === numPages - 1 ? "darkgray" : "var(--primaryColor"
+            pageNumber >= numPages - 1 ? "darkgray" : "var(--primaryColor)"
           }
           size="2.5rem"
-          onClick={incrementPage}
         />
       </button>
       <button
         className={cn("paginate-button", {
-          disabled: pageNumber === numPages - 1,
+          disabled: pageNumber >= numPages - 1,
         })}
+        disabled={pageNumber >= numPages - 1}
+        onClick={goToLastPage}
       >
         <FaAngleDoubleRight
           color={
-            pageNumber === numPages - 1 ? "darkgray" : "var(--primaryColor"
+            pageNumber >= numPages - 1 ? "darkgray" : "var(--primaryColor)"
           }
           size="2.5rem"
-          onClick={goToLastPage}
         />
       </button>
     </Container>
