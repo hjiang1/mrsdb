@@ -61,8 +61,8 @@ const Database = () => {
   const [filters, setFilters] = useState({
     complete: {
       active: false,
-      filter: filterComplete
-    }
+      filter: filterComplete,
+    },
   })
   const [filteredItems, setFilteredItems] = useState([])
 
@@ -90,7 +90,7 @@ const Database = () => {
 
   const filteredData = Object.assign({}, data)
   filteredData.items = filteredItems
-  
+
   return (
     <Layout pageTitle="Database">
       <SEO title="Database" />
@@ -104,7 +104,10 @@ const Database = () => {
               </button>
             </span>
             <div className="actions">
-              <button className="button white filter-button" onClick={toggleCompleteFilter}>
+              <button
+                className="button white filter-button"
+                onClick={toggleCompleteFilter}
+              >
                 <FaFilter size="1rem" color="#0f4c75" />
                 <div className="button-text">Filters</div>
               </button>
