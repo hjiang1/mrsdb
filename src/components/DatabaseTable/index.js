@@ -59,18 +59,6 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
       <DatabaseRow key={`row${i}`} cells={row} alternate={i % 2 === 1} />
     ))
 
-  const decrementPage = () => {
-    if (pageNumber !== 0) {
-      setPageNumber(pageNumber - 1)
-    }
-  }
-
-  const incrementPage = () => {
-    if (pageNumber !== pages.length - 1) {
-      setPageNumber(pageNumber + 1)
-    }
-  }
-
   const currentPageRows = pages[pageNumber]
 
   return (
@@ -96,8 +84,6 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
         <Pagination
           numPages={pages.length}
           pageNumber={pageNumber}
-          incrementPage={incrementPage}
-          decrementPage={decrementPage}
           setPageNumber={setPageNumber}
         />
       )}
