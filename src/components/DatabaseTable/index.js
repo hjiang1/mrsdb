@@ -52,7 +52,7 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
   }, [sortedItems, data.headers, rowsPerPage])
 
   const getTableRows = (rows = []) =>
-    rows.map((row, i) => <DatabaseRow key={`row${i}`} cells={row} />)
+    rows.map((row, i) => <DatabaseRow key={`row${i}`} cells={row} alternate={i % 2 === 1} />)
 
   const decrementPage = () => {
     if (pageNumber !== 0) {
