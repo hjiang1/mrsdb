@@ -50,6 +50,16 @@ const GlobalStyle = createGlobalStyle`
       background-color: white;
     }
 
+    &.cancel {
+      color: var(--primaryColor);
+      background: none;
+      border: none;
+
+      :hover {
+        background: none;
+      }
+    }
+
     :hover {
       background-color: #bbe1fa;
       color: var(--primaryColor);

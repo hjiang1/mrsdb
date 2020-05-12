@@ -46,11 +46,31 @@ export const sortRows = (sortBy, sortDirection, headers, sortType) => (
 }
 
 // Filter out incompleted data points
-export const filterComplete = data => {
+export const filterComplete = (data, options) => {
+  if (options.remove) {
+    const newFilteredData = []
+
+    data.forEach(dataPoint => {
+      if (!Object.values(dataPoint).includes("")) {
+        newFilteredData.push(dataPoint)
+      }
+    })
+
+    return newFilteredData
+  } else {
+    return data
+  }
+}
+
+export const filterSex = (data, options) => {
   const newFilteredData = []
 
   data.forEach(dataPoint => {
-    if (!Object.values(dataPoint).includes("")) {
+    if (
+      (dataPoint.sex === "Male" && options.male) ||
+      (dataPoint.sex === "Female" && options.female) ||
+      (dataPoint.sex === "" && options.uncategorized)
+    ) {
       newFilteredData.push(dataPoint)
     }
   })
