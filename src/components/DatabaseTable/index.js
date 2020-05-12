@@ -4,18 +4,11 @@ import styled from "styled-components"
 import DatabaseHeader from "./DatabaseHeader"
 import DatabaseRow from "./DatabaseRow"
 import Pagination from "./Pagination"
-import { sortAB, filterComplete } from "./functions"
+import { sortAB } from "./functions"
 
 const Container = styled.div``
 
 const DatabaseTable = ({ data, rowsPerPage }) => {
-  const [filters, setFilters] = useState({
-    complete: {
-      active: false,
-      filter: filterComplete
-    }
-  })
-  const [filteredItems, setFilteredItems] = useState([])
   const [sortedItems, setSortedItems] = useState([])
 
   const [multiPage, setMultiPage] = useState(false)
@@ -25,27 +18,14 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
   const [sortBy, setSortBy] = useState("id")
   const [sortDirection, setSortDirection] = useState("ascending")
 
-  // Filter rows
-  useEffect(() => {
-    let newFilteredItems = [...data.items]
-
-    Object.keys(filters).forEach(filterName => {
-      if (filters[filterName].active) {
-        newFilteredItems = filters[filterName].filter(newFilteredItems)
-      }
-    })
-
-    setFilteredItems(newFilteredItems)
-  }, [data.items, filters])
-
   // Sort rows
   useEffect(() => {
-    const newItems = [...filteredItems]
+    const newItems = [...data.items]
 
     newItems.sort(sortAB(sortBy, sortDirection, data.headers))
 
     setSortedItems(newItems)
-  }, [filteredItems, data.headers, sortBy, sortDirection])
+  }, [data.items, data.headers, sortBy, sortDirection])
 
   // Determine the number of pages required
   useEffect(() => {

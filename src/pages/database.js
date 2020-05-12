@@ -1,5 +1,5 @@
 // Gatsby supports TypeScript natively!
-import React from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { FaDownload, FaFilter } from "react-icons/fa"
 
@@ -7,6 +7,7 @@ import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import DatabaseTable from "../components/DatabaseTable"
 import data from "../components/DatabaseTable/data"
+import { filterComplete } from "../components/DatabaseTable/functions"
 
 const Container = styled.div`
   display: flex;
@@ -57,6 +58,39 @@ const Container = styled.div`
 `
 
 const Database = () => {
+  const [filters, setFilters] = useState({
+    complete: {
+      active: false,
+      filter: filterComplete
+    }
+  })
+  const [filteredItems, setFilteredItems] = useState([])
+
+  // Filter rows
+  useEffect(() => {
+    let newFilteredItems = [...data.items]
+
+    Object.keys(filters).forEach(filterName => {
+      if (filters[filterName].active) {
+        newFilteredItems = filters[filterName].filter(newFilteredItems)
+      }
+    })
+
+    setFilteredItems(newFilteredItems)
+  }, [data.items, filters])
+
+  // Toggle complete filter
+  const toggleCompleteFilter = () => {
+    const newFilters = Object.assign({}, filters)
+
+    newFilters.complete.active = !filters.complete.active
+
+    setFilters(newFilters)
+  }
+
+  const filteredData = Object.assign({}, data)
+  filteredData.items = filteredItems
+  
   return (
     <Layout pageTitle="Database">
       <SEO title="Database" />
@@ -70,7 +104,7 @@ const Database = () => {
               </button>
             </span>
             <div className="actions">
-              <button className="button white filter-button">
+              <button className="button white filter-button" onClick={toggleCompleteFilter}>
                 <FaFilter size="1rem" color="#0f4c75" />
                 <div className="button-text">Filters</div>
               </button>
@@ -85,7 +119,7 @@ const Database = () => {
             </div>
           </div>
           <div className="database-table">
-            <DatabaseTable data={data} rowsPerPage={12} />
+            <DatabaseTable data={filteredData} rowsPerPage={12} />
           </div>
         </div>
       </Container>
