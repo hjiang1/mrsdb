@@ -106,7 +106,7 @@ const Database = () => {
         <div className="database-content">
           <div className="database-header">
             <span className="dataset-title">
-              Harvard Univserity Concussion Study
+              Harvard University Concussion Study
               <button className="button white change-button disabled">
                 <div className="button-text">Change Dataset</div>
               </button>
