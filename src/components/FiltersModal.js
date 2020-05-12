@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { FaTimes, FaRedo } from "react-icons/fa"
+import cn from "classnames"
 
 import Modal from "./Modal"
 import ToggleButton from "./ToggleButton"
@@ -118,8 +119,9 @@ const FiltersModal = ({
     setFilterSettings(JSON.parse(JSON.stringify(defaultFilters)))
   }
 
-  const showUncategorized = filterSettings && !filterSettings.complete.remove
   const loadedFilters = filterSettings ? filterSettings : filters
+  const showUncategorized = loadedFilters && !loadedFilters.complete.remove
+  const isDefault = JSON.stringify(defaultFilters) === JSON.stringify(loadedFilters)
 
   return (
     <Modal isOpen={isOpen}>
@@ -168,7 +170,7 @@ const FiltersModal = ({
           </div>
         </div>
         <div className="filter-modal-actions">
-          <button className="button reset-button" onClick={resetFilters}>
+          <button className={cn('button', 'reset-button', {disabled: isDefault})} onClick={resetFilters}>
             <FaRedo className="reset-icon" size="1rem" />
             Reset Filters
           </button>
