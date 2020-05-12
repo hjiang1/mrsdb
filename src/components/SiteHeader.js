@@ -86,8 +86,9 @@ const Header = ({ siteTitle, pageTitle }) => {
             </button>
           ) : (
             <button
-              className="button sign-in-button"
+              className="button sign-in-button disabled"
               onClick={() => setSignedIn(!signedIn)}
+              disabled
             >
               Sign In
             </button>

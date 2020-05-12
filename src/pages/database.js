@@ -99,7 +99,7 @@ const Database = () => {
           <div className="database-header">
             <span className="dataset-title">
               Harvard Univserity Concussion Study
-              <button className="button white change-button">
+              <button className="button white change-button disabled">
                 <div className="button-text">Change Dataset</div>
               </button>
             </span>
@@ -111,7 +111,7 @@ const Database = () => {
                 <FaFilter size="1rem" color="#0f4c75" />
                 <div className="button-text">Filters</div>
               </button>
-              <button className="button white download-button">
+              <button className="button white download-button disabled">
                 <FaDownload size="1rem" color="#0f4c75" />
                 <div className="button-text">Download</div>
               </button>

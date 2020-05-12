@@ -54,6 +54,17 @@ const GlobalStyle = createGlobalStyle`
       background-color: #bbe1fa;
       color: var(--primaryColor);
     }
+
+    &.disabled {
+      background-color: lightgray;
+      cursor: default;
+      border-color: gray;
+      color: gray;
+
+      svg {
+        color: gray !important;
+      }
+    }
   }
 `
 
