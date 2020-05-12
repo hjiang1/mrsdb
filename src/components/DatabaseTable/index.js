@@ -18,6 +18,11 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
   const [sortBy, setSortBy] = useState("id")
   const [sortDirection, setSortDirection] = useState("ascending")
 
+  // Reset pagination if input data changes
+  useEffect(() => {
+    setPageNumber(0)
+  }, [data.items])
+
   // Sort rows
   useEffect(() => {
     const newItems = [...data.items]
