@@ -4,11 +4,18 @@ import styled from "styled-components"
 import DatabaseHeader from "./DatabaseHeader"
 import DatabaseRow from "./DatabaseRow"
 import Pagination from "./Pagination"
-import { sortAB } from "./functions"
+import { sortAB, filterComplete } from "./functions"
 
 const Container = styled.div``
 
 const DatabaseTable = ({ data, rowsPerPage }) => {
+  const [filters, setFilters] = useState({
+    complete: {
+      active: false,
+      filter: filterComplete
+    }
+  })
+  const [filteredItems, setFilteredItems] = useState([])
   const [sortedItems, setSortedItems] = useState([])
 
   const [multiPage, setMultiPage] = useState(false)
@@ -18,20 +25,36 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
   const [sortBy, setSortBy] = useState("id")
   const [sortDirection, setSortDirection] = useState("ascending")
 
+  // Filter rows
   useEffect(() => {
-    const newItems = [...data.items]
+    let newFilteredItems = [...data.items]
+
+    Object.keys(filters).forEach(filterName => {
+      if (filters[filterName].active) {
+        newFilteredItems = filters[filterName].filter(newFilteredItems)
+      }
+    })
+
+    setFilteredItems(newFilteredItems)
+  }, [data.items, filters])
+
+  // Sort rows
+  useEffect(() => {
+    const newItems = [...filteredItems]
 
     newItems.sort(sortAB(sortBy, sortDirection, data.headers))
 
     setSortedItems(newItems)
-  }, [data.items, data.headers, sortBy, sortDirection])
+  }, [filteredItems, data.headers, sortBy, sortDirection])
 
+  // Determine the number of pages required
   useEffect(() => {
     if (sortedItems.length > rowsPerPage) {
       setMultiPage(true)
     }
   }, [setMultiPage, sortedItems, rowsPerPage])
 
+  // Determine the content of each page
   useEffect(() => {
     const newPages = []
     let newPage = []
@@ -51,7 +74,7 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
     setPages(newPages)
   }, [sortedItems, data.headers, rowsPerPage])
 
-  const getTableRows = (rows = []) =>
+  const renderTableRows = (rows = []) =>
     rows.map((row, i) => (
       <DatabaseRow key={`row${i}`} cells={row} alternate={i % 2 === 1} />
     ))
@@ -86,7 +109,7 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
           [data.headers, sortBy, sortDirection]
         )}
         <tbody>
-          {useMemo(() => getTableRows(currentPageRows), [currentPageRows])}
+          {useMemo(() => renderTableRows(currentPageRows), [currentPageRows])}
         </tbody>
       </table>
       {multiPage && (

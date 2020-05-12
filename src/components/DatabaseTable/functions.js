@@ -29,3 +29,16 @@ export const sortAB = (sortBy, sortDirection, headers) => (a, b) => {
 
   return sortDirection === "ascending" ? sorted : -sorted
 }
+
+// Filter out incompleted data points
+export const filterComplete = data => {
+  const newFilteredData = []
+
+  data.forEach(dataPoint => {
+    if (!Object.values(dataPoint).includes("")) {
+      newFilteredData.push(dataPoint)
+    }
+  })
+
+  return newFilteredData
+}
