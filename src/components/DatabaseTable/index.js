@@ -4,7 +4,7 @@ import styled from "styled-components"
 import DatabaseHeader from "./DatabaseHeader"
 import DatabaseRow from "./DatabaseRow"
 import Pagination from "./Pagination"
-import { sortAB } from "./functions"
+import { sortRows } from "./functions"
 
 const Container = styled.div``
 
@@ -21,8 +21,9 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
   // Sort rows
   useEffect(() => {
     const newItems = [...data.items]
+    const sortType = data.headers.find(header => header.id === sortBy).sortType
 
-    newItems.sort(sortAB(sortBy, sortDirection, data.headers))
+    newItems.sort(sortRows(sortBy, sortDirection, data.headers, sortType))
 
     setSortedItems(newItems)
   }, [data.items, data.headers, sortBy, sortDirection])

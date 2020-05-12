@@ -35,6 +35,7 @@ const data = {
     {
       id: "date_of_testing",
       text: "Scan Date",
+      sortType: "date",
     },
   ],
   items: [

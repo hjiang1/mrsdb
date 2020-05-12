@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { FaCaretUp, FaCaretDown } from "react-icons/fa"
+import cn from "classnames"
 
 const Container = styled.thead`
   background-color: #bbe1fa;
@@ -11,6 +12,10 @@ const Container = styled.thead`
     transition-property: color, background-color;
     transition-duration: 0.1s;
     transition-timing-function: ease;
+
+    &.sortBy {
+      background-color: #7acaff;
+    }
 
     :hover {
       background-color: #3282b8;
@@ -56,7 +61,7 @@ const DatabaseHeader = ({
         {headers.map((header, i) => (
           <th
             key={`header${i}`}
-            className="header-cell"
+            className={cn("header-cell", { sortBy: sortBy === header.id })}
             onClick={() => handleCellClick(header.id)}
           >
             <div className="header-cell-content">
