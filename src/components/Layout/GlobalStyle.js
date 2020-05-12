@@ -45,9 +45,23 @@ const GlobalStyle = createGlobalStyle`
     transition-duration: 0.1s;
     transition-timing-function: ease;
 
+    svg {
+      transition: color 0.1s ease;
+      color: white;
+    }
+
     &.white {
       color: var(--primaryColor);
       background-color: white;
+    }
+
+    :hover {
+      background-color: #bbe1fa;
+      color: var(--primaryColor);
+
+      svg {
+        color: var(--primaryColor);
+      }
     }
 
     &.cancel {
@@ -58,11 +72,6 @@ const GlobalStyle = createGlobalStyle`
       :hover {
         background: none;
       }
-    }
-
-    :hover {
-      background-color: #bbe1fa;
-      color: var(--primaryColor);
     }
 
     &.disabled {

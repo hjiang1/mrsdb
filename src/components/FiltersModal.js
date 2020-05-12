@@ -121,7 +121,8 @@ const FiltersModal = ({
 
   const loadedFilters = filterSettings ? filterSettings : filters
   const showUncategorized = loadedFilters && !loadedFilters.complete.remove
-  const isDefault = JSON.stringify(defaultFilters) === JSON.stringify(loadedFilters)
+  const isDefault =
+    JSON.stringify(defaultFilters) === JSON.stringify(loadedFilters)
 
   return (
     <Modal isOpen={isOpen}>
@@ -170,7 +171,10 @@ const FiltersModal = ({
           </div>
         </div>
         <div className="filter-modal-actions">
-          <button className={cn('button', 'reset-button', {disabled: isDefault})} onClick={resetFilters}>
+          <button
+            className={cn("button", "reset-button", { disabled: isDefault })}
+            onClick={resetFilters}
+          >
             <FaRedo className="reset-icon" size="1rem" />
             Reset Filters
           </button>
