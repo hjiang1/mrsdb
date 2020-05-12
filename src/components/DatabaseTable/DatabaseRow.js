@@ -21,7 +21,7 @@ const DatabaseRow = ({ cells, alternate }) => {
   return (
     <Container>
       {cells.map((cell, i) => (
-        <td key={i} className={cn('table-cell', {alternate})}>
+        <td key={i} className={cn("table-cell", { alternate })}>
           {cell}
         </td>
       ))}

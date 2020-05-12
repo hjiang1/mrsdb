@@ -22,15 +22,15 @@ const Container = styled.div`
   }
 
   .landing-button {
+    display: flex;
+    align-items: center;
     margin-top: 3rem;
     height: 3rem;
-
-    .nav-link {
-      text-decoration: none;
-      color: white;
-      transition: color 0.1s ease;
-      font-size: 2rem;
-    }
+    padding: 1rem;
+    text-decoration: none;
+    color: white;
+    transition: color 0.1s ease;
+    font-size: 2rem;
 
     :hover .nav-link {
       color: var(--primaryColor);
@@ -64,11 +64,9 @@ const IndexPage = () => (
         lectus id convallis gravida, lectus tortor lacinia quam, nec tempor diam
         nunc sed leo.
       </p>
-      <button className="button landing-button">
-        <Link className="nav-link" to="/database/">
-          View Database
-        </Link>
-      </button>
+      <Link className="button landing-button" to="/database/">
+        View Database
+      </Link>
     </Container>
   </Layout>
 )

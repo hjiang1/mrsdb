@@ -19,8 +19,12 @@ const Container = styled.header`
     background-color: #0f4c75;
 
     .title-link {
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      margin: 0 2rem;
+
+      height: 100%;
+      padding: 0 2rem;
 
       .title-text {
         color: white;
