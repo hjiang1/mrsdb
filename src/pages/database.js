@@ -1,12 +1,17 @@
 // Gatsby supports TypeScript natively!
-import React from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { FaDownload, FaFilter } from "react-icons/fa"
 
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
+import FiltersModal from "../components/FiltersModal"
 import DatabaseTable from "../components/DatabaseTable"
 import data from "../components/DatabaseTable/data"
+import {
+  filterComplete,
+  filterSex,
+} from "../components/DatabaseTable/functions"
 
 const Container = styled.div`
   display: flex;
@@ -56,7 +61,44 @@ const Container = styled.div`
   }
 `
 
+const filterFunctions = {
+  complete: filterComplete,
+  sex: filterSex,
+}
+
+const defaultFilters = {
+  complete: {
+    remove: false,
+  },
+  sex: {
+    male: true,
+    female: true,
+    uncategorized: true,
+  },
+}
+
 const Database = () => {
+  const [filters, setFilters] = useState(defaultFilters)
+  const [filteredItems, setFilteredItems] = useState([])
+  const [isFilterModalOpen, setFilterModalOpen] = useState(false)
+
+  // Filter rows
+  useEffect(() => {
+    let newFilteredItems = [...data.items]
+
+    Object.keys(filters).forEach(filterName => {
+      newFilteredItems = filterFunctions[filterName](
+        newFilteredItems,
+        filters[filterName]
+      )
+    })
+
+    setFilteredItems(newFilteredItems)
+  }, [filters])
+
+  const filteredData = Object.assign({}, data)
+  filteredData.items = filteredItems
+
   return (
     <Layout pageTitle="Database">
       <SEO title="Database" />
@@ -65,16 +107,19 @@ const Database = () => {
           <div className="database-header">
             <span className="dataset-title">
               Harvard Univserity Concussion Study
-              <button className="button white change-button">
+              <button className="button white change-button disabled">
                 <div className="button-text">Change Dataset</div>
               </button>
             </span>
             <div className="actions">
-              <button className="button white filter-button">
+              <button
+                className="button white filter-button"
+                onClick={() => setFilterModalOpen(true)}
+              >
                 <FaFilter size="1rem" color="#0f4c75" />
                 <div className="button-text">Filters</div>
               </button>
-              <button className="button white download-button">
+              <button className="button white download-button disabled">
                 <FaDownload size="1rem" color="#0f4c75" />
                 <div className="button-text">Download</div>
               </button>
@@ -85,9 +130,16 @@ const Database = () => {
             </div>
           </div>
           <div className="database-table">
-            <DatabaseTable data={data} rowsPerPage={12} />
+            <DatabaseTable data={filteredData} rowsPerPage={10} />
           </div>
         </div>
+        <FiltersModal
+          isOpen={isFilterModalOpen}
+          setOpen={setFilterModalOpen}
+          filters={filters}
+          setFilters={setFilters}
+          defaultFilters={defaultFilters}
+        />
       </Container>
     </Layout>
   )

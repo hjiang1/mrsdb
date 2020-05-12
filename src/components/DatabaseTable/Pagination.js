@@ -1,6 +1,11 @@
 import React from "react"
 import styled from "styled-components"
-import { FaCaretLeft, FaCaretRight } from "react-icons/fa"
+import {
+  FaAngleLeft,
+  FaAngleRight,
+  FaAngleDoubleLeft,
+  FaAngleDoubleRight,
+} from "react-icons/fa"
 import cn from "classnames"
 
 const Container = styled.div`
@@ -40,17 +45,42 @@ const Container = styled.div`
   }
 `
 
-const Pagination = ({
-  numPages,
-  pageNumber,
-  incrementPage,
-  decrementPage,
-  setPageNumber,
-}) => {
+const Pagination = ({ numPages, pageNumber, setPageNumber }) => {
+  const decrementPage = () => {
+    if (pageNumber !== 0) {
+      setPageNumber(pageNumber - 1)
+    }
+  }
+
+  const incrementPage = () => {
+    if (pageNumber !== numPages - 1) {
+      setPageNumber(pageNumber + 1)
+    }
+  }
+
+  const goToFirstPage = () => {
+    if (pageNumber !== 0) {
+      setPageNumber(0)
+    }
+  }
+
+  const goToLastPage = () => {
+    if (pageNumber !== numPages - 1) {
+      setPageNumber(numPages - 1)
+    }
+  }
+
   return (
     <Container>
       <button className={cn("paginate-button", { disabled: pageNumber === 0 })}>
-        <FaCaretLeft
+        <FaAngleDoubleLeft
+          color={pageNumber === 0 ? "darkgray" : "var(--primaryColor"}
+          size="2.5rem"
+          onClick={goToFirstPage}
+        />
+      </button>
+      <button className={cn("paginate-button", { disabled: pageNumber === 0 })}>
+        <FaAngleLeft
           color={pageNumber === 0 ? "darkgray" : "var(--primaryColor"}
           size="2.5rem"
           onClick={decrementPage}
@@ -70,12 +100,25 @@ const Pagination = ({
           disabled: pageNumber === numPages - 1,
         })}
       >
-        <FaCaretRight
+        <FaAngleRight
           color={
             pageNumber === numPages - 1 ? "darkgray" : "var(--primaryColor"
           }
           size="2.5rem"
           onClick={incrementPage}
+        />
+      </button>
+      <button
+        className={cn("paginate-button", {
+          disabled: pageNumber === numPages - 1,
+        })}
+      >
+        <FaAngleDoubleRight
+          color={
+            pageNumber === numPages - 1 ? "darkgray" : "var(--primaryColor"
+          }
+          size="2.5rem"
+          onClick={goToLastPage}
         />
       </button>
     </Container>

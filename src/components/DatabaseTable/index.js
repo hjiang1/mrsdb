@@ -4,7 +4,7 @@ import styled from "styled-components"
 import DatabaseHeader from "./DatabaseHeader"
 import DatabaseRow from "./DatabaseRow"
 import Pagination from "./Pagination"
-import { sortAB } from "./functions"
+import { sortRows } from "./functions"
 
 const Container = styled.div``
 
@@ -18,20 +18,24 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
   const [sortBy, setSortBy] = useState("id")
   const [sortDirection, setSortDirection] = useState("ascending")
 
+  // Sort rows
   useEffect(() => {
     const newItems = [...data.items]
+    const sortType = data.headers.find(header => header.id === sortBy).sortType
 
-    newItems.sort(sortAB(sortBy, sortDirection, data.headers))
+    newItems.sort(sortRows(sortBy, sortDirection, data.headers, sortType))
 
     setSortedItems(newItems)
   }, [data.items, data.headers, sortBy, sortDirection])
 
+  // Determine the number of pages required
   useEffect(() => {
     if (sortedItems.length > rowsPerPage) {
       setMultiPage(true)
     }
   }, [setMultiPage, sortedItems, rowsPerPage])
 
+  // Determine the content of each page
   useEffect(() => {
     const newPages = []
     let newPage = []
@@ -51,20 +55,10 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
     setPages(newPages)
   }, [sortedItems, data.headers, rowsPerPage])
 
-  const getTableRows = (rows = []) =>
-    rows.map((row, i) => <DatabaseRow key={`row${i}`} cells={row} />)
-
-  const decrementPage = () => {
-    if (pageNumber !== 0) {
-      setPageNumber(pageNumber - 1)
-    }
-  }
-
-  const incrementPage = () => {
-    if (pageNumber !== pages.length - 1) {
-      setPageNumber(pageNumber + 1)
-    }
-  }
+  const renderTableRows = (rows = []) =>
+    rows.map((row, i) => (
+      <DatabaseRow key={`row${i}`} cells={row} alternate={i % 2 === 1} />
+    ))
 
   const currentPageRows = pages[pageNumber]
 
@@ -84,15 +78,13 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
           [data.headers, sortBy, sortDirection]
         )}
         <tbody>
-          {useMemo(() => getTableRows(currentPageRows), [currentPageRows])}
+          {useMemo(() => renderTableRows(currentPageRows), [currentPageRows])}
         </tbody>
       </table>
       {multiPage && (
         <Pagination
           numPages={pages.length}
           pageNumber={pageNumber}
-          incrementPage={incrementPage}
-          decrementPage={decrementPage}
           setPageNumber={setPageNumber}
         />
       )}
