@@ -9,7 +9,7 @@ import { sortRows } from "./functions"
 const Container = styled.div`
   .row {
     display: grid;
-    grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   }
 
   .display-indicator {
@@ -77,7 +77,7 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
     ))
 
   const getDisplayIndicator = () => {
-    const itemsOnPage = pages[pageNumber].length
+    const itemsOnPage = pages.length > 0 ? pages[pageNumber].length : 0
     const totalItems = pages.reduce((total, page) => total + page.length, 0)
     const firstOnPage = rowsPerPage * pageNumber + 1
     const lastOnPage = itemsOnPage + rowsPerPage * pageNumber
