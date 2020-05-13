@@ -19,6 +19,7 @@ const data = {
     {
       id: "height",
       text: "Height",
+      sortType: "height_ft",
     },
     {
       id: "weight_lbs",

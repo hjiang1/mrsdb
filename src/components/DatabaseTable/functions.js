@@ -6,14 +6,31 @@ export const sortRows = (sortBy, sortDirection, headers, sortType) => (
 
   const sortAlphaNum = (a, b) => (a > b ? 1 : -1)
   const sortDate = (a, b) => new Date(a) - new Date(b)
-  const getSortFunction = (a, b) => {
-    switch (sortType) {
+  const sortHeightFt = (a, b) => {
+    const ftInA = a
+      .replace('"', "'")
+      .split("'")
+      .map(val => Number(val))
+    const ftInB = b
+      .replace('"', "'")
+      .split("'")
+      .map(val => Number(val))
+    const inA = ftInA[0] * 12 + ftInA[1]
+    const inB = ftInB[0] * 12 + ftInB[1]
+
+    return inA > inB ? 1 : -1
+  }
+  const getSortFunction = (a, b, type) => {
+    switch (type) {
       default:
       case "alphaNum":
         return sortAlphaNum(a, b)
 
       case "date":
         return sortDate(a, b)
+
+      case "height_ft":
+        return sortHeightFt(a, b)
     }
   }
   const recursiveHeaderSort = (a, b, headers, headerIndex, sortBy) => {
@@ -29,7 +46,11 @@ export const sortRows = (sortBy, sortDirection, headers, sortType) => (
     }
     // Else sort by sortBy value
     else {
-      return getSortFunction(a[currentId], b[currentId])
+      return getSortFunction(
+        a[currentId],
+        b[currentId],
+        headers[headerIndex].sortType
+      )
     }
   }
 
@@ -39,7 +60,7 @@ export const sortRows = (sortBy, sortDirection, headers, sortType) => (
   }
   // Else sort by sortBy value
   else {
-    sorted = getSortFunction(a[sortBy], b[sortBy])
+    sorted = getSortFunction(a[sortBy], b[sortBy], sortType)
   }
 
   return sortDirection === "ascending" ? sorted : -sorted
