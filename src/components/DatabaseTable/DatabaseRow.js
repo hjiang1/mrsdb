@@ -19,6 +19,12 @@ const Container = styled.tr`
       text-align: center;
     }
   }
+
+  :hover {
+    .table-cell {
+      background-color: #d9f0ff;
+    }
+  }
 `
 
 const DatabaseRow = ({ cells, alternate }) => {

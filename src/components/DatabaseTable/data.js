@@ -6,7 +6,7 @@ const data = {
     },
     {
       id: "studyid",
-      text: "Study ID",
+      text: "Subject ID",
     },
     {
       id: "sex",
