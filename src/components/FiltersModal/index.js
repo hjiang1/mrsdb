@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { FaTimes, FaRedo } from "react-icons/fa"
-import cn from "classnames"
 
 import Modal from "../Modal"
+import FiltersModalHeader from "./FiltersModalHeader"
+import FiltersModalActions from "./FiltersModalActions"
 import PartialFilter from "./PartialFilter"
 import SexFilter from "./SexFilter"
 import SportFilter from "./SportFilter"
@@ -11,53 +11,11 @@ import SportFilter from "./SportFilter"
 const Container = styled.div`
   width: 100%;
 
-  .filter-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid lightgray;
-    padding: 1rem 2rem;
-    margin-bottom: 2rem;
-
-    .filter-modal-title {
-      margin: 0;
-      color: var(--primaryColor);
-    }
-
-    .close-button {
-      transition: transform 0.1s ease;
-
-      svg {
-        color: var(--primaryColor);
-      }
-
-      :hover {
-        transform: scale(1.1);
-      }
-    }
-  }
-
   .filter-modal-content {
     margin: 0 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .filter-modal-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2rem;
-
-    .reset-button .reset-icon {
-      margin-right: 0.5rem;
-    }
-
-    .cancel-submit-container {
-      display: flex;
-      align-items: center;
-    }
   }
 `
 
@@ -102,12 +60,7 @@ const FiltersModal = ({
   return (
     <Modal isOpen={isOpen}>
       <Container>
-        <div className="filter-modal-header">
-          <h1 className="filter-modal-title">Filters</h1>
-          <button className="close-button" onClick={() => setOpen(false)}>
-            <FaTimes size="1.5rem" />
-          </button>
-        </div>
+        <FiltersModalHeader setOpen={setOpen} />
         <div className="filter-modal-content">
           <PartialFilter
             filters={loadedFilters}
@@ -124,23 +77,12 @@ const FiltersModal = ({
             showUncategorized={showUncategorized}
           />
         </div>
-        <div className="filter-modal-actions">
-          <button
-            className={cn("button", "reset-button", { disabled: isDefault })}
-            onClick={resetFilters}
-          >
-            <FaRedo className="reset-icon" size="1rem" />
-            Reset Filters
-          </button>
-          <div className="cancel-submit-container">
-            <button className="button cancel" onClick={() => setOpen(false)}>
-              Cancel
-            </button>
-            <button className="button" onClick={applyFilters}>
-              Apply
-            </button>
-          </div>
-        </div>
+        <FiltersModalActions
+          setOpen={setOpen}
+          isDefault={isDefault}
+          resetFilters={resetFilters}
+          applyFilters={applyFilters}
+        />
       </Container>
     </Modal>
   )
