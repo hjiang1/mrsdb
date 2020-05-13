@@ -9,7 +9,13 @@ import { sortRows } from "./functions"
 const Container = styled.div`
   .row {
     display: grid;
-    grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .display-indicator {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #1b262c;
   }
 `
 
@@ -70,10 +76,24 @@ const DatabaseTable = ({ data, rowsPerPage }) => {
       <DatabaseRow key={`row${i}`} cells={row} alternate={i % 2 === 1} />
     ))
 
+  const getDisplayIndicator = () => {
+    const itemsOnPage = pages.length > 0 ? pages[pageNumber].length : 0
+    const totalItems = pages.reduce((total, page) => total + page.length, 0)
+    const firstOnPage = rowsPerPage * pageNumber + 1
+    const lastOnPage = itemsOnPage + rowsPerPage * pageNumber
+
+    if (firstOnPage === lastOnPage) {
+      return `Showing ${firstOnPage} of ${totalItems}`
+    } else {
+      return `Showing ${firstOnPage}-${lastOnPage} of ${totalItems}`
+    }
+  }
+
   const currentPageRows = pages[pageNumber]
 
   return (
     <Container>
+      <div className="display-indicator">{getDisplayIndicator()}</div>
       <table>
         {useMemo(
           () => (

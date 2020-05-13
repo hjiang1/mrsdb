@@ -5,6 +5,9 @@ import Filter from "./Filter"
 import Slider from "../Slider"
 import Checkbox from "../Checkbox"
 
+import { defaultFilters } from "./filters"
+import { ftToIn, inToFt } from "../../utils/functions"
+
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
@@ -17,14 +20,15 @@ const Container = styled.div`
     .range-indicator {
       display: flex;
       align-items: center;
-      width: 5rem;
+      width: 4rem;
+      margin: 1.5rem;
 
       &.start {
-        justify-content: center;
+        justify-content: flex-end;
       }
 
       &.end {
-        justify-content: center;
+        justify-content: flex-start;
       }
     }
   }
@@ -34,22 +38,49 @@ const Container = styled.div`
   }
 `
 
-const HeightFilter = ({ showUncategorized }) => {
+const HeightFilter = ({ filters, setFilterSettings, showUncategorized }) => {
+  // Update height range filter
+  const changeHeightRange = range => {
+    const newFilters = Object.assign({}, filters)
+    newFilters.height.min = inToFt(range[0])
+    newFilters.height.max = inToFt(range[1])
+
+    setFilterSettings(newFilters)
+  }
+
+  // Toggle uncategorized feature
+  const toggleUncategorized = () => {
+    const newFilters = Object.assign({}, filters)
+    newFilters.height["Uncategorized"] = !filters.height["Uncategorized"]
+
+    setFilterSettings(newFilters)
+  }
+
   return (
     <Filter name="Height">
       <Container>
         <div className="slider-container">
-          <div className="range-indicator start">5'0"</div>
-          <Slider />
-          <div className="range-indicator end">6'11"</div>
+          <div className="range-indicator start">{`${filters.height.min}`}</div>
+          <Slider
+            scaledValue={[
+              ftToIn(filters.height.min),
+              ftToIn(filters.height.max),
+            ]}
+            bounds={[
+              ftToIn(defaultFilters.height.min),
+              ftToIn(defaultFilters.height.max),
+            ]}
+            onChange={changeHeightRange}
+          />
+          <div className="range-indicator end">{`${filters.height.max}`}</div>
         </div>
         {showUncategorized && (
           <div className="checkbox-container">
             <Checkbox
               id="Uncategorized"
               name="height"
-              checked={true}
-              onChange={() => {}}
+              checked={filters.height["Uncategorized"]}
+              onChange={toggleUncategorized}
             >
               Uncategorized
             </Checkbox>

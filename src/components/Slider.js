@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import styled from "styled-components"
 import { Range } from "rc-slider"
 
@@ -42,16 +42,19 @@ const Slider = ({ scaledValue, bounds, onChange }) => {
   const step = 100 / (bounds[1] - bounds[0])
 
   // Convert scaled values to percentage values
-  const scaledToPercent = value => [
-    (value[0] - bounds[0]) * step,
-    (value[1] - bounds[0]) * step,
-  ]
+  const scaledToPercent = useCallback(
+    value => [(value[0] - bounds[0]) * step, (value[1] - bounds[0]) * step],
+    [bounds, step]
+  )
 
   // Convert percentage values to scaled values
-  const percentToScaled = value => [
-    Math.round(value[0] / step + bounds[0]),
-    Math.round(value[1] / step + bounds[0]),
-  ]
+  const percentToScaled = useCallback(
+    value => [
+      Math.round(value[0] / step + bounds[0]),
+      Math.round(value[1] / step + bounds[0]),
+    ],
+    [bounds, step]
+  )
 
   // Update state and call onChange with scaled values
   const onSliderChange = value => {
@@ -75,7 +78,15 @@ const Slider = ({ scaledValue, bounds, onChange }) => {
       setSliderMin(percentValue[0])
       setSliderMax(percentValue[1])
     }
-  }, [scaledValue, bounds, sliderMin, sliderMax, step])
+  }, [
+    scaledValue,
+    bounds,
+    sliderMin,
+    sliderMax,
+    step,
+    percentToScaled,
+    scaledToPercent,
+  ])
 
   return (
     <Container>

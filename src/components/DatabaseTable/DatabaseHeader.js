@@ -4,8 +4,8 @@ import { FaCaretUp, FaCaretDown } from "react-icons/fa"
 import cn from "classnames"
 
 const Container = styled.thead`
-  background-color: #bbe1fa;
-  color: #1b262c;
+  background-color: var(--primaryColor);
+  color: white;
 
   .header-cell {
     cursor: pointer;
@@ -14,12 +14,11 @@ const Container = styled.thead`
     transition-timing-function: ease;
 
     &.sortBy {
-      background-color: #7acaff;
+      background-color: #256a99;
     }
 
     :hover {
       background-color: #3282b8;
-      color: white;
     }
 
     .header-cell-content {
