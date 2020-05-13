@@ -109,6 +109,8 @@ const Database = () => {
 
   const filteredData = Object.assign({}, data)
   filteredData.items = filteredItems
+  const isDefaultFilters =
+    JSON.stringify(defaultFilters) === JSON.stringify(filters)
 
   return (
     <Layout pageTitle="Database">
@@ -143,7 +145,7 @@ const Database = () => {
           <div className="database-table">
             <DatabaseTable data={filteredData} rowsPerPage={10} />
           </div>
-          {filteredItems.length === 0 && (
+          {!isDefaultFilters && filteredItems.length === 0 && (
             <div className="no-data-warning">
               <FaExclamation size="2rem" color="var(--primaryColor)" />
               <div className="warning-text">
