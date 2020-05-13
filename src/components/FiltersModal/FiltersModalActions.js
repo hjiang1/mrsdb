@@ -24,9 +24,9 @@ const Container = styled.div`
 const FiltersModalActions = ({
   filters,
   filterSettings,
+  loadedFilters,
   setFilters,
   setOpen,
-  isDefault,
   setFilterSettings,
 }) => {
   // Apply filters to table
@@ -41,6 +41,9 @@ const FiltersModalActions = ({
   const resetFilters = () => {
     setFilterSettings(JSON.parse(JSON.stringify(defaultFilters)))
   }
+
+  const isDefault =
+    JSON.stringify(defaultFilters) === JSON.stringify(loadedFilters)
 
   return (
     <Container>

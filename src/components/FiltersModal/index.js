@@ -41,8 +41,6 @@ const FiltersModal = ({
   // Show table filters before they are copied to state
   const loadedFilters = filterSettings ? filterSettings : filters
   const showUncategorized = !loadedFilters.complete.remove
-  const isDefault =
-    JSON.stringify(defaultFilters) === JSON.stringify(loadedFilters)
 
   return (
     <Modal isOpen={isOpen}>
@@ -67,9 +65,9 @@ const FiltersModal = ({
         <FiltersModalActions
           filters={filters}
           filterSettings={filterSettings}
+          loadedFilters={loadedFilters}
           setFilters={setFilters}
           setOpen={setOpen}
-          isDefault={isDefault}
           setFilterSettings={setFilterSettings}
         />
       </Container>
