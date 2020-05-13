@@ -63,6 +63,23 @@ export const filterControl = (data, options) => {
   return newFilteredData
 }
 
+// Filter by age
+export const filterAge = (data, options) => {
+  const newFilteredData = []
+  data.forEach(dataPoint => {
+    if (
+      (dataPoint.age !== "" &&
+        dataPoint.age >= options.min &&
+        dataPoint.age <= options.max) ||
+      (dataPoint.age === "" && options["Uncategorized"])
+    ) {
+      newFilteredData.push(dataPoint)
+    }
+  })
+
+  return newFilteredData
+}
+
 // Default filter values
 export const defaultFilters = {
   complete: {
@@ -104,6 +121,11 @@ export const defaultFilters = {
     Concussed: true,
     Uncategorized: true,
   },
+  age: {
+    min: 17,
+    max: 24,
+    Uncategorized: true,
+  },
 }
 
 // Map filter id to filtering function
@@ -112,4 +134,5 @@ export const filterFunctions = {
   sex: filterSex,
   sport: filterSport,
   control_concussed: filterControl,
+  age: filterAge,
 }

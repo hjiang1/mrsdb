@@ -64,9 +64,13 @@ const FiltersModal = ({ isOpen, setOpen, filters, setFilters }) => {
             setFilterSettings={setFilterSettings}
             showUncategorized={showUncategorized}
           />
-          <AgeFilter showUncategorized={showUncategorized} />
-          <HeightFilter showUncategorized={showUncategorized} />
-          <WeightFilter showUncategorized={showUncategorized} />
+          <AgeFilter
+            filters={loadedFilters}
+            setFilterSettings={setFilterSettings}
+            showUncategorized={showUncategorized}
+          />
+          {/* <HeightFilter showUncategorized={showUncategorized} />
+          <WeightFilter showUncategorized={showUncategorized} /> */}
         </div>
         <FiltersModalActions
           filters={filters}
