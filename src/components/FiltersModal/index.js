@@ -68,6 +68,7 @@ const FiltersModal = ({
   setFilters,
   defaultFilters,
 }) => {
+  // Filter settings (separate from filters on table)
   const [filterSettings, setFilterSettings] = useState(undefined)
 
   // Deep copy filters into state on open and reset on close
@@ -79,6 +80,7 @@ const FiltersModal = ({
     }
   }, [isOpen, filters])
 
+  // Apply filters to table
   const applyFilters = () => {
     const newFilters = Object.assign({}, filters, filterSettings)
 
@@ -86,12 +88,14 @@ const FiltersModal = ({
     setOpen(false)
   }
 
+  // Reset filters to default values
   const resetFilters = () => {
     setFilterSettings(JSON.parse(JSON.stringify(defaultFilters)))
   }
 
+  // Show table filters before they are copied to state
   const loadedFilters = filterSettings ? filterSettings : filters
-  const showUncategorized = loadedFilters && !loadedFilters.complete.remove
+  const showUncategorized = !loadedFilters.complete.remove
   const isDefault =
     JSON.stringify(defaultFilters) === JSON.stringify(loadedFilters)
 
