@@ -6,7 +6,12 @@ import DatabaseRow from "./DatabaseRow"
 import Pagination from "./Pagination"
 import { sortRows } from "./functions"
 
-const Container = styled.div``
+const Container = styled.div`
+  .row {
+    display: grid;
+    grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+`
 
 const DatabaseTable = ({ data, rowsPerPage }) => {
   const [sortedItems, setSortedItems] = useState([])

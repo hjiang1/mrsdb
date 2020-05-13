@@ -14,14 +14,21 @@ const Container = styled.tr`
     &.alternate {
       background-color: #f5fbff;
     }
+
+    &.first-cell {
+      text-align: center;
+    }
   }
 `
 
 const DatabaseRow = ({ cells, alternate }) => {
   return (
-    <Container>
+    <Container className="row">
       {cells.map((cell, i) => (
-        <td key={i} className={cn("table-cell", { alternate })}>
+        <td
+          key={i}
+          className={cn("table-cell", { alternate, "first-cell": i === 0 })}
+        >
           {cell}
         </td>
       ))}
