@@ -17,6 +17,31 @@ export const filterComplete = (data, options) => {
   }
 }
 
+const filterThreeScans = (data, options) => {
+  if (options.filter) {
+    const newFilteredData = []
+    const dataStore = {}
+
+    data.forEach(dataPoint => {
+      if (!dataStore[dataPoint["studyid"]]) {
+        dataStore[dataPoint["studyid"]] = 1
+      } else {
+        dataStore[dataPoint["studyid"]]++
+      }
+    })
+
+    data.forEach(dataPoint => {
+      if (dataStore[dataPoint["studyid"]] === 3) {
+        newFilteredData.push(dataPoint)
+      }
+    })
+
+    return newFilteredData
+  } else {
+    return data
+  }
+}
+
 // Filter by sex
 export const filterSex = (data, options) => {
   const newFilteredData = []
@@ -99,7 +124,7 @@ export const filterWeight = (data, options) => {
   return newFilteredData
 }
 
-// Filter by weight
+// Filter by Height
 export const filterHeight = (data, options) => {
   const newFilteredData = []
   data.forEach(dataPoint => {
@@ -172,6 +197,9 @@ export const defaultFilters = {
     max: "6'8\"",
     Uncategorized: true,
   },
+  threeScans: {
+    filter: false,
+  },
 }
 
 // Map filter id to filtering function
@@ -183,4 +211,5 @@ export const filterFunctions = {
   age: filterAge,
   weight: filterWeight,
   height: filterHeight,
+  threeScans: filterThreeScans,
 }
