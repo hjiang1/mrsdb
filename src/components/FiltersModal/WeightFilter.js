@@ -5,6 +5,8 @@ import Filter from "./Filter"
 import Slider from "../Slider"
 import Checkbox from "../Checkbox"
 
+import { defaultFilters } from "./filters"
+
 const Container = styled.div`
   display: flex;
   align-items: flex-end;
@@ -34,22 +36,43 @@ const Container = styled.div`
   }
 `
 
-const WeightFilter = ({ showUncategorized }) => {
+const WeightFilter = ({ filters, setFilterSettings, showUncategorized }) => {
+  // Update age range filter
+  const changeWeightRange = range => {
+    const newFilters = Object.assign({}, filters)
+    newFilters.weight.min = range[0]
+    newFilters.weight.max = range[1]
+
+    setFilterSettings(newFilters)
+  }
+
+  // Toggle uncategorized feature
+  const toggleUncategorized = () => {
+    const newFilters = Object.assign({}, filters)
+    newFilters.weight["Uncategorized"] = !filters.weight["Uncategorized"]
+
+    setFilterSettings(newFilters)
+  }
+
   return (
     <Filter name="Weight">
       <Container>
         <div className="slider-container">
-          <div className="range-indicator start">120lbs</div>
-          <Slider />
-          <div className="range-indicator end">300lbs</div>
+          <div className="range-indicator start">{filters.weight.min}</div>
+          <Slider
+            scaledValue={[filters.weight.min, filters.weight.max]}
+            bounds={[defaultFilters.weight.min, defaultFilters.weight.max]}
+            onChange={changeWeightRange}
+          />
+          <div className="range-indicator end">{filters.weight.max}</div>
         </div>
         {showUncategorized && (
           <div className="checkbox-container">
             <Checkbox
               id="Uncategorized"
               name="weight"
-              checked={true}
-              onChange={() => {}}
+              checked={filters.weight["Uncategorized"]}
+              onChange={toggleUncategorized}
             >
               Uncategorized
             </Checkbox>

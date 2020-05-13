@@ -80,6 +80,24 @@ export const filterAge = (data, options) => {
   return newFilteredData
 }
 
+// Filter by weight
+export const filterWeight = (data, options) => {
+  const newFilteredData = []
+  data.forEach(dataPoint => {
+    console.log(dataPoint)
+    if (
+      (dataPoint.weight_lbs !== "" &&
+        dataPoint.weight_lbs >= options.min &&
+        dataPoint.weight_lbs <= options.max) ||
+      (dataPoint.weight_lbs === "" && options["Uncategorized"])
+    ) {
+      newFilteredData.push(dataPoint)
+    }
+  })
+
+  return newFilteredData
+}
+
 // Default filter values
 export const defaultFilters = {
   complete: {
@@ -126,6 +144,11 @@ export const defaultFilters = {
     max: 24,
     Uncategorized: true,
   },
+  weight: {
+    min: 120,
+    max: 293,
+    Uncategorized: true,
+  },
 }
 
 // Map filter id to filtering function
@@ -135,4 +158,5 @@ export const filterFunctions = {
   sport: filterSport,
   control_concussed: filterControl,
   age: filterAge,
+  weight: filterWeight,
 }
