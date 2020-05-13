@@ -84,7 +84,6 @@ export const filterAge = (data, options) => {
 export const filterWeight = (data, options) => {
   const newFilteredData = []
   data.forEach(dataPoint => {
-    console.log(dataPoint)
     if (
       (dataPoint.weight_lbs !== "" &&
         dataPoint.weight_lbs >= options.min &&
