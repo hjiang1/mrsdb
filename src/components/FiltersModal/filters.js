@@ -47,6 +47,22 @@ export const filterSport = (data, options) => {
   return newFilteredData
 }
 
+// Filter by control
+export const filterControl = (data, options) => {
+  const newFilteredData = []
+
+  data.forEach(dataPoint => {
+    if (
+      options[dataPoint.control_concussed] ||
+      (dataPoint.control_concussed === "" && options["Uncategorized"])
+    ) {
+      newFilteredData.push(dataPoint)
+    }
+  })
+
+  return newFilteredData
+}
+
 // Default filter values
 export const defaultFilters = {
   complete: {
@@ -83,6 +99,11 @@ export const defaultFilters = {
     Wrestling: true,
     Uncategorized: true,
   },
+  control_concussed: {
+    Control: true,
+    Concussed: true,
+    Uncategorized: true,
+  },
 }
 
 // Map filter id to filtering function
@@ -90,4 +111,5 @@ export const filterFunctions = {
   complete: filterComplete,
   sex: filterSex,
   sport: filterSport,
+  control_concussed: filterControl,
 }

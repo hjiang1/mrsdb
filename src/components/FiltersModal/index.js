@@ -6,6 +6,7 @@ import FiltersModalHeader from "./FiltersModalHeader"
 import FiltersModalActions from "./FiltersModalActions"
 import PartialFilter from "./PartialFilter"
 import SexFilter from "./SexFilter"
+import ControlFilter from "./ControlFilter"
 import SportFilter from "./SportFilter"
 import AgeFilter from "./AgeFilter"
 import HeightFilter from "./HeightFilter"
@@ -49,6 +50,11 @@ const FiltersModal = ({ isOpen, setOpen, filters, setFilters }) => {
             setFilterSettings={setFilterSettings}
           />
           <SexFilter
+            filters={loadedFilters}
+            setFilterSettings={setFilterSettings}
+            showUncategorized={showUncategorized}
+          />
+          <ControlFilter
             filters={loadedFilters}
             setFilterSettings={setFilterSettings}
             showUncategorized={showUncategorized}
