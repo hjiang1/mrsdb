@@ -3,6 +3,8 @@ import styled from "styled-components"
 import { FaRedo } from "react-icons/fa"
 import cn from "classnames"
 
+import { defaultFilters } from "./filters"
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -20,11 +22,26 @@ const Container = styled.div`
 `
 
 const FiltersModalActions = ({
+  filters,
+  filterSettings,
+  setFilters,
   setOpen,
   isDefault,
-  resetFilters,
-  applyFilters,
+  setFilterSettings,
 }) => {
+  // Apply filters to table
+  const applyFilters = () => {
+    const newFilters = Object.assign({}, filters, filterSettings)
+
+    setFilters(newFilters)
+    setOpen(false)
+  }
+
+  // Reset filters to default values
+  const resetFilters = () => {
+    setFilterSettings(JSON.parse(JSON.stringify(defaultFilters)))
+  }
+
   return (
     <Container>
       <button

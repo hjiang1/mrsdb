@@ -38,19 +38,6 @@ const FiltersModal = ({
     }
   }, [isOpen, filters])
 
-  // Apply filters to table
-  const applyFilters = () => {
-    const newFilters = Object.assign({}, filters, filterSettings)
-
-    setFilters(newFilters)
-    setOpen(false)
-  }
-
-  // Reset filters to default values
-  const resetFilters = () => {
-    setFilterSettings(JSON.parse(JSON.stringify(defaultFilters)))
-  }
-
   // Show table filters before they are copied to state
   const loadedFilters = filterSettings ? filterSettings : filters
   const showUncategorized = !loadedFilters.complete.remove
@@ -78,10 +65,12 @@ const FiltersModal = ({
           />
         </div>
         <FiltersModalActions
+          filters={filters}
+          filterSettings={filterSettings}
+          setFilters={setFilters}
           setOpen={setOpen}
           isDefault={isDefault}
-          resetFilters={resetFilters}
-          applyFilters={applyFilters}
+          setFilterSettings={setFilterSettings}
         />
       </Container>
     </Modal>
