@@ -19,13 +19,7 @@ const Container = styled.div`
   }
 `
 
-const FiltersModal = ({
-  isOpen,
-  setOpen,
-  filters,
-  setFilters,
-  defaultFilters,
-}) => {
+const FiltersModal = ({ isOpen, setOpen, filters, setFilters }) => {
   // Filter settings (separate from filters on table)
   const [filterSettings, setFilterSettings] = useState(undefined)
 
@@ -38,7 +32,7 @@ const FiltersModal = ({
     }
   }, [isOpen, filters])
 
-  // Show table filters before they are copied to state
+  // Show table filters on first render before they are copied to state
   const loadedFilters = filterSettings ? filterSettings : filters
   const showUncategorized = !loadedFilters.complete.remove
 
