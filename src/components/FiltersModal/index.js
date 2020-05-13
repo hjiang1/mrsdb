@@ -79,20 +79,6 @@ const FiltersModal = ({
     }
   }, [isOpen, filters])
 
-  const toggleCompleteFilter = () => {
-    const newFilters = Object.assign({}, filterSettings)
-    newFilters.complete.remove = !newFilters.complete.remove
-
-    setFilterSettings(newFilters)
-  }
-
-  const changeSexFilter = sexId => {
-    const newFilters = Object.assign({}, filterSettings)
-    newFilters.sex[sexId] = !newFilters.sex[sexId]
-
-    setFilterSettings(newFilters)
-  }
-
   const applyFilters = () => {
     const newFilters = Object.assign({}, filters, filterSettings)
 
@@ -121,11 +107,11 @@ const FiltersModal = ({
         <div className="filter-modal-content">
           <PartialFilter
             filters={loadedFilters}
-            onChange={toggleCompleteFilter}
+            setFilterSettings={setFilterSettings}
           />
           <SexFilter
             filters={loadedFilters}
-            onChange={changeSexFilter}
+            setFilterSettings={setFilterSettings}
             showUncategorized={showUncategorized}
           />
           <SportFilter

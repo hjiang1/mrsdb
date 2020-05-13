@@ -12,7 +12,14 @@ const Container = styled.div`
   grid-column-gap: 1rem;
 `
 
-const SexFilter = ({ filters, onChange, showUncategorized }) => {
+const SexFilter = ({ filters, setFilterSettings, showUncategorized }) => {
+  const changeSexFilter = sexId => {
+    const newFilters = Object.assign({}, filters)
+    newFilters.sex[sexId] = !newFilters.sex[sexId]
+
+    setFilterSettings(newFilters)
+  }
+
   return (
     <Filter name="Sex">
       <Container>
@@ -23,7 +30,7 @@ const SexFilter = ({ filters, onChange, showUncategorized }) => {
               id={sexName}
               name="sex"
               checked={filters.sex[sexName]}
-              onChange={onChange}
+              onChange={changeSexFilter}
             >
               {sexName}
             </Checkbox>
@@ -34,7 +41,7 @@ const SexFilter = ({ filters, onChange, showUncategorized }) => {
             id="Uncategorized"
             name="sex"
             checked={filters.sex["Uncategorized"]}
-            onChange={onChange}
+            onChange={changeSexFilter}
           >
             Uncategorized
           </Checkbox>
