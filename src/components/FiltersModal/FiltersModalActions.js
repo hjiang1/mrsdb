@@ -44,6 +44,7 @@ const FiltersModalActions = ({
   }
 
   // Check if modal filters match default filters; disregard Uncategorized if they are hidden
+  // TODO: implement manual recursirve compare that ignores Uncategorized
   const doFiltersMatchDefault = () => {
     let modalFilters
 
