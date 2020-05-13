@@ -28,6 +28,7 @@ const FiltersModalActions = ({
   setFilters,
   setOpen,
   setFilterSettings,
+  showUncategorized,
 }) => {
   // Apply filters to table
   const applyFilters = () => {
@@ -42,13 +43,23 @@ const FiltersModalActions = ({
     setFilterSettings(JSON.parse(JSON.stringify(defaultFilters)))
   }
 
-  const isDefault =
-    JSON.stringify(defaultFilters) === JSON.stringify(loadedFilters)
+  // Check if modal filters match default filters; disregard Uncategorized if they are hidden
+  const doFiltersMatchDefault = () => {
+    let modalFilters = JSON.parse(JSON.stringify(loadedFilters))
+
+    if (!showUncategorized && modalFilters.sport["Uncategorized"] === false) {
+      modalFilters.sport["Uncategorized"] = true
+    }
+
+    return JSON.stringify(defaultFilters) === JSON.stringify(modalFilters)
+  }
 
   return (
     <Container>
       <button
-        className={cn("button", "reset-button", { disabled: isDefault })}
+        className={cn("button", "reset-button", {
+          disabled: doFiltersMatchDefault(),
+        })}
         onClick={resetFilters}
       >
         <FaRedo className="reset-icon" size="1rem" />

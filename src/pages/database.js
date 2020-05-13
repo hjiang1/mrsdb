@@ -109,7 +109,9 @@ const Database = () => {
 
   const filteredData = Object.assign({}, data)
   filteredData.items = filteredItems
-  const isDefaultFilters =
+
+  // Check if table filters match default filters
+  const filtersMatchDefault =
     JSON.stringify(defaultFilters) === JSON.stringify(filters)
 
   return (
@@ -136,16 +138,12 @@ const Database = () => {
                 <FaDownload size="1rem" color="#0f4c75" />
                 <div className="button-text">Download</div>
               </button>
-              {/* <button className="button action upload-button">
-                <FaUpload size="1rem" color="#0f4c75" />
-                <div className="button-text">Add Entry</div>
-              </button> */}
             </div>
           </div>
           <div className="database-table">
             <DatabaseTable data={filteredData} rowsPerPage={10} />
           </div>
-          {!isDefaultFilters && filteredItems.length === 0 && (
+          {!filtersMatchDefault && filteredItems.length === 0 && (
             <div className="no-data-warning">
               <FaExclamation size="2rem" color="var(--primaryColor)" />
               <div className="warning-text">

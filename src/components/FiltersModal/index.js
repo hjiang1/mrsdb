@@ -69,6 +69,7 @@ const FiltersModal = ({
           setFilters={setFilters}
           setOpen={setOpen}
           setFilterSettings={setFilterSettings}
+          showUncategorized={showUncategorized}
         />
       </Container>
     </Modal>
