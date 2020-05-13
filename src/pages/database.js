@@ -93,10 +93,11 @@ const Database = () => {
   const [filteredItems, setFilteredItems] = useState([])
   const [isFilterModalOpen, setFilterModalOpen] = useState(false)
 
-  // Filter rows
+  // Filter rows when filters change
   useEffect(() => {
     let newFilteredItems = [...data.items]
 
+    // Iterate through and run each filter
     Object.keys(filters).forEach(filterName => {
       newFilteredItems = filterFunctions[filterName](
         newFilteredItems,
@@ -107,6 +108,7 @@ const Database = () => {
     setFilteredItems(newFilteredItems)
   }, [filters])
 
+  // Shallow copy to trigger re-render
   const filteredData = Object.assign({}, data)
   filteredData.items = filteredItems
 
@@ -160,14 +162,14 @@ const Database = () => {
             </div>
           )}
         </div>
-        <FiltersModal
-          isOpen={isFilterModalOpen}
-          setOpen={setFilterModalOpen}
-          filters={filters}
-          setFilters={setFilters}
-          defaultFilters={defaultFilters}
-        />
       </Container>
+      <FiltersModal
+        isOpen={isFilterModalOpen}
+        setOpen={setFilterModalOpen}
+        filters={filters}
+        setFilters={setFilters}
+        defaultFilters={defaultFilters}
+      />
     </Layout>
   )
 }
