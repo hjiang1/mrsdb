@@ -4,8 +4,6 @@ import { FaCheck } from "react-icons/fa"
 import cn from "classnames"
 
 const Container = styled.div`
-  margin: 1rem 0;
-
   .default-checkbox {
     display: none;
   }
@@ -37,17 +35,18 @@ const Container = styled.div`
   }
 `
 
-const Checkbox = ({ checked, onChange, id, children }) => {
+const Checkbox = ({ checked, onChange, id, name, children }) => {
   return (
     <Container>
       <input
         className="default-checkbox"
         type="checkbox"
-        id={id}
+        id={`${name}-${id}`}
+        name={name}
         checked={checked}
         onChange={() => onChange(id)}
       />
-      <label className="checkbox-label" htmlFor={id}>
+      <label className="checkbox-label" htmlFor={`${name}-${id}`}>
         <div className={cn("custom-checkbox", { checked })}>
           <FaCheck size="1rem" color="white" />
         </div>

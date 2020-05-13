@@ -9,9 +9,9 @@ import FiltersModal from "../components/FiltersModal"
 import DatabaseTable from "../components/DatabaseTable"
 import data from "../components/DatabaseTable/data"
 import {
-  filterComplete,
-  filterSex,
-} from "../components/DatabaseTable/functions"
+  defaultFilters,
+  filterFunctions,
+} from "../components/FiltersModal/filters"
 
 const Container = styled.div`
   display: flex;
@@ -87,22 +87,6 @@ const Container = styled.div`
     }
   }
 `
-
-const filterFunctions = {
-  complete: filterComplete,
-  sex: filterSex,
-}
-
-const defaultFilters = {
-  complete: {
-    remove: false,
-  },
-  sex: {
-    male: true,
-    female: true,
-    uncategorized: true,
-  },
-}
 
 const Database = () => {
   const [filters, setFilters] = useState(defaultFilters)

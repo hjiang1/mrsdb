@@ -44,36 +44,3 @@ export const sortRows = (sortBy, sortDirection, headers, sortType) => (
 
   return sortDirection === "ascending" ? sorted : -sorted
 }
-
-// Filter out incompleted data points
-export const filterComplete = (data, options) => {
-  if (options.remove) {
-    const newFilteredData = []
-
-    data.forEach(dataPoint => {
-      if (!Object.values(dataPoint).includes("")) {
-        newFilteredData.push(dataPoint)
-      }
-    })
-
-    return newFilteredData
-  } else {
-    return data
-  }
-}
-
-export const filterSex = (data, options) => {
-  const newFilteredData = []
-
-  data.forEach(dataPoint => {
-    if (
-      (dataPoint.sex === "Male" && options.male) ||
-      (dataPoint.sex === "Female" && options.female) ||
-      (dataPoint.sex === "" && options.uncategorized)
-    ) {
-      newFilteredData.push(dataPoint)
-    }
-  })
-
-  return newFilteredData
-}
