@@ -1,3 +1,5 @@
+import { ftToIn } from "../../utils/functions"
+
 // Filter out incomplete data points
 export const filterComplete = (data, options) => {
   if (options.remove) {
@@ -97,6 +99,23 @@ export const filterWeight = (data, options) => {
   return newFilteredData
 }
 
+// Filter by weight
+export const filterHeight = (data, options) => {
+  const newFilteredData = []
+  data.forEach(dataPoint => {
+    if (
+      (dataPoint.height !== "" &&
+        ftToIn(dataPoint.height) >= ftToIn(options.min) &&
+        ftToIn(dataPoint.height) <= ftToIn(options.max)) ||
+      (dataPoint.height === "" && options["Uncategorized"])
+    ) {
+      newFilteredData.push(dataPoint)
+    }
+  })
+
+  return newFilteredData
+}
+
 // Default filter values
 export const defaultFilters = {
   complete: {
@@ -148,6 +167,11 @@ export const defaultFilters = {
     max: 293,
     Uncategorized: true,
   },
+  height: {
+    min: "5'2\"",
+    max: "6'8\"",
+    Uncategorized: true,
+  },
 }
 
 // Map filter id to filtering function
@@ -158,4 +182,5 @@ export const filterFunctions = {
   control_concussed: filterControl,
   age: filterAge,
   weight: filterWeight,
+  height: filterHeight,
 }

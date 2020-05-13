@@ -69,7 +69,11 @@ const FiltersModal = ({ isOpen, setOpen, filters, setFilters }) => {
             setFilterSettings={setFilterSettings}
             showUncategorized={showUncategorized}
           />
-          {/* <HeightFilter showUncategorized={showUncategorized} /> */}
+          <HeightFilter
+            filters={loadedFilters}
+            setFilterSettings={setFilterSettings}
+            showUncategorized={showUncategorized}
+          />
           <WeightFilter
             filters={loadedFilters}
             setFilterSettings={setFilterSettings}
