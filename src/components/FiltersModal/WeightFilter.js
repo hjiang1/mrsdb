@@ -19,14 +19,15 @@ const Container = styled.div`
     .range-indicator {
       display: flex;
       align-items: center;
-      width: 5rem;
+      width: 4rem;
+      margin: 1.5rem;
 
       &.start {
-        justify-content: center;
+        justify-content: flex-end;
       }
 
       &.end {
-        justify-content: center;
+        justify-content: flex-start;
       }
     }
   }
@@ -58,13 +59,13 @@ const WeightFilter = ({ filters, setFilterSettings, showUncategorized }) => {
     <Filter name="Weight">
       <Container>
         <div className="slider-container">
-          <div className="range-indicator start">{filters.weight.min}</div>
+          <div className="range-indicator start">{`${filters.weight.min} lbs`}</div>
           <Slider
             scaledValue={[filters.weight.min, filters.weight.max]}
             bounds={[defaultFilters.weight.min, defaultFilters.weight.max]}
             onChange={changeWeightRange}
           />
-          <div className="range-indicator end">{filters.weight.max}</div>
+          <div className="range-indicator end">{`${filters.weight.max} lbs`}</div>
         </div>
         {showUncategorized && (
           <div className="checkbox-container">

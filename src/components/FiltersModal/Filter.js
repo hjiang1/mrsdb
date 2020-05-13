@@ -16,7 +16,6 @@ const Container = styled.div`
   color: #1b262c;
 
   .filter-name {
-    /* font-weight: bold; */
     font-size: 1.25rem;
   }
 `
