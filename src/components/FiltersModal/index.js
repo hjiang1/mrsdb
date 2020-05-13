@@ -3,9 +3,10 @@ import styled from "styled-components"
 import { FaTimes, FaRedo } from "react-icons/fa"
 import cn from "classnames"
 
-import Modal from "./Modal"
-import ToggleButton from "./ToggleButton"
-import Checkbox from "./Checkbox"
+import Modal from "../Modal"
+import PartialFilter from "./PartialFilter"
+import SexFilter from "./SexFilter"
+import SportFilter from "./SportFilter"
 
 const Container = styled.div`
   width: 100%;
@@ -41,22 +42,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    .filter-modal-filter {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 2px solid lightgray;
-      border-bottom: 2px solid lightgray;
-      padding: 2rem;
-      width: 100%;
-
-      margin-top: -1px;
-      margin-bottom: -1px;
-
-      font-weight: bold;
-      color: #1b262c;
-    }
   }
 
   .filter-modal-actions {
@@ -134,41 +119,20 @@ const FiltersModal = ({
           </button>
         </div>
         <div className="filter-modal-content">
-          <div className="filter-modal-filter">
-            <div>Remove Partial Data Points</div>
-            <ToggleButton
-              value={loadedFilters.complete.remove}
-              onClick={toggleCompleteFilter}
-            />
-          </div>
-          <div className="filter-modal-filter">
-            <div>Subject Sex</div>
-            <div className="option-container">
-              <Checkbox
-                id="male"
-                checked={loadedFilters.sex.male}
-                onChange={changeSexFilter}
-              >
-                Male
-              </Checkbox>
-              <Checkbox
-                id="female"
-                checked={loadedFilters.sex.female}
-                onChange={changeSexFilter}
-              >
-                Female
-              </Checkbox>
-              {showUncategorized && (
-                <Checkbox
-                  id="uncategorized"
-                  checked={loadedFilters.sex.uncategorized}
-                  onChange={changeSexFilter}
-                >
-                  Uncategorized
-                </Checkbox>
-              )}
-            </div>
-          </div>
+          <PartialFilter
+            filters={loadedFilters}
+            onChange={toggleCompleteFilter}
+          />
+          <SexFilter
+            filters={loadedFilters}
+            onChange={changeSexFilter}
+            showUncategorized={showUncategorized}
+          />
+          <SportFilter
+            filters={loadedFilters}
+            setFilterSettings={setFilterSettings}
+            showUncategorized={showUncategorized}
+          />
         </div>
         <div className="filter-modal-actions">
           <button
