@@ -56,8 +56,8 @@ const DatabaseHeader = ({
   }
 
   return (
-    <Container>
-      <tr>
+    <Container className="noselect">
+      <tr className="row">
         {headers.map((header, i) => (
           <th
             key={`header${i}`}

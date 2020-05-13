@@ -55,8 +55,20 @@ const SportFilter = ({ filters, setFilterSettings, showUncategorized }) => {
     setFilterSettings(newFilters)
   }
 
-  const allSelected = Object.values(filters.sport).every(value => value)
-  const noneSelected = Object.values(filters.sport).every(value => !value)
+  const allSelected = Object.keys(filters.sport).every(key =>
+    key === "Uncategorized" &&
+    !showUncategorized &&
+    filters.sport["Uncategorized"] === false
+      ? true
+      : filters.sport[key]
+  )
+  const noneSelected = Object.keys(filters.sport).every(key =>
+    key === "Uncategorized" &&
+    !showUncategorized &&
+    filters.sport["Uncategorized"] === true
+      ? true
+      : !filters.sport[key]
+  )
 
   return (
     <Filter name="Sport">

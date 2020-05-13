@@ -93,10 +93,11 @@ const Database = () => {
   const [filteredItems, setFilteredItems] = useState([])
   const [isFilterModalOpen, setFilterModalOpen] = useState(false)
 
-  // Filter rows
+  // Filter rows when filters change
   useEffect(() => {
     let newFilteredItems = [...data.items]
 
+    // Iterate through and run each filter
     Object.keys(filters).forEach(filterName => {
       newFilteredItems = filterFunctions[filterName](
         newFilteredItems,
@@ -107,9 +108,12 @@ const Database = () => {
     setFilteredItems(newFilteredItems)
   }, [filters])
 
+  // Shallow copy to trigger re-render
   const filteredData = Object.assign({}, data)
   filteredData.items = filteredItems
-  const isDefaultFilters =
+
+  // Check if table filters match default filters
+  const filtersMatchDefault =
     JSON.stringify(defaultFilters) === JSON.stringify(filters)
 
   return (
@@ -136,16 +140,12 @@ const Database = () => {
                 <FaDownload size="1rem" color="#0f4c75" />
                 <div className="button-text">Download</div>
               </button>
-              {/* <button className="button action upload-button">
-                <FaUpload size="1rem" color="#0f4c75" />
-                <div className="button-text">Add Entry</div>
-              </button> */}
             </div>
           </div>
           <div className="database-table">
             <DatabaseTable data={filteredData} rowsPerPage={10} />
           </div>
-          {!isDefaultFilters && filteredItems.length === 0 && (
+          {!filtersMatchDefault && filteredItems.length === 0 && (
             <div className="no-data-warning">
               <FaExclamation size="2rem" color="var(--primaryColor)" />
               <div className="warning-text">
@@ -162,14 +162,14 @@ const Database = () => {
             </div>
           )}
         </div>
-        <FiltersModal
-          isOpen={isFilterModalOpen}
-          setOpen={setFilterModalOpen}
-          filters={filters}
-          setFilters={setFilters}
-          defaultFilters={defaultFilters}
-        />
       </Container>
+      <FiltersModal
+        isOpen={isFilterModalOpen}
+        setOpen={setFilterModalOpen}
+        filters={filters}
+        setFilters={setFilters}
+        defaultFilters={defaultFilters}
+      />
     </Layout>
   )
 }

@@ -1,41 +1,19 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { FaTimes, FaRedo } from "react-icons/fa"
-import cn from "classnames"
 
 import Modal from "../Modal"
+import FiltersModalHeader from "./FiltersModalHeader"
+import FiltersModalActions from "./FiltersModalActions"
 import PartialFilter from "./PartialFilter"
 import SexFilter from "./SexFilter"
+import ControlFilter from "./ControlFilter"
 import SportFilter from "./SportFilter"
+import AgeFilter from "./AgeFilter"
+import HeightFilter from "./HeightFilter"
+import WeightFilter from "./WeightFilter"
 
 const Container = styled.div`
   width: 100%;
-
-  .filter-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid lightgray;
-    padding: 1rem 2rem;
-    margin-bottom: 2rem;
-
-    .filter-modal-title {
-      margin: 0;
-      color: var(--primaryColor);
-    }
-
-    .close-button {
-      transition: transform 0.1s ease;
-
-      svg {
-        color: var(--primaryColor);
-      }
-
-      :hover {
-        transform: scale(1.1);
-      }
-    }
-  }
 
   .filter-modal-content {
     margin: 0 2rem;
@@ -43,31 +21,10 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
   }
-
-  .filter-modal-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2rem;
-
-    .reset-button .reset-icon {
-      margin-right: 0.5rem;
-    }
-
-    .cancel-submit-container {
-      display: flex;
-      align-items: center;
-    }
-  }
 `
 
-const FiltersModal = ({
-  isOpen,
-  setOpen,
-  filters,
-  setFilters,
-  defaultFilters,
-}) => {
+const FiltersModal = ({ isOpen, setOpen, filters, setFilters }) => {
+  // Filter settings (separate from filters on table)
   const [filterSettings, setFilterSettings] = useState(undefined)
 
   // Deep copy filters into state on open and reset on close
@@ -79,53 +36,27 @@ const FiltersModal = ({
     }
   }, [isOpen, filters])
 
-  const toggleCompleteFilter = () => {
-    const newFilters = Object.assign({}, filterSettings)
-    newFilters.complete.remove = !newFilters.complete.remove
-
-    setFilterSettings(newFilters)
-  }
-
-  const changeSexFilter = sexId => {
-    const newFilters = Object.assign({}, filterSettings)
-    newFilters.sex[sexId] = !newFilters.sex[sexId]
-
-    setFilterSettings(newFilters)
-  }
-
-  const applyFilters = () => {
-    const newFilters = Object.assign({}, filters, filterSettings)
-
-    setFilters(newFilters)
-    setOpen(false)
-  }
-
-  const resetFilters = () => {
-    setFilterSettings(JSON.parse(JSON.stringify(defaultFilters)))
-  }
-
+  // Show table filters on first render before they are copied to state
   const loadedFilters = filterSettings ? filterSettings : filters
-  const showUncategorized = loadedFilters && !loadedFilters.complete.remove
-  const isDefault =
-    JSON.stringify(defaultFilters) === JSON.stringify(loadedFilters)
+  const showUncategorized = !loadedFilters.complete.remove
 
   return (
     <Modal isOpen={isOpen}>
       <Container>
-        <div className="filter-modal-header">
-          <h1 className="filter-modal-title">Filters</h1>
-          <button className="close-button" onClick={() => setOpen(false)}>
-            <FaTimes size="1.5rem" />
-          </button>
-        </div>
+        <FiltersModalHeader setOpen={setOpen} />
         <div className="filter-modal-content">
           <PartialFilter
             filters={loadedFilters}
-            onChange={toggleCompleteFilter}
+            setFilterSettings={setFilterSettings}
           />
           <SexFilter
             filters={loadedFilters}
-            onChange={changeSexFilter}
+            setFilterSettings={setFilterSettings}
+            showUncategorized={showUncategorized}
+          />
+          <ControlFilter
+            filters={loadedFilters}
+            setFilterSettings={setFilterSettings}
             showUncategorized={showUncategorized}
           />
           <SportFilter
@@ -133,24 +64,27 @@ const FiltersModal = ({
             setFilterSettings={setFilterSettings}
             showUncategorized={showUncategorized}
           />
+          <AgeFilter
+            filters={loadedFilters}
+            setFilterSettings={setFilterSettings}
+            showUncategorized={showUncategorized}
+          />
+          {/* <HeightFilter showUncategorized={showUncategorized} /> */}
+          <WeightFilter
+            filters={loadedFilters}
+            setFilterSettings={setFilterSettings}
+            showUncategorized={showUncategorized}
+          />
         </div>
-        <div className="filter-modal-actions">
-          <button
-            className={cn("button", "reset-button", { disabled: isDefault })}
-            onClick={resetFilters}
-          >
-            <FaRedo className="reset-icon" size="1rem" />
-            Reset Filters
-          </button>
-          <div className="cancel-submit-container">
-            <button className="button cancel" onClick={() => setOpen(false)}>
-              Cancel
-            </button>
-            <button className="button" onClick={applyFilters}>
-              Apply
-            </button>
-          </div>
-        </div>
+        <FiltersModalActions
+          filters={filters}
+          filterSettings={filterSettings}
+          loadedFilters={loadedFilters}
+          setFilters={setFilters}
+          setOpen={setOpen}
+          setFilterSettings={setFilterSettings}
+          showUncategorized={showUncategorized}
+        />
       </Container>
     </Modal>
   )

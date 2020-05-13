@@ -13,15 +13,18 @@ const Container = styled.div`
   margin-top: -1px;
   margin-bottom: -1px;
 
-  font-weight: bold;
   color: #1b262c;
+
+  .filter-name {
+    font-size: 1.25rem;
+  }
 `
 
 const Filter = ({ name, children }) => {
   return (
     <Container>
       {" "}
-      <div>{name}</div>
+      <div className="filter-name">{name}</div>
       {children}
     </Container>
   )

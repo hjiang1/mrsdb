@@ -13,36 +13,36 @@ const Container = styled.div`
   grid-column-gap: 2rem;
 `
 
-const SexFilter = ({ filters, setFilterSettings, showUncategorized }) => {
-  const changeSexFilter = sexId => {
+const ControlFilter = ({ filters, setFilterSettings, showUncategorized }) => {
+  const changeControlFilter = value => {
     const newFilters = Object.assign({}, filters)
-    newFilters.sex[sexId] = !newFilters.sex[sexId]
+    newFilters.control_concussed[value] = !newFilters.control_concussed[value]
 
     setFilterSettings(newFilters)
   }
 
   return (
-    <Filter name="Sex">
+    <Filter name="Control">
       <Container>
-        {Object.keys(defaultFilters.sex).map((sexName, i) =>
-          sexName !== "Uncategorized" ? (
+        {Object.keys(defaultFilters.control_concussed).map((value, i) =>
+          value !== "Uncategorized" ? (
             <Checkbox
               key={i}
-              id={sexName}
-              name="sex"
-              checked={filters.sex[sexName]}
-              onChange={changeSexFilter}
+              id={value}
+              name="control"
+              checked={filters.control_concussed[value]}
+              onChange={changeControlFilter}
             >
-              {sexName}
+              {value}
             </Checkbox>
           ) : null
         )}
         {showUncategorized && (
           <Checkbox
             id="Uncategorized"
-            name="sex"
-            checked={filters.sex["Uncategorized"]}
-            onChange={changeSexFilter}
+            name="control"
+            checked={filters.control_concussed["Uncategorized"]}
+            onChange={changeControlFilter}
           >
             Uncategorized
           </Checkbox>
@@ -52,4 +52,4 @@ const SexFilter = ({ filters, setFilterSettings, showUncategorized }) => {
   )
 }
 
-export default SexFilter
+export default ControlFilter
