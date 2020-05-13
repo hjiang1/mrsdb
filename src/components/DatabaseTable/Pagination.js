@@ -95,7 +95,9 @@ const Pagination = ({ numPages, pageNumber, setPageNumber }) => {
       {Array.from(Array(numPages)).map((page, i) => (
         <button
           key={i}
-          className={cn("page-button", { selected: pageNumber === i })}
+          className={cn("page-button", "noselect", {
+            selected: pageNumber === i,
+          })}
           onClick={() => setPageNumber(i)}
         >
           {i + 1}

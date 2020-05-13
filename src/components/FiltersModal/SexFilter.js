@@ -7,9 +7,10 @@ import { defaultFilters } from "./filters"
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
   grid-row-gap: 1rem;
-  grid-column-gap: 1rem;
+  grid-column-gap: 2rem;
 `
 
 const SexFilter = ({ filters, setFilterSettings, showUncategorized }) => {

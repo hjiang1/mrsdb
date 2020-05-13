@@ -7,6 +7,9 @@ import FiltersModalActions from "./FiltersModalActions"
 import PartialFilter from "./PartialFilter"
 import SexFilter from "./SexFilter"
 import SportFilter from "./SportFilter"
+import AgeFilter from "./AgeFilter"
+import HeightFilter from "./HeightFilter"
+import WeightFilter from "./WeightFilter"
 
 const Container = styled.div`
   width: 100%;
@@ -55,6 +58,9 @@ const FiltersModal = ({ isOpen, setOpen, filters, setFilters }) => {
             setFilterSettings={setFilterSettings}
             showUncategorized={showUncategorized}
           />
+          <AgeFilter showUncategorized={showUncategorized} />
+          <HeightFilter showUncategorized={showUncategorized} />
+          <WeightFilter showUncategorized={showUncategorized} />
         </div>
         <FiltersModalActions
           filters={filters}
