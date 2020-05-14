@@ -17,6 +17,7 @@ const Container = styled.div`
 
   .filter-name {
     font-size: 1.25rem;
+    font-weight: bold;
   }
 `
 
