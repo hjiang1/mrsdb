@@ -90,7 +90,11 @@ const Slider = ({ scaledValue, bounds, onChange }) => {
 
   return (
     <Container>
-      <Range value={[sliderMin, sliderMax]} onChange={onSliderChange} />
+      <Range
+        step={step}
+        value={[sliderMin, sliderMax]}
+        onChange={onSliderChange}
+      />
     </Container>
   )
 }
