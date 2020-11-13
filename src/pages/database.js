@@ -7,7 +7,8 @@ import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import FiltersModal from "../components/FiltersModal"
 import DatabaseTable from "../components/DatabaseTable"
-import data from "../components/DatabaseTable/data"
+import data from "../components/DatabaseTable/mockData"
+
 import {
   defaultFilters,
   filterFunctions,
@@ -123,7 +124,7 @@ const Database = () => {
         <div className="database-content">
           <div className="database-header">
             <span className="dataset-title">
-              Harvard University Concussion Study
+              {data.title}
               <button className="button white change-button disabled">
                 <div className="button-text">Change Dataset</div>
               </button>
@@ -143,7 +144,7 @@ const Database = () => {
             </div>
           </div>
           <div className="database-table">
-            <DatabaseTable data={filteredData} rowsPerPage={10} />
+            <DatabaseTable data={data} rowsPerPage={10} />
           </div>
           {!filtersMatchDefault && filteredItems.length === 0 && (
             <div className="no-data-warning">
