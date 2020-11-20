@@ -19,7 +19,6 @@ const data = {
     {
       id: "height",
       text: "Height",
-      sortType: "height_ft",
     },
     {
       id: "weight_lbs",
@@ -36,7 +35,6 @@ const data = {
     {
       id: "date_of_testing",
       text: "Scan Date",
-      sortType: "date",
     },
     {
       id: "numScan",

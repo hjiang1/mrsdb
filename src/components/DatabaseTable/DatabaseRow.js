@@ -5,11 +5,18 @@ import cn from "classnames"
 
 const Container = styled.tr`
   background-color: white;
-  border-top: 1px solid #3282b8;
   color: #1b262c;
+  cursor: pointer;
 
   .table-cell {
     border: none;
+    width: max-content;
+    white-space: nowrap;
+    border-right: 1px solid var(--primaryColor);
+
+    :last-of-type {
+      border-right: none;
+    }
 
     &.alternate {
       background-color: #f5fbff;
@@ -27,23 +34,25 @@ const Container = styled.tr`
   }
 `
 
-const DatabaseRow = ({ cells, alternate }) => {
+const DatabaseRow = ({ row, alternate }) => {
   return (
-    <Container className="row">
-      {cells.map((cell, i) => (
-        <td
-          key={i}
-          className={cn("table-cell", { alternate, "first-cell": i === 0 })}
-        >
-          {cell}
-        </td>
-      ))}
+    <Container {...row.getRowProps()}>
+      {row.cells.map(cell => {
+        return (
+          <td
+            className={cn("table-cell", { alternate })}
+            {...cell.getCellProps()}
+          >
+            {cell.render("Cell")}
+          </td>
+        )
+      })}
     </Container>
   )
 }
 
 DatabaseRow.propTypes = {
-  cells: PropTypes.array.isRequired,
+  row: PropTypes.object.isRequired,
 }
 
 export default DatabaseRow

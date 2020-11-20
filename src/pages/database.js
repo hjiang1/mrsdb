@@ -17,9 +17,11 @@ import {
 const Container = styled.div`
   display: flex;
   flex: 1;
+  width: 100%;
 
   .database-content {
     flex: 1;
+    width: 100%;
     background-color: #eeeeee;
     display: flex;
     flex-direction: column;
@@ -60,7 +62,7 @@ const Container = styled.div`
       }
     }
 
-    .database-table {
+    .database-table-container {
       width: 100%;
       margin: 0 2rem;
       color: #1b262c;
@@ -96,7 +98,7 @@ const Database = () => {
 
   // Filter rows when filters change
   useEffect(() => {
-    let newFilteredItems = [...data.items]
+    let newFilteredItems = [] // [...data.items]
 
     // Iterate through and run each filter
     Object.keys(filters).forEach(filterName => {
@@ -143,7 +145,7 @@ const Database = () => {
               </button>
             </div>
           </div>
-          <div className="database-table">
+          <div className="database-table-container">
             <DatabaseTable data={data} rowsPerPage={10} />
           </div>
           {!filtersMatchDefault && filteredItems.length === 0 && (
