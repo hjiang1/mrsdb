@@ -5,11 +5,16 @@ import styled from "styled-components"
 import { FaUserCircle } from "react-icons/fa"
 
 const Container = styled.header`
+  display: grid;
+  grid-template-columns: min-content 1fr repeat(7, min-content);
+  padding-right: 2rem;
+
   background-color: white;
   height: var(--headerHeight);
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+
+  border-bottom: 1px solid lightgray;
 
   .header-name {
     margin: 0;
@@ -33,20 +38,27 @@ const Container = styled.header`
     }
   }
 
-  .header-content {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    justify-content: space-between;
-    padding: 0 2rem;
-    height: 100%;
-    border-bottom: 1px solid lightgray;
-  }
-
   .page-title {
     margin: 0;
     color: var(--primaryColor);
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  .nav-button {
+    color: var(--primaryColor);
+    white-space: nowrap;
+    height: 100%;
+    padding: 1rem;
+
+    &.current {
+      border-bottom: 2px solid var(--primaryColor);
+      background-color: #d9f0ff;
+    }
+
+    :hover {
+      background-color: #d9f0ff;
+    }
   }
 
   .user-account {
@@ -61,7 +73,7 @@ const Container = styled.header`
 `
 
 const Header = ({ siteTitle, pageTitle }) => {
-  const [signedIn, setSignedIn] = useState(false)
+  const [signedIn, setSignedIn] = useState(true)
 
   return (
     <Container>
@@ -70,30 +82,36 @@ const Header = ({ siteTitle, pageTitle }) => {
           <span className="title-text">{siteTitle}</span>
         </Link>
       </h1>
-      <div className="header-content">
-        <h1 className="page-title">{pageTitle}</h1>
-        <div className="user-account">
-          {signedIn ? (
-            <button
-              className="profile-button"
-              onClick={() => setSignedIn(!signedIn)}
-            >
-              <FaUserCircle
-                className="profile-icon"
-                size="2.5rem"
-                color="#0f4c75"
-              />
-            </button>
-          ) : (
-            <button
-              className="button sign-in-button disabled"
-              onClick={() => setSignedIn(!signedIn)}
-              disabled
-            >
-              Sign In
-            </button>
-          )}
-        </div>
+      <h1 className="page-title">{pageTitle}</h1>
+      <button className="nav-button">Home</button>
+      <button className="nav-button">Dataset List</button>
+      <button className="nav-button current">Dataset Viewer</button>
+      <button className="nav-button">Dataset Upload</button>
+      <button className="nav-button">About</button>
+      <button className="nav-button">Contact</button>
+      <div className="user-account">
+        {signedIn ? (
+          <button
+            className="profile-button"
+            onClick={() => setSignedIn(!signedIn)}
+          >
+            <FaUserCircle
+              className="profile-icon"
+              size="2.5rem"
+              color="#0f4c75"
+            />
+          </button>
+        ) : (
+          <button
+            style={{
+              whiteSpace: "nowrap",
+            }}
+            className="button sign-in-button disabled"
+            onClick={() => setSignedIn(!signedIn)}
+          >
+            Sign In
+          </button>
+        )}
       </div>
     </Container>
   )

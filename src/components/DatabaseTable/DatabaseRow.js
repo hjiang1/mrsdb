@@ -6,9 +6,10 @@ import cn from "classnames"
 const Container = styled.tr`
   background-color: white;
   color: #1b262c;
-  cursor: pointer;
+  /* cursor: pointer; */
 
   .table-cell {
+    padding: 0.3rem 0.6rem;
     border: none;
     width: max-content;
     white-space: nowrap;
@@ -31,6 +32,12 @@ const Container = styled.tr`
     .table-cell {
       background-color: #d9f0ff;
     }
+  }
+
+  :focus {
+    /* background-color: #d9f0ff;
+    outline-color: var(--primaryColor); */
+    outline: none;
   }
 `
 

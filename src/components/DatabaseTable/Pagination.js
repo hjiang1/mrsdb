@@ -3,11 +3,13 @@ import styled from "styled-components"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 import cn from "classnames"
 import ReactPaginate from "react-paginate"
+import Select from "react-select"
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr repeat(3, auto) 1fr;
   align-items: center;
+
   margin: 1rem 0;
   padding: 0.5rem 0;
 
@@ -20,6 +22,10 @@ const Container = styled.div`
 
   .paginate-button {
     transition: transform 0.1s ease;
+
+    &.back {
+      grid-column-start: 2;
+    }
 
     &.disabled {
       cursor: default;
@@ -40,18 +46,23 @@ const Container = styled.div`
 
     li {
       margin: 0;
+      width: 3rem;
     }
+  }
+
+  .page-button-container {
+    width: 3rem;
   }
 
   .ellipsis,
   .page-button {
     color: var(--primaryColor);
-    border-bottom: 2px solid transparent;
     height: 2rem;
+    width: 3rem;
     font-size: 1rem;
     cursor: pointer;
 
-    margin: 0.5rem;
+    /* margin: 0.5rem; */
     padding: 0.5rem 0.75rem;
 
     border: 1px solid rgba(0, 0, 0, 0);
@@ -60,13 +71,58 @@ const Container = styled.div`
 
     &.selected {
       font-weight: bold;
-      border-color: var(--primaryColor);
-      border-width: 2px;
+      border: 1px solid var(--primaryColor);
     }
 
     :hover {
       font-weight: bold;
       border-color: var(--primaryColor);
+    }
+  }
+
+  .rows-per-page-container {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    margin-right: 1rem;
+
+    .rows-per-page-label {
+      font-weight: bold;
+      color: var(--primaryColor);
+      margin-right: 0.5rem;
+    }
+
+    .react-select__control {
+      border: 1px solid var(--primaryColor);
+      border-radius: 0;
+      cursor: pointer;
+    }
+
+    .react-select__value-container {
+      width: 3rem;
+    }
+
+    .react-select__placeholder {
+      color: var(--primaryColor);
+    }
+
+    .react-select__indicator-separator {
+      background-color: var(--primaryColor);
+    }
+
+    .react-select__indicator {
+      svg {
+        color: var(--primaryColor);
+      }
+    }
+
+    .react-select__menu {
+      border-radius: 0;
+    }
+
+    .react-select__option {
+      color: var(--primaryColor);
+      cursor: pointer;
     }
   }
 `
@@ -80,11 +136,22 @@ const Pagination = ({
   gotoPage,
   nextPage,
   previousPage,
+  totalRows,
+  defaultPageSize,
+  pageSize,
+  setPageSize,
 }) => {
+  const rowSelectOptions = [
+    { value: defaultPageSize, label: defaultPageSize },
+    { value: 2 * defaultPageSize, label: 2 * defaultPageSize },
+    { value: 3 * defaultPageSize, label: 3 * defaultPageSize },
+    { value: totalRows, label: "All" },
+  ]
+
   return (
     <Container>
       <button
-        className={cn("paginate-button", { disabled: !canPreviousPage })}
+        className={cn("paginate-button back", { disabled: !canPreviousPage })}
         disabled={!canPreviousPage}
         onClick={previousPage}
       >
@@ -96,10 +163,13 @@ const Pagination = ({
       <ReactPaginate
         forcePage={pageIndex}
         pageCount={pageCount}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={
+          pageIndex < 4 ? 6 : pageIndex > pageCount - 5 ? 7 : 5
+        }
         marginPagesDisplayed={1}
         onPageChange={data => gotoPage(data.selected)}
         containerClassName="page-container"
+        pageClassName="page-button-container"
         pageLinkClassName="page-button noselect"
         activeLinkClassName="selected"
         previousClassName="hide-button"
@@ -107,7 +177,7 @@ const Pagination = ({
         breakLinkClassName="ellipsis noselect"
       />
       <button
-        className={cn("paginate-button", {
+        className={cn("paginate-button forward", {
           disabled: !canNextPage,
         })}
         disabled={!canNextPage}
@@ -118,6 +188,18 @@ const Pagination = ({
           size="2.5rem"
         />
       </button>
+
+      <div className="rows-per-page-container">
+        <span className="rows-per-page-label">Rows Per Page:</span>
+        <Select
+          classNamePrefix="react-select"
+          isSearchable={false}
+          placeholder={pageSize}
+          value={pageSize}
+          onChange={e => setPageSize(e.value)}
+          options={rowSelectOptions}
+        />
+      </div>
     </Container>
   )
 }

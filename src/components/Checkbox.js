@@ -20,8 +20,8 @@ const Container = styled.div`
 
       height: 1.5rem;
       width: 1.5rem;
-      border-radius: 5px;
-      border: 2px solid darkgray;
+      border-radius: 0;
+      border: 1px solid darkgray;
       margin-right: 0.5rem;
 
       &.checked {

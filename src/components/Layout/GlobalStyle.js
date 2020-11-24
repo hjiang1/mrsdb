@@ -54,8 +54,8 @@ const GlobalStyle = createGlobalStyle`
     padding: 0.2rem 1rem;
     font-weight: bold;
 
-    border: 2px solid var(--primaryColor);
-    border-radius: 3px;
+    border: 1px solid var(--primaryColor);
+    border-radius: 0;
 
     color: white;
     background-color: var(--primaryColor);

@@ -1,11 +1,17 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React from "react"
 import styled from "styled-components"
-import { useTable, useSortBy, usePagination } from "react-table"
+import {
+  useTable,
+  useSortBy,
+  usePagination,
+  useGlobalFilter,
+} from "react-table"
+import { FaFilter } from "react-icons/fa"
 
 import DatabaseHeader from "./DatabaseHeader"
 import DatabaseRow from "./DatabaseRow"
 import Pagination from "./Pagination"
-import { sortRows } from "./functions"
+import SearchBar from "./SearchBar"
 
 const Container = styled.div`
   width: 100%;
@@ -14,6 +20,25 @@ const Container = styled.div`
     margin-bottom: 0.5rem;
     font-weight: bold;
     color: #1b262c;
+  }
+
+  .filter-button {
+    .button-text {
+      margin-left: 0.25rem;
+    }
+  }
+
+  .search-bar-container {
+    display: grid;
+    grid-template-columns: 1fr min-content min-content;
+    grid-gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+
+    .row-counter {
+      color: var(--primaryColor);
+      margin-right: 1rem;
+    }
   }
 
   .database-table {
@@ -26,83 +51,13 @@ const Container = styled.div`
   }
 `
 
-const DatabaseTable = ({ data: { data, columns }, rowsPerPage }) => {
-  // const [sortedItems, setSortedItems] = useState([])
-
-  // const [multiPage, setMultiPage] = useState(false)
-  // const [pageNumber, setPageNumber] = useState(0)
-  // const [pages, setPages] = useState([])
-
-  // const [sortBy, setSortBy] = useState("id")
-  // const [sortDirection, setSortDirection] = useState("ascending")
-
-  // // Reset pagination if input data changes
-  // useEffect(() => {
-  //   setPageNumber(0)
-  // }, [data.items])
-
-  // // Sort rows
-  // useEffect(() => {
-  //   const newItems = [...data.items]
-  //   const sortType = data.headers.find(header => header.id === sortBy).sortType
-
-  //   newItems.sort(sortRows(sortBy, sortDirection, data.headers, sortType))
-
-  //   setSortedItems(newItems)
-  // }, [data.items, data.headers, sortBy, sortDirection])
-
-  // // Determine the number of pages required
-  // useEffect(() => {
-  //   if (sortedItems.length > rowsPerPage) {
-  //     setMultiPage(true)
-  //   }
-  // }, [setMultiPage, sortedItems, rowsPerPage])
-
-  // // Determine the content of each page
-  // useEffect(() => {
-  //   const newPages = []
-  //   let newPage = []
-
-  //   sortedItems.forEach((item, i) => {
-  //     const row = data.headers.map(header =>
-  //       !item[header.id] || item[header.id] === "" ? "-" : item[header.id]
-  //     )
-  //     newPage.push(row)
-
-  //     if (newPage.length === rowsPerPage || i === sortedItems.length - 1) {
-  //       newPages.push(newPage)
-  //       newPage = []
-  //     }
-  //   })
-
-  //   setPages(newPages)
-  // }, [sortedItems, data.headers, rowsPerPage])
-
-  // const renderTableRows = (rows = []) =>
-  //   rows.map((row, i) => (
-  //     <DatabaseRow key={`row${i}`} cells={row} alternate={i % 2 === 1} />
-  //   ))
-
-  // const getDisplayIndicator = () => {
-  //   const itemsOnPage = pages.length > 0 ? pages[pageNumber].length : 0
-  //   const totalItems = pages.reduce((total, page) => total + page.length, 0)
-  //   const firstOnPage = rowsPerPage * pageNumber + 1
-  //   const lastOnPage = itemsOnPage + rowsPerPage * pageNumber
-
-  //   if (firstOnPage === lastOnPage) {
-  //     return `Showing ${firstOnPage} of ${totalItems}`
-  //   } else {
-  //     return `Showing ${firstOnPage}-${lastOnPage} of ${totalItems}`
-  //   }
-  // }
-
-  // const currentPageRows = pages[pageNumber]
-
+const DatabaseTable = ({ data: { data, columns }, defaultPageSize }) => {
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     prepareRow,
+    rows,
     page,
     canPreviousPage,
     canNextPage,
@@ -112,19 +67,39 @@ const DatabaseTable = ({ data: { data, columns }, rowsPerPage }) => {
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex },
+    preGlobalFilteredRows,
+    setGlobalFilter,
+    state: { pageIndex, pageSize, globalFilter },
   } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 10 },
+      initialState: { pageIndex: 0, pageSize: defaultPageSize },
     },
+    useGlobalFilter,
     useSortBy,
     usePagination
   )
 
   return (
     <Container>
+      <div className="search-bar-container">
+        <span className="row-counter">
+          {`Displaying ${pageIndex * pageSize + 1}-${
+            pageIndex * pageSize + page.length
+          } of ${rows.length} Rows`}
+        </span>
+        <button className="button white filter-button">
+          <FaFilter size="1rem" color="#0f4c75" />
+          <div className="button-text">Filters</div>
+        </button>
+        <SearchBar
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+      </div>
+
       <table className="database-table" {...getTableProps()}>
         <DatabaseHeader headerGroups={headerGroups} />
         <tbody {...getTableBodyProps()}>
@@ -143,6 +118,10 @@ const DatabaseTable = ({ data: { data, columns }, rowsPerPage }) => {
         gotoPage={gotoPage}
         nextPage={nextPage}
         previousPage={previousPage}
+        totalRows={rows.length}
+        defaultPageSize={defaultPageSize}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
       />
     </Container>
   )

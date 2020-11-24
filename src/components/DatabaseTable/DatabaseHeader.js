@@ -4,10 +4,22 @@ import { FaCaretUp, FaCaretDown } from "react-icons/fa"
 import cn from "classnames"
 
 const Container = styled.thead`
-  background-color: var(--primaryColor);
   color: white;
 
   .header-cell {
+    &.clinical {
+      background-color: #8e2a2a;
+    }
+
+    &.metadata {
+      background-color: #443b3b;
+    }
+
+    &.mrs {
+      background-color: var(--primaryColor);
+    }
+
+    padding: 0.3rem 0.6rem;
     cursor: pointer;
     transition-property: color, background-color;
     transition-duration: 0.1s;
@@ -51,10 +63,9 @@ const DatabaseHeader = ({ headerGroups }) => {
       {headerGroups.map(headerGroup => (
         <tr {...headerGroup.getHeaderGroupProps()}>
           {headerGroup.headers.map(column => (
-            // Add the sorting props to control sorting. For this example
-            // we can add them into the header props
             <th
-              className="header-cell"
+              tabIndex="0"
+              className={cn("header-cell", column.type)}
               {...column.getHeaderProps(column.getSortByToggleProps())}
             >
               <div className="header-cell-content">
@@ -74,30 +85,6 @@ const DatabaseHeader = ({ headerGroups }) => {
         </tr>
       ))}
     </Container>
-    // <Container className="noselect">
-    //   <tr className="row">
-    //     {headers.map((header, i) => (
-    //       <th
-    //         key={`header${i}`}
-    //         className={cn("header-cell", { sortBy: sortBy === header.id })}
-    //         onClick={() => handleCellClick(header.id)}
-    //       >
-    //         <div className="header-cell-content">
-    //           {header.text}
-    //           {sortBy !== header.id && (
-    //             <FaCaretDown className="placeholder-icon" />
-    //           )}
-    //           {sortBy === header.id && sortDirection === "descending" && (
-    //             <FaCaretDown className="sort-icon" />
-    //           )}
-    //           {sortBy === header.id && sortDirection === "ascending" && (
-    //             <FaCaretUp className="sort-icon" />
-    //           )}
-    //         </div>
-    //       </th>
-    //     ))}
-    //   </tr>
-    // </Container>
   )
 }
 
