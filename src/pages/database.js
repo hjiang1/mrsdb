@@ -1,7 +1,13 @@
 // Gatsby supports TypeScript natively!
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { FaDownload, FaFilter, FaExclamation, FaRedo, FaInfoCircle } from "react-icons/fa"
+import {
+  FaDownload,
+  FaFilter,
+  FaExclamation,
+  FaRedo,
+  FaInfoCircle,
+} from "react-icons/fa"
 
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
@@ -157,7 +163,11 @@ const Database = () => {
             <span className="dataset-title">
               {data.title}
               <button className="info-button">
-                <FaInfoCircle className="button-icon" size="2rem" color="#0f4c75" />
+                <FaInfoCircle
+                  className="button-icon"
+                  size="2rem"
+                  color="#0f4c75"
+                />
               </button>
             </span>
             <span className="dataset-metadata">

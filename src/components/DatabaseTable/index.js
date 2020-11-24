@@ -74,7 +74,12 @@ const DatabaseTable = ({ data: { data, columns }, defaultPageSize }) => {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: defaultPageSize },
+      initialState: {
+        pageIndex: 0,
+        pageSize: defaultPageSize,
+        sortBy: [{ id: "id", desc: false }],
+      },
+      disableSortRemove: true,
     },
     useGlobalFilter,
     useSortBy,
