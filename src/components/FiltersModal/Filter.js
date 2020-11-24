@@ -5,8 +5,8 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 2px solid lightgray;
-  border-bottom: 2px solid lightgray;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
   padding: 2rem;
   width: 100%;
 
