@@ -25,19 +25,61 @@ const Container = styled.div`
   .filter-button {
     .button-text {
       margin-left: 0.25rem;
+      font-size: 14px;
     }
   }
 
   .search-bar-container {
     display: grid;
     grid-template-columns: 1fr min-content min-content;
-    grid-gap: 0.5rem;
+    grid-column-gap: 0.5rem;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
 
-    .row-counter {
-      color: var(--primaryColor);
-      margin-right: 1rem;
+  .database-scroll-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    color: var(--primaryColor);
+    font-weight: bold;
+
+    .scroll-button {
+      border: 1px solid var(--primaryColor);
+      font-weight: bold;
+      font-size: 14px;
+      padding: 0.15rem 0.6rem;
+      margin-left: 0.5rem;
+
+      background-color: white;
+      transition: background-color 0.1s ease, color 0.1s ease;
+
+      &.clinical {
+        color: #8e2a2a;
+
+        :hover {
+          color: white;
+          background-color: #8e2a2a;
+        }
+      }
+
+      &.metadata {
+        color: #443b3b;
+        :hover {
+          color: white;
+          background-color: #443b3b;
+        }
+      }
+
+      &.mrs {
+        color: var(--primaryColor);
+        :hover {
+          color: white;
+          background-color: var(--primaryColor);
+        }
+      }
     }
   }
 
@@ -74,21 +116,51 @@ const DatabaseTable = ({ data: { data, columns }, defaultPageSize }) => {
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: defaultPageSize },
+      initialState: {
+        pageIndex: 0,
+        pageSize: defaultPageSize,
+        sortBy: [{ id: "id", desc: false }],
+      },
+      disableSortRemove: true,
     },
     useGlobalFilter,
     useSortBy,
     usePagination
   )
 
+  const jumpTo = className => {
+    const jumpToElement = document.getElementsByClassName(
+      `header-cell ${className}`
+    )[0]
+    const table = document.getElementsByClassName("database-table")[0]
+
+    table.scrollLeft =
+      jumpToElement.offsetLeft === 0
+        ? jumpToElement.offsetLeft
+        : jumpToElement.offsetLeft + 1
+  }
+
   return (
     <Container>
       <div className="search-bar-container">
-        <span className="row-counter">
-          {`Displaying ${pageIndex * pageSize + 1}-${
-            pageIndex * pageSize + page.length
-          } of ${rows.length} Rows`}
-        </span>
+        <div className="database-scroll-button-container">
+          Jump to:
+          <button
+            className="scroll-button clinical"
+            onClick={() => jumpTo("clinical")}
+          >
+            Clinical Data
+          </button>
+          <button
+            className="scroll-button metadata"
+            onClick={() => jumpTo("metadata")}
+          >
+            Scan Metadata
+          </button>
+          <button className="scroll-button mrs" onClick={() => jumpTo("mrs")}>
+            MRS Data
+          </button>
+        </div>
         <button className="button white filter-button">
           <FaFilter size="1rem" color="#0f4c75" />
           <div className="button-text">Filters</div>
@@ -99,7 +171,6 @@ const DatabaseTable = ({ data: { data, columns }, defaultPageSize }) => {
           setGlobalFilter={setGlobalFilter}
         />
       </div>
-
       <table className="database-table" {...getTableProps()}>
         <DatabaseHeader headerGroups={headerGroups} />
         <tbody {...getTableBodyProps()}>
@@ -110,6 +181,7 @@ const DatabaseTable = ({ data: { data, columns }, defaultPageSize }) => {
         </tbody>
       </table>
       <Pagination
+        page={page}
         pageIndex={pageIndex}
         canPreviousPage={canPreviousPage}
         canNextPage={canNextPage}

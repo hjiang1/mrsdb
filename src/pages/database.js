@@ -1,7 +1,13 @@
 // Gatsby supports TypeScript natively!
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { FaDownload, FaFilter, FaExclamation, FaRedo, FaInfoCircle } from "react-icons/fa"
+import {
+  FaDownload,
+  FaFilter,
+  FaExclamation,
+  FaRedo,
+  FaInfoCircle,
+} from "react-icons/fa"
 
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
@@ -22,10 +28,12 @@ const Container = styled.div`
   .database-content {
     flex: 1;
     width: 100%;
-    background-color: #eeeeee;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    box-sizing: border-box;
+    background-color: #eeeeee;
     padding: 1rem 2rem;
 
     .database-header {
@@ -157,7 +165,11 @@ const Database = () => {
             <span className="dataset-title">
               {data.title}
               <button className="info-button">
-                <FaInfoCircle className="button-icon" size="2rem" color="#0f4c75" />
+                <FaInfoCircle
+                  className="button-icon"
+                  size="2rem"
+                  color="#0f4c75"
+                />
               </button>
             </span>
             <span className="dataset-metadata">
@@ -173,7 +185,7 @@ const Database = () => {
             </button>
           </div>
           <div className="database-table-container">
-            <DatabaseTable data={data} defaultPageSize={15} />
+            <DatabaseTable data={data} defaultPageSize={18} />
           </div>
           {!filtersMatchDefault && filteredItems.length === 0 && (
             <div className="no-data-warning">
