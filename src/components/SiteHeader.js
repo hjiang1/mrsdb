@@ -9,6 +9,7 @@ const Container = styled.header`
   grid-template-columns: min-content 1fr repeat(7, min-content);
   padding-right: 2rem;
 
+
   background-color: white;
   height: var(--headerHeight);
   align-items: center;
@@ -50,6 +51,8 @@ const Container = styled.header`
     white-space: nowrap;
     height: 100%;
     padding: 1rem;
+
+    font-size: 16px;
 
     &.current {
       border-bottom: 2px solid var(--primaryColor);

@@ -13,7 +13,7 @@ import styled from "styled-components"
 import SiteHeader from "../SiteHeader"
 import SiteFooter from "../SiteFooter"
 import GlobalStyle from "./GlobalStyle"
-import "./layout.css"
+// import "./layout.css"
 
 const Container = styled.main`
   margin: 0 auto;

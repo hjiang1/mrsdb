@@ -7,7 +7,7 @@ import cn from "classnames"
 
 const Container = styled.span`
   display: flex;
-  margin: 0.5rem 0;
+  /* margin: 0.5rem 0; */
   overflow: hidden;
   justify-content: center;
   align-items: center;

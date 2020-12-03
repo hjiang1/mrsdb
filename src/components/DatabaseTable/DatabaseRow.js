@@ -7,9 +7,10 @@ const Container = styled.tr`
   background-color: white;
   color: #1b262c;
   /* cursor: pointer; */
+  font-size: 14px;
 
   .table-cell {
-    padding: 0.3rem 0.6rem;
+    padding: 0.5rem;
     border: none;
     width: max-content;
     white-space: nowrap;

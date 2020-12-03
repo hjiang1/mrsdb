@@ -5,6 +5,7 @@ import cn from "classnames"
 
 const Container = styled.thead`
   color: white;
+  font-size: 14px;
 
   .header-cell {
     &.clinical {
@@ -19,7 +20,7 @@ const Container = styled.thead`
       background-color: var(--primaryColor);
     }
 
-    padding: 0.3rem 0.6rem;
+    padding: 0.5rem;
     cursor: pointer;
     transition-property: color, background-color;
     transition-duration: 0.1s;

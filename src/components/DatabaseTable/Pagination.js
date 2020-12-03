@@ -16,6 +16,12 @@ const Container = styled.div`
   background-color: white;
   border: 1px solid var(--primaryColor);
 
+  .row-counter {
+    color: var(--primaryColor);
+    font-weight: bold;
+    margin-left: 1rem;
+  }
+
   .hide-button {
     display: none;
   }
@@ -128,6 +134,7 @@ const Container = styled.div`
 `
 
 const Pagination = ({
+  page,
   pageIndex,
   canPreviousPage,
   canNextPage,
@@ -150,6 +157,11 @@ const Pagination = ({
 
   return (
     <Container>
+      <span className="row-counter">
+        {`Displaying ${pageIndex * pageSize + 1}-${
+          pageIndex * pageSize + page.length
+        } of ${totalRows} Rows`}
+      </span>
       <button
         className={cn("paginate-button back", { disabled: !canPreviousPage })}
         disabled={!canPreviousPage}

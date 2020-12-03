@@ -28,10 +28,12 @@ const Container = styled.div`
   .database-content {
     flex: 1;
     width: 100%;
-    background-color: #eeeeee;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    box-sizing: border-box;
+    background-color: #eeeeee;
     padding: 1rem 2rem;
 
     .database-header {
@@ -183,7 +185,7 @@ const Database = () => {
             </button>
           </div>
           <div className="database-table-container">
-            <DatabaseTable data={data} defaultPageSize={15} />
+            <DatabaseTable data={data} defaultPageSize={18} />
           </div>
           {!filtersMatchDefault && filteredItems.length === 0 && (
             <div className="no-data-warning">

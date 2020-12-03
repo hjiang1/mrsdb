@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Lato';
   }
 
+  html {
+    font-size: 16px;
+  }
+
   .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
@@ -27,15 +31,7 @@ const GlobalStyle = createGlobalStyle`
     --primaryColor: #0f4c75;
     --headerHeight: 4rem;
 
-    .noselect {
-      -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -khtml-user-select: none; /* Konqueror HTML */
-          -moz-user-select: none; /* Old versions of Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
-                user-select: none; /* Non-prefixed version, currently
-                                      supported by Chrome, Edge, Opera and Firefox */
-    }
+    margin: 0;
   }
   
   button {
@@ -51,8 +47,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .button {
-    padding: 0.2rem 1rem;
+    padding: 0.5rem 1rem;
     font-weight: bold;
+
+    font-size: 16px;
 
     border: 1px solid var(--primaryColor);
     border-radius: 0;
@@ -103,6 +101,15 @@ const GlobalStyle = createGlobalStyle`
       svg {
         color: gray !important;
       }
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+
+    tr,
+    th {
+      padding: 0.5rem;
     }
   }
 `
