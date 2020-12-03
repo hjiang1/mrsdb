@@ -31,6 +31,7 @@ const Container = styled.span`
 
   .searchbar-reset-button {
     background-color: white;
+    font-size: 14px;
 
     .disabled {
       opacity: 1;
