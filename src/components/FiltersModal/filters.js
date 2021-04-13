@@ -144,7 +144,7 @@ export const filterHeight = (data, options) => {
 // Default filter values
 export const defaultFilters = {
   complete: {
-    remove: true,
+    remove: false,
   },
   sex: {
     Male: true,
@@ -183,18 +183,18 @@ export const defaultFilters = {
     Uncategorized: true,
   },
   age: {
-    min: 17,
-    max: 24,
+    min: 18,
+    max: 22,
     Uncategorized: true,
   },
   weight: {
-    min: 120,
-    max: 293,
+    min: 101,
+    max: 220,
     Uncategorized: true,
   },
   height: {
-    min: "5'2\"",
-    max: "6'8\"",
+    min: "4'10\"",
+    max: "6'11\"",
     Uncategorized: true,
   },
   threeScans: {

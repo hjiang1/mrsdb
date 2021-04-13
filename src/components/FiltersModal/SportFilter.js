@@ -71,7 +71,7 @@ const SportFilter = ({ filters, setFilterSettings, showUncategorized }) => {
   )
 
   return (
-    <Filter name="Sport">
+    <Filter name="Sport" description="Participant sport">
       <Container>
         <div className="option-container">
           {Object.keys(defaultFilters.sport).map((sportName, i) =>

@@ -64,8 +64,8 @@ const IndexPage = () => (
         lectus id convallis gravida, lectus tortor lacinia quam, nec tempor diam
         nunc sed leo.
       </p>
-      <Link className="button landing-button" to="/database/">
-        View Database
+      <Link className="button landing-button" to="/viewer/">
+        Go To Data Viewer
       </Link>
     </Container>
   </Layout>

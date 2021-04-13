@@ -6,7 +6,7 @@ import cn from "classnames"
 const Container = styled.tr`
   background-color: white;
   color: #1b262c;
-  /* cursor: pointer; */
+  cursor: pointer;
   font-size: 14px;
 
   .table-cell {

@@ -56,7 +56,7 @@ const AgeFilter = ({ filters, setFilterSettings, showUncategorized }) => {
   }
 
   return (
-    <Filter name="Age">
+    <Filter name="Age" description="Participant age">
       <Container>
         <div className="slider-container">
           <div className="range-indicator start">{filters.age.min}</div>

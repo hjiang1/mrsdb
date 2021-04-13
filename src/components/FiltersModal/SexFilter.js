@@ -22,7 +22,7 @@ const SexFilter = ({ filters, setFilterSettings, showUncategorized }) => {
   }
 
   return (
-    <Filter name="Sex">
+    <Filter name="Sex" description="Participant sex">
       <Container>
         {Object.keys(defaultFilters.sex).map((sexName, i) =>
           sexName !== "Uncategorized" ? (

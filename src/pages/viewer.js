@@ -25,7 +25,7 @@ const Container = styled.div`
   flex: 1;
   width: 100%;
 
-  .database-content {
+  .viewer-content {
     flex: 1;
     width: 100%;
     display: flex;
@@ -36,7 +36,7 @@ const Container = styled.div`
     background-color: #eeeeee;
     padding: 1rem 2rem;
 
-    .database-header {
+    .viewer-header {
       display: grid;
       grid-template-columns: 1fr min-content min-content;
       grid-column-gap: 0.5rem;
@@ -99,7 +99,7 @@ const Container = styled.div`
       }
     }
 
-    .database-table-container {
+    .viewer-table-container {
       width: 100%;
       margin: 0 2rem;
       color: #1b262c;
@@ -128,14 +128,14 @@ const Container = styled.div`
   }
 `
 
-const Database = () => {
+const Viewer = () => {
   const [filters, setFilters] = useState(defaultFilters)
   const [filteredItems, setFilteredItems] = useState([])
   const [isFilterModalOpen, setFilterModalOpen] = useState(false)
 
   // Filter rows when filters change
   useEffect(() => {
-    let newFilteredItems = [] // [...data.items]
+    let newFilteredItems = [...data.data]
 
     // Iterate through and run each filter
     Object.keys(filters).forEach(filterName => {
@@ -160,8 +160,8 @@ const Database = () => {
     <Layout pageTitle="Dataset Viewer">
       <SEO title="Dataset Viewer" />
       <Container>
-        <div className="database-content">
-          <div className="database-header">
+        <div className="viewer-content">
+          <div className="viewer-header">
             <span className="dataset-title">
               {data.title}
               <button className="info-button">
@@ -184,8 +184,8 @@ const Database = () => {
               <div className="button-text">Download Dataset</div>
             </button>
           </div>
-          <div className="database-table-container">
-            <DatabaseTable data={data} defaultPageSize={18} />
+          <div className="viewer-table-container">
+            <DatabaseTable data={Object.assign({}, data, {data: filteredItems})} defaultPageSize={18} setFilterModalOpen={setFilterModalOpen} />
           </div>
           {!filtersMatchDefault && filteredItems.length === 0 && (
             <div className="no-data-warning">
@@ -216,4 +216,4 @@ const Database = () => {
   )
 }
 
-export default Database
+export default Viewer

@@ -56,7 +56,7 @@ const WeightFilter = ({ filters, setFilterSettings, showUncategorized }) => {
   }
 
   return (
-    <Filter name="Weight">
+    <Filter name="Weight" description="Participant weight (Imperial system)">
       <Container>
         <div className="slider-container">
           <div className="range-indicator start">{`${filters.weight.min} lbs`}</div>

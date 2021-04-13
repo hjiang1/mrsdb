@@ -57,7 +57,7 @@ const HeightFilter = ({ filters, setFilterSettings, showUncategorized }) => {
   }
 
   return (
-    <Filter name="Height">
+    <Filter name="Height" description="Participant height">
       <Container>
         <div className="slider-container">
           <div className="range-indicator start">{`${filters.height.min}`}</div>

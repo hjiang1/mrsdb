@@ -22,7 +22,7 @@ const ControlFilter = ({ filters, setFilterSettings, showUncategorized }) => {
   }
 
   return (
-    <Filter name="Control">
+    <Filter name="Group" description="Participant group (concussed or control)">
       <Container>
         {Object.keys(defaultFilters.control_concussed).map((value, i) =>
           value !== "Uncategorized" ? (

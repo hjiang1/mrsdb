@@ -4,8 +4,8 @@ import styled from "styled-components"
 import Modal from "../Modal"
 import FiltersModalHeader from "./FiltersModalHeader"
 import FiltersModalActions from "./FiltersModalActions"
-import PartialFilter from "./PartialFilter"
-import ThreeFilter from "./ThreeFilter"
+// import PartialFilter from "./PartialFilter"
+// import ThreeFilter from "./ThreeFilter"
 import SexFilter from "./SexFilter"
 import ControlFilter from "./ControlFilter"
 import SportFilter from "./SportFilter"
@@ -46,14 +46,14 @@ const FiltersModal = ({ isOpen, setOpen, filters, setFilters }) => {
       <Container>
         <FiltersModalHeader setOpen={setOpen} />
         <div className="filter-modal-content">
-          <PartialFilter
+          {/* <PartialFilter
             filters={loadedFilters}
             setFilterSettings={setFilterSettings}
           />
           <ThreeFilter
             filters={loadedFilters}
             setFilterSettings={setFilterSettings}
-          />
+          /> */}
           <SexFilter
             filters={loadedFilters}
             setFilterSettings={setFilterSettings}
