@@ -3,12 +3,12 @@ import PropTypes from "prop-types"
 import React, { useState } from "react"
 import styled from "styled-components"
 import { FaUserCircle } from "react-icons/fa"
+import cn from "classnames"
 
 const Container = styled.header`
   display: grid;
   grid-template-columns: min-content 1fr repeat(7, min-content);
   padding-right: 2rem;
-
 
   background-color: white;
   height: var(--headerHeight);
@@ -47,12 +47,15 @@ const Container = styled.header`
   }
 
   .nav-button {
+    display: flex;
+    align-items: center;
     color: var(--primaryColor);
     white-space: nowrap;
     height: 100%;
-    padding: 1rem;
+    padding: 0 1rem;
 
     font-size: 16px;
+    text-decoration: none;
 
     &.current {
       border-bottom: 2px solid var(--primaryColor);
@@ -86,12 +89,46 @@ const Header = ({ siteTitle, pageTitle }) => {
         </Link>
       </h1>
       <h1 className="page-title">{pageTitle}</h1>
-      <button className="nav-button">Home</button>
-      <button className="nav-button">Dataset List</button>
-      <button className="nav-button current">Dataset Viewer</button>
-      <button className="nav-button">Dataset Upload</button>
-      <button className="nav-button">About</button>
-      <button className="nav-button">Contact</button>
+      <Link
+        className={cn("nav-button", {
+          current: window.location.pathname.replaceAll("/", "") === "",
+        })}
+        to="/"
+      >
+        Home
+      </Link>
+      <Link
+        className={cn("nav-button", {
+          current: window.location.pathname.replaceAll("/", "") === "database",
+        })}
+        to="/database/"
+      >
+        Database
+      </Link>
+      <Link
+        className={cn("nav-button", {
+          current: window.location.pathname.replaceAll("/", "") === "upload",
+        })}
+        to="/upload/"
+      >
+        Upload
+      </Link>
+      <Link
+        className={cn("nav-button", {
+          current: window.location.pathname.replaceAll("/", "") === "about",
+        })}
+        to="/about/"
+      >
+        About
+      </Link>
+      <Link
+        className={cn("nav-button", {
+          current: window.location.pathname.replaceAll("/", "") === "contact",
+        })}
+        to="/contact/"
+      >
+        Contact
+      </Link>
       <div className="user-account">
         {signedIn ? (
           <button

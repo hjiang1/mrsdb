@@ -74,7 +74,7 @@ const FiltersModalActions = ({
         onClick={resetFilters}
       >
         <FaRedo className="reset-icon" size="1rem" />
-        Reset Filters
+        Clear Filters
       </button>
       <div className="cancel-submit-container">
         <button className="button cancel" onClick={() => setOpen(false)}>
