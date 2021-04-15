@@ -7,7 +7,7 @@ import { FaArrowRight } from "react-icons/fa"
 import Layout from "../components/Layout"
 import Seo from "../components/Seo"
 
-import scanner from "../images/scanner.jpeg"
+import scanner from "../images/idris-oulmane-mri-scan-machine-4.jpg"
 
 const Container = styled.div`
   position: relative;
@@ -62,6 +62,8 @@ const Container = styled.div`
 
     transition: opacity 1s ease;
 
+    text-shadow: 5px 5px rgba(0, 0, 0, 0.25);
+
     &.loaded {
       opacity: 1;
     }
@@ -91,6 +93,14 @@ const Container = styled.div`
     .landing-text {
       margin: 0;
       color: #1b262c;
+      font-size: 1.15rem;
+      text-align: justify;
+      margin-bottom: 1rem;
+    }
+
+    .image-ref {
+      font-size: 0.82rem;
+      margin: 0;
     }
 
     .landing-button {
@@ -151,17 +161,25 @@ const IndexPage = () => {
         {/* <div className="overlay" /> */}
         <div className={cn("site-title", { loaded: isLoadedIn })}>MRSDB</div>
         <div className={cn("landing-card", { loaded: isLoadedIn })}>
-          <p className="landing-text">
-            MRSDB is a concept online platform for members of the magnetic
-            resonance spectroscopy community to browse, download, and share MRS
-            data across a variety research and clinical domains. By
-            standardizing and centralizing MRS datasets from sites across the
-            world, MRSDB hopes to enhance international collaboration and curate
-            a large dataset to enable robust machine learning research. This
-            site is a prototype for the Internation Society for Magnetic
-            Resonance in Medicine 2021 Annual Meeting and Exhibition and is
-            subject to change.
-          </p>
+          <div>
+            <p className="landing-text">
+              MRSDB is a concept online platform for members of the magnetic
+              resonance spectroscopy community to browse, download, and share
+              MRS data across a variety research and clinical domains. By
+              standardizing and centralizing MRS datasets from sites across the
+              world, MRSDB hopes to enhance international collaboration and
+              curate a large dataset to enable robust machine learning research.
+            </p>
+            <p className="image-ref">
+              This site is a prototype for the Internation Society for Magnetic
+              Resonance in Medicine 2021 Annual Meeting and Exhibition and is
+              subject to change.
+            </p>
+            <p className="image-ref">
+              Background image by Idris Oulmane:
+              https://www.artstation.com/artwork/AqkQDq
+            </p>
+          </div>
           <Link className="button landing-button" to="/database/">
             <div className="button-text">View the Database</div>
             <FaArrowRight size="1.5rem" />
