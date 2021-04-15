@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Link } from "gatsby"
 
 import Layout from "../components/Layout"
-import SEO from "../components/SEO"
+import Seo from "../components/Seo"
 import { FaWrench } from "react-icons/fa"
 
 const Container = styled.div`
@@ -55,7 +55,7 @@ const Container = styled.div`
 const UploadPage = () => {
   return (
     <Layout pageTitle="Upload">
-      <SEO title="Upload" />
+      <Seo title="Upload" />
       <Container>
         <div className="page-banner">
           <FaWrench className="wip-icon" />

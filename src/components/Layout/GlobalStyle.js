@@ -1,21 +1,6 @@
 import { createGlobalStyle } from "styled-components"
 
-import LatoFont from "../../fonts/Lato-Regular.ttf"
-
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: "Lato";
-    src: url(${LatoFont});
-  }
-
-  * {
-    font-family: 'Lato';
-  }
-
-  html {
-    font-size: 16px;
-  }
-
   .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */

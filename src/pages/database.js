@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa"
 
 import Layout from "../components/Layout"
-import SEO from "../components/SEO"
+import Seo from "../components/Seo"
 import FiltersModal from "../components/FiltersModal"
 import DatabaseTable from "../components/DatabaseTable"
 import data from "../components/DatabaseTable/mockData"
@@ -245,7 +245,7 @@ const Database = () => {
 
   return (
     <Layout pageTitle="Database">
-      <SEO title="Database" />
+      <Seo title="Database" />
       <Container>
         {view === "datasets" ? (
           <div className="dataset-container">
@@ -334,7 +334,7 @@ const Database = () => {
             <div className="database-table-container">
               <DatabaseTable
                 data={Object.assign({}, data, { data: filteredItems })}
-                defaultPageSize={18}
+                defaultPageSize={12}
                 setFilterModalOpen={setFilterModalOpen}
               />
             </div>
