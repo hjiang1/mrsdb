@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import {
   useTable,
@@ -7,6 +7,7 @@ import {
   useGlobalFilter,
 } from "react-table"
 import { FaFilter } from "react-icons/fa"
+import cn from "classnames"
 
 import DatabaseHeader from "./DatabaseHeader"
 import DatabaseRow from "./DatabaseRow"
@@ -35,7 +36,7 @@ const Container = styled.div`
     grid-column-gap: 0.5rem;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .database-scroll-button-container {
@@ -59,6 +60,7 @@ const Container = styled.div`
       &.clinical {
         color: #8e2a2a;
 
+        &.active-type,
         :hover {
           color: white;
           background-color: #8e2a2a;
@@ -67,6 +69,8 @@ const Container = styled.div`
 
       &.metadata {
         color: #443b3b;
+
+        &.active-type,
         :hover {
           color: white;
           background-color: #443b3b;
@@ -75,6 +79,8 @@ const Container = styled.div`
 
       &.mrs {
         color: var(--primaryColor);
+
+        &.active-type,
         :hover {
           color: white;
           background-color: var(--primaryColor);
@@ -132,6 +138,8 @@ const DatabaseTable = ({
     usePagination
   )
 
+  const [activeType, setActiveType] = useState("clinical")
+
   const jumpTo = className => {
     const jumpToElement = document.getElementsByClassName(
       `header-cell ${className}`
@@ -144,24 +152,52 @@ const DatabaseTable = ({
         : jumpToElement.offsetLeft + 1
   }
 
+  const onTableScroll = e => {
+    const scrollPos = e.target.scrollLeft
+    const metadata = document.getElementsByClassName("header-cell metadata")[0]
+      .offsetLeft
+    const mrs = document.getElementsByClassName("header-cell mrs")[0].offsetLeft
+
+    if (scrollPos < metadata && activeType !== "clinical") {
+      setActiveType("clinical")
+    } else if (scrollPos >= mrs && activeType !== "mrs") {
+      setActiveType("mrs")
+    } else if (
+      scrollPos >= metadata &&
+      scrollPos < mrs &&
+      activeType !== "metadata"
+    ) {
+      setActiveType("metadata")
+    }
+  }
+
   return (
     <Container>
       <div className="search-bar-container">
         <div className="database-scroll-button-container">
           Jump to:
           <button
-            className="scroll-button clinical"
+            className={cn("scroll-button clinical", {
+              "active-type": activeType === "clinical",
+            })}
             onClick={() => jumpTo("clinical")}
           >
             Clinical Data
           </button>
           <button
-            className="scroll-button metadata"
+            className={cn("scroll-button metadata", {
+              "active-type": activeType === "metadata",
+            })}
             onClick={() => jumpTo("metadata")}
           >
             Scan Metadata
           </button>
-          <button className="scroll-button mrs" onClick={() => jumpTo("mrs")}>
+          <button
+            className={cn("scroll-button mrs", {
+              "active-type": activeType === "mrs",
+            })}
+            onClick={() => jumpTo("mrs")}
+          >
             MRS Data
           </button>
         </div>
@@ -178,7 +214,11 @@ const DatabaseTable = ({
           setGlobalFilter={setGlobalFilter}
         />
       </div>
-      <table className="database-table" {...getTableProps()}>
+      <table
+        className="database-table"
+        {...getTableProps()}
+        onScroll={onTableScroll}
+      >
         <DatabaseHeader headerGroups={headerGroups} />
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {

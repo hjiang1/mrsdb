@@ -28,11 +28,11 @@ const Container = styled.div`
   }
 `
 
-const SpectrumModalHeader = ({ setOpen }) => {
+const SpectrumModalHeader = ({ closeModal }) => {
   return (
     <Container>
       <h1 className="filter-modal-title">View Spectrum</h1>
-      <button className="close-button" onClick={() => setOpen(false)}>
+      <button className="close-button" onClick={closeModal}>
         <FaTimes size="1.5rem" />
       </button>
     </Container>
