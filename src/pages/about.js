@@ -1,8 +1,5 @@
-import React, { useEffect, useState, useRef } from "react"
-import { Link } from "gatsby"
+import React from "react"
 import styled from "styled-components"
-import cn from "classnames"
-import { FaArrowRight } from "react-icons/fa"
 
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
