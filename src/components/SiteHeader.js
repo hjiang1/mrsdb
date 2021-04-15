@@ -52,7 +52,7 @@ const Container = styled.header`
     color: var(--primaryColor);
     white-space: nowrap;
     height: 100%;
-    padding: 1rem;
+    padding: 0 1rem;
 
     font-size: 16px;
     text-decoration: none;
@@ -108,10 +108,20 @@ const Header = ({ siteTitle, pageTitle }) => {
       <Link className="nav-button" to="/">
         Upload
       </Link>
-      <Link className="nav-button" to="/">
+      <Link
+        className={cn("nav-button", {
+          current: window.location.pathname === "/about/",
+        })}
+        to="/about/"
+      >
         About
       </Link>
-      <Link className="nav-button" to="/">
+      <Link
+        className={cn("nav-button", {
+          current: window.location.pathname === "/contact/",
+        })}
+        to="/contact/"
+      >
         Contact
       </Link>
       <div className="user-account">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 import cn from "classnames"
@@ -123,11 +123,10 @@ const Container = styled.div`
 `
 
 const IndexPage = () => {
-  const firstLoad = useRef(true)
   const [isLoadedIn, setLoadedIn] = useState(false)
 
   useEffect(() => {
-    if (document.readyState == "complete") {
+    if (document.readyState === "complete") {
       // If page is fully loaded, trigger animation on mount
       setLoadedIn(true)
     }
@@ -151,9 +150,9 @@ const IndexPage = () => {
             resonance spectroscopy community to browse, download, and share MRS
             data across a variety research and clinical domains. By
             standardizing and centralizing MRS datasets from sites across the
-            world, MRSDB hopes to enhance interanational collaboration and
-            curate a large dataset to enable robust machine learning research.
-            This site is a prototype for the Internation Society for Magnetic
+            world, MRSDB hopes to enhance international collaboration and curate
+            a large dataset to enable robust machine learning research. This
+            site is a prototype for the Internation Society for Magnetic
             Resonance in Medicine 2021 Conference and is subject to change.
           </p>
           <Link className="button landing-button" to="/database/">
