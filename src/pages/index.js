@@ -129,13 +129,19 @@ const IndexPage = () => {
     if (document.readyState === "complete") {
       // If page is fully loaded, trigger animation on mount
       setLoadedIn(true)
+    } else {
+      var loadIn = () => {
+        // If page is not fully loaded, trigger animation on load
+        setLoadedIn(true)
+      }
+
+      window.addEventListener("load", loadIn)
+    }
+
+    return () => {
+      window.removeEventListener("load", loadIn)
     }
   }, [])
-
-  window.addEventListener("load", () => {
-    // If page is not fully loaded, trigger animation on load
-    setLoadedIn(true)
-  })
 
   return (
     <Layout pageTitle="Home">
