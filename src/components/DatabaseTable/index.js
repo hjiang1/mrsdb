@@ -93,7 +93,11 @@ const Container = styled.div`
   }
 `
 
-const DatabaseTable = ({ data: { data, columns }, defaultPageSize, setFilterModalOpen }) => {
+const DatabaseTable = ({
+  data: { data, columns },
+  defaultPageSize,
+  setFilterModalOpen,
+}) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -161,7 +165,10 @@ const DatabaseTable = ({ data: { data, columns }, defaultPageSize, setFilterModa
             MRS Data
           </button>
         </div>
-        <button className="button white filter-button" onClick={setFilterModalOpen}>
+        <button
+          className="button white filter-button"
+          onClick={setFilterModalOpen}
+        >
           <FaFilter size="1rem" color="#0f4c75" />
           <div className="button-text">Filters</div>
         </button>

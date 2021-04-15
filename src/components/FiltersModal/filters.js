@@ -144,7 +144,7 @@ export const filterHeight = (data, options) => {
 // Default filter values
 export const defaultFilters = {
   complete: {
-    remove: false,
+    remove: true,
   },
   sex: {
     Male: true,

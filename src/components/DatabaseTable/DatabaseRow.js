@@ -1,7 +1,9 @@
-import React from "react"
+import React, { Fragment, useState } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import cn from "classnames"
+
+import SpectrumModal from "../SpectrumModal"
 
 const Container = styled.tr`
   background-color: white;
@@ -36,26 +38,59 @@ const Container = styled.tr`
   }
 
   :focus {
-    /* background-color: #d9f0ff;
-    outline-color: var(--primaryColor); */
-    outline: none;
+    background-color: #d9f0ff;
+    outline-color: var(--primaryColor);
+    /* outline: none; */
   }
 `
 
 const DatabaseRow = ({ row, alternate }) => {
+  const [isSpectrumOpen, setSpectrumOpen] = useState(false)
+
+  const modalData = {
+    pid: row.cells[1].value,
+    sex: row.cells[2].value,
+    age: row.cells[3].value,
+    height: row.cells[4].value,
+    weight: row.cells[5].value,
+    sport: row.cells[6].value,
+    group: row.cells[7].value,
+    date: row.cells[8].value,
+    site: row.cells[9].value,
+    vendor: row.cells[10].value,
+    software: row.cells[11].value,
+    voxel_type: row.cells[12].value,
+    brain_location: row.cells[13].value,
+    TE: row.cells[14].value,
+    TR: row.cells[15].value,
+  }
+
   return (
-    <Container {...row.getRowProps()}>
-      {row.cells.map(cell => {
-        return (
-          <td
-            className={cn("table-cell", { alternate })}
-            {...cell.getCellProps()}
-          >
-            {cell.render("Cell")}
-          </td>
-        )
-      })}
-    </Container>
+    <Fragment>
+      <Container
+        tabIndex={0}
+        {...row.getRowProps()}
+        onClick={() => {
+          setSpectrumOpen(true)
+        }}
+      >
+        {row.cells.map(cell => {
+          return (
+            <td
+              className={cn("table-cell", { alternate })}
+              {...cell.getCellProps()}
+            >
+              {cell.render("Cell")}
+            </td>
+          )
+        })}
+      </Container>
+      <SpectrumModal
+        isOpen={isSpectrumOpen}
+        setOpen={setSpectrumOpen}
+        data={modalData}
+      />
+    </Fragment>
   )
 }
 
