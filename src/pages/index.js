@@ -5,7 +5,7 @@ import cn from "classnames"
 import { FaArrowRight } from "react-icons/fa"
 
 import Layout from "../components/Layout"
-import SEO from "../components/SEO"
+import Seo from "../components/Seo"
 
 import scanner from "../images/scanner.jpeg"
 
@@ -89,7 +89,7 @@ const Container = styled.div`
     }
 
     .landing-text {
-      /* max-width: 600px; */
+      margin: 0;
       color: #1b262c;
     }
 
@@ -145,7 +145,7 @@ const IndexPage = () => {
 
   return (
     <Layout pageTitle="Home">
-      <SEO title="MRSDB" />
+      <Seo title="MRSDB" />
       <Container>
         <div className={cn("swipe-in", { loaded: isLoadedIn })} />
         {/* <div className="overlay" /> */}

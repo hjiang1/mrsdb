@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 import Layout from "../components/Layout"
-import SEO from "../components/SEO"
+import Seo from "../components/Seo"
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ const Container = styled.div`
 const ContactPage = () => {
   return (
     <Layout pageTitle="About">
-      <SEO title="About" />
+      <Seo title="About" />
       <Container>
         <div className="page-title">About MRSDB</div>
         <div className="page-content">
