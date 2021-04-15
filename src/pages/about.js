@@ -47,7 +47,7 @@ const Container = styled.div`
 
 const ContactPage = () => {
   return (
-    <Layout>
+    <Layout pageTitle="About">
       <SEO title="About" />
       <Container>
         <div className="page-title">About MRSDB</div>

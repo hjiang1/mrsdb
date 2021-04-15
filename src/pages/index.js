@@ -138,7 +138,7 @@ const IndexPage = () => {
   })
 
   return (
-    <Layout>
+    <Layout pageTitle="Home">
       <SEO title="MRSDB" />
       <Container>
         <div className={cn("swipe-in", { loaded: isLoadedIn })} />

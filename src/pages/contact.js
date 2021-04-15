@@ -1,13 +1,8 @@
-import React, { useEffect, useState, useRef } from "react"
-import { Link } from "gatsby"
+import React from "react"
 import styled from "styled-components"
-import cn from "classnames"
-import { FaArrowRight } from "react-icons/fa"
 
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
-
-import scanner from "../images/scanner.jpeg"
 
 const Container = styled.div`
   display: flex;
@@ -42,7 +37,7 @@ const Container = styled.div`
 
 const ContactPage = () => {
   return (
-    <Layout>
+    <Layout pageTitle="Contact">
       <SEO title="Contact" />
       <Container>
         <div className="page-title">Contact Us</div>
