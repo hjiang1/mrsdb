@@ -91,7 +91,7 @@ const Header = ({ siteTitle, pageTitle }) => {
       <h1 className="page-title">{pageTitle}</h1>
       <Link
         className={cn("nav-button", {
-          current: window.location.pathname.replaceAll("/", "") === "",
+          current: pageTitle === "Home",
         })}
         to="/"
       >
@@ -99,7 +99,7 @@ const Header = ({ siteTitle, pageTitle }) => {
       </Link>
       <Link
         className={cn("nav-button", {
-          current: window.location.pathname.replaceAll("/", "") === "database",
+          current: pageTitle === "Database",
         })}
         to="/database/"
       >
@@ -107,7 +107,7 @@ const Header = ({ siteTitle, pageTitle }) => {
       </Link>
       <Link
         className={cn("nav-button", {
-          current: window.location.pathname.replaceAll("/", "") === "upload",
+          current: pageTitle === "Upload",
         })}
         to="/upload/"
       >
@@ -115,7 +115,7 @@ const Header = ({ siteTitle, pageTitle }) => {
       </Link>
       <Link
         className={cn("nav-button", {
-          current: window.location.pathname.replaceAll("/", "") === "about",
+          current: pageTitle === "About",
         })}
         to="/about/"
       >
@@ -123,7 +123,7 @@ const Header = ({ siteTitle, pageTitle }) => {
       </Link>
       <Link
         className={cn("nav-button", {
-          current: window.location.pathname.replaceAll("/", "") === "contact",
+          current: pageTitle === "Contact",
         })}
         to="/contact/"
       >
