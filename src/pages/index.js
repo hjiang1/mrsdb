@@ -77,7 +77,7 @@ const Container = styled.div`
     padding: 2rem 3rem;
     opacity: 0;
     margin-left: 5rem;
-    width: 74rem;
+    width: 75rem;
 
     border: 1px solid gray;
     box-shadow: 5px 5px rgba(0, 0, 0, 0.25);
@@ -153,7 +153,8 @@ const IndexPage = () => {
             world, MRSDB hopes to enhance international collaboration and curate
             a large dataset to enable robust machine learning research. This
             site is a prototype for the Internation Society for Magnetic
-            Resonance in Medicine 2021 Conference and is subject to change.
+            Resonance in Medicine 2021 Annual Meeting and Exhibition and is
+            subject to change.
           </p>
           <Link className="button landing-button" to="/database/">
             <div className="button-text">View the Database</div>
