@@ -92,7 +92,7 @@ const Container = styled.div`
   }
 `
 
-const SpectrumModal = ({ isOpen, setOpen, data }) => {
+const SpectrumModal = ({ isOpen, closeModal, data }) => {
   const [spectrumIndex, setSpectrumIndex] = useState(0)
 
   const maxSpectrumIndex = spectrumSeries.length - 1
@@ -100,7 +100,7 @@ const SpectrumModal = ({ isOpen, setOpen, data }) => {
   return (
     <Modal isOpen={isOpen}>
       <Container>
-        <SpectrumModalHeader setOpen={setOpen} />
+        <SpectrumModalHeader closeModal={closeModal} />
         <div className="modal-content">
           <div className="metadata-widget">
             <div className="metadata-type">Participant Info</div>

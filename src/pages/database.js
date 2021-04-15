@@ -5,9 +5,9 @@ import {
   FaDownload,
   FaFilter,
   FaExclamation,
-  FaRedo,
   FaInfoCircle,
   FaSearch,
+  FaArrowLeft,
 } from "react-icons/fa"
 
 import Layout from "../components/Layout"
@@ -123,17 +123,22 @@ const Container = styled.div`
     padding: 1rem 2rem;
 
     .database-header {
-      display: grid;
-      grid-template-columns: 1fr min-content min-content;
-      grid-column-gap: 0.5rem;
-      grid-template-areas:
-        "title change-button download-button"
-        "metadata . .";
+      width: 100%;
 
+      display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 100%;
+
+      padding-bottom: 1rem;
       margin-bottom: 1rem;
+
+      border-bottom: 1px solid var(--primaryColor);
+
+      .dataset-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
       .dataset-title {
         grid-area: title;
@@ -302,26 +307,32 @@ const Database = () => {
         ) : (
           <div className="database-content">
             <div className="database-header">
-              <span className="dataset-title">
-                {data.title}
-                <button className="info-button">
-                  <FaInfoCircle
-                    className="button-icon"
-                    size="2rem"
-                    color="#0f4c75"
-                  />
-                </button>
-              </span>
-              <span className="dataset-metadata">
-                Center for Clinical Spectroscopy, Brigham and Women's Hospital
-              </span>
               <button
                 className="button white change-button"
                 onClick={() => setView("datasets")}
               >
-                <FaRedo className="button-icon" size="1rem" color="#0f4c75" />
-                <div className="button-text">Change Dataset</div>
+                <FaArrowLeft
+                  className="button-icon"
+                  size="1rem"
+                  color="#0f4c75"
+                />
+                <div className="button-text">Back to Dataset List</div>
               </button>
+              <div className="dataset-info">
+                <span className="dataset-title">
+                  {data.title}
+                  <button className="info-button">
+                    <FaInfoCircle
+                      className="button-icon"
+                      size="2rem"
+                      color="#0f4c75"
+                    />
+                  </button>
+                </span>
+                <span className="dataset-metadata">
+                  Center for Clinical Spectroscopy, Brigham and Women's Hospital
+                </span>
+              </div>
               <button className="button white download-button">
                 <FaDownload
                   className="button-icon"
@@ -334,7 +345,7 @@ const Database = () => {
             <div className="database-table-container">
               <DatabaseTable
                 data={Object.assign({}, data, { data: filteredItems })}
-                defaultPageSize={12}
+                defaultPageSize={15}
                 setFilterModalOpen={setFilterModalOpen}
               />
             </div>

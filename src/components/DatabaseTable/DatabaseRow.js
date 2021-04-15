@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useState, createRef } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import cn from "classnames"
@@ -12,7 +12,7 @@ const Container = styled.tr`
   font-size: 14px;
 
   .table-cell {
-    padding: 0.5rem;
+    padding: 0.25rem 0.5rem;
     border: none;
     width: max-content;
     white-space: nowrap;
@@ -40,7 +40,6 @@ const Container = styled.tr`
   :focus {
     background-color: #d9f0ff;
     outline-color: var(--primaryColor);
-    /* outline: none; */
   }
 `
 
@@ -65,6 +64,14 @@ const DatabaseRow = ({ row, alternate }) => {
     TR: row.cells[15].value,
   }
 
+  const closeSpectrumModal = () => {
+    setSpectrumOpen(false)
+
+    containerRef.current.focus()
+  }
+
+  const containerRef = createRef()
+
   return (
     <Fragment>
       <Container
@@ -73,6 +80,7 @@ const DatabaseRow = ({ row, alternate }) => {
         onClick={() => {
           setSpectrumOpen(true)
         }}
+        ref={containerRef}
       >
         {row.cells.map(cell => {
           return (
@@ -87,7 +95,7 @@ const DatabaseRow = ({ row, alternate }) => {
       </Container>
       <SpectrumModal
         isOpen={isSpectrumOpen}
-        setOpen={setSpectrumOpen}
+        closeModal={closeSpectrumModal}
         data={modalData}
       />
     </Fragment>

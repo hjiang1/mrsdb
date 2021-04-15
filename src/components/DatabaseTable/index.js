@@ -35,7 +35,7 @@ const Container = styled.div`
     grid-column-gap: 0.5rem;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .database-scroll-button-container {
