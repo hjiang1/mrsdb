@@ -52,6 +52,7 @@ const ContactPage = () => {
         <a
           href="https://mrsdb.spectroscopy.org"
           target="_blank"
+          rel="noreferrer"
           className="item-value"
         >
           https://mrsdb.spectroscopy.org

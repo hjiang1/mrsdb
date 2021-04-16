@@ -56,29 +56,29 @@ const ContactPage = () => {
             of MRSDB. The real-life reference library is a unique collection of
             MRS studies across a multitude of subject matters that include
             traumatic brain injuries, brain tumors, psychiatric, and metabolic
-            disorders, and includes over 2,000 brain samples using single-voxel
+            disorders, and includes over 4,000 brain samples using single-voxel
             spectroscopy and tens of thousands oftissue samples using
             spectroscopic imaging. Using these datasets, promising ML
             applications have been identified, such as modeling brain
             tissuecompositions from metabolic components, automation of data
             preprocessing and quantification of spectral signals, and modeling
-            of behavioral andcognitive scores from brain metabolites in former
+            of behavioral and cognitive scores from brain metabolites in former
             football players.
           </div>
           <hr className="divider" />
           <div className="paragraph-title">Standardized Data Format</div>
           <div className="paragraph-value">
             One goal of this project is to extend the Brain Imaging Data
-            Structure (BIDS) format to encompass MRS. Once achieved, allcurrent
+            Structure (BIDS) format to encompass MRS. Once achieved, all current
             and future data acquired from different sites and systems will be
             harmonized and standardized using the BIDS format. This will allow
-            theincorporation of BIDS-compatible multimodal data formats into the
-            database. One example is MR imaging, such as structural imaging (T1,
-            T2, FLAIR),diffusion-weighted imaging, and functional MRI, which are
-            often acquired alongside MR spectroscopy. Furthermore, a universal
-            data format willencourage users to contribute their own data to
-            improve and scale the database, thereby enabling the development of
-            more complex and robust MLmodels over time.
+            the incorporation of BIDS-compatible multimodal data formats into
+            the database. One example is MR imaging, such as structural imaging
+            (T1, T2, FLAIR), diffusion-weighted imaging, and functional MRI,
+            which are often acquired alongside MR spectroscopy. Furthermore, a
+            universal data format will encourage users to contribute their own
+            data to improve and scale the database, thereby enabling the
+            development of more complex and robust ML models over time.
           </div>
           <hr className="divider" />
           <div className="paragraph-title">
@@ -91,9 +91,9 @@ const ContactPage = () => {
             quantify raw MRS data and obtain relative, pseudo-absolute, and
             absolute concentrations in mmol/L and mmol/Kg. This service will
             interface with the LCModel command-line API to compute these values
-            usingspectroscopy data, corresponding water reference data, and
+            using spectroscopy data, corresponding water reference data, and
             anatomical volumes. In addition, volume fractions of gray matter,
-            white matter, andc erebrospinal fluid in acquired voxel locations
+            white matter, and cerebrospinal fluid in acquired voxel locations
             will be extracted from incorporated anatomical information (T1w,
             T2w, FLAIR) during the data processing pipeline. These components
             will be added to the database metadata, which will provide
@@ -103,14 +103,14 @@ const ContactPage = () => {
           <div className="paragraph-title">Web Architecture and Resources</div>
           <div className="paragraph-value">
             The user interface of the database will be a streamlined web
-            application that will facilitate efficient browsing,uploading, and
+            application that will facilitate efficient browsing, uploading, and
             downloading of MRS data. This platform will be built using ReactJS,
-            a modular and scalable modern web development frameworkthat will
+            a modular and scalable modern web development framework that will
             allow new features to be added iteratively to accommodate new sites
             and datasets. The data library will be stored in PostgreSQL, a
-            secure andscalable open-source relational database. The Django
+            secure and scalable open-source relational database. The Django
             back-end service will also handle communications between the
-            database and user interface, whichwill be secured behind a
+            database and user interface, which will be secured behind a
             user-authentication system to prevent unauthorized access of study
             data and PHI.
           </div>
