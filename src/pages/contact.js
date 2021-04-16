@@ -60,7 +60,7 @@ const ContactPage = () => {
         <div className="item-title">Email</div>
         <div className="item-value">hjiang@bwh.harvard.edu</div>
         <div className="item-title">Phone</div>
-        <div className="item-value">+1 (123) 456-7890</div>
+        <div className="item-value">+1 (617) 525-5801</div>
         <div className="item-title">Address</div>
         <div className="item-value">221 Longwood Ave, BLI-236B</div>
         <div className="item-value">Boston, MA 02115, USA</div>
