@@ -188,7 +188,7 @@ export const defaultFilters = {
     Uncategorized: true,
   },
   weight: {
-    min: 101,
+    min: 121,
     max: 220,
     Uncategorized: true,
   },
