@@ -31,6 +31,8 @@ const Container = styled.div`
   }
 
   .item-value {
+    color: black;
+    text-decoration: none;
     margin-top: 0.5rem;
   }
 `
@@ -46,6 +48,14 @@ const ContactPage = () => {
           contact the Center for Clinical Spectroscopy using any of the methods
           below.
         </div>
+        <div className="item-title">Visit</div>
+        <a
+          href="https://mrsdb.spectroscopy.org"
+          target="_blank"
+          className="item-value"
+        >
+          https://mrsdb.spectroscopy.org
+        </a>
         <div className="item-title">Email</div>
         <div className="item-value">hjiang@bwh.harvard.edu</div>
         <div className="item-title">Phone</div>
