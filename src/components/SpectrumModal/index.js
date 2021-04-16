@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import cn from "classnames"
 
 import Modal from "../Modal"
 import SpectrumModalHeader from "./SpectrumModalHeader"
@@ -55,12 +56,14 @@ const Container = styled.div`
     .spectrum-container {
       position: relative;
       border: 2px solid var(--primaryColor);
-    }
 
-    .spectrum {
-      position: absolute;
-      top: 0;
-      left: 0;
+      .spectrum-image {
+        display: none;
+
+        &.active {
+          display: initial;
+        }
+      }
     }
 
     .counter {
@@ -181,11 +184,15 @@ const SpectrumModal = ({ isOpen, closeModal, data }) => {
               <FaAngleLeft size="2.5rem" />
             </button>
             <div className="spectrum-container">
-              <img
-                className="spectrum-image"
-                src={spectrumSeries[spectrumIndex]}
-                alt="spectrum"
-              />
+              {spectrumSeries.map((spectrum, i) => (
+                <img
+                  className={cn("spectrum-image", {
+                    active: i === spectrumIndex,
+                  })}
+                  src={spectrum}
+                  alt="spectrum"
+                />
+              ))}
               <div className="counter">{`${spectrumIndex + 1}/${
                 maxSpectrumIndex + 1
               }`}</div>
