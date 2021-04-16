@@ -55,6 +55,8 @@ const Container = styled.div`
 
         .search-icon {
           padding: 0 0.5rem;
+          height: 2rem;
+          width: 2rem;
         }
 
         .search-input {
@@ -270,15 +272,15 @@ const Database = () => {
             <div className="dataset-list">
               <div className="dataset-item">
                 <div className="dataset-data">
-                  <div className="dataset-name">DOD Study</div>
+                  <div className="dataset-name">CCS Normative Data</div>
                   <div className="dataset-site">
                     Center for Clinical Spectroscopy, Brigham and Women's
                     Hospital
                   </div>
                   <div className="dataset-description">
-                    US DOD battlefield mTBI study
+                    Combined normative data from multiple 3T studies
                   </div>
-                  <div className="dataset-description">200 Sequences</div>
+                  <div className="dataset-description">200 Voxels</div>
                 </div>
                 <button className="button" onClick={() => setView("viewer")}>
                   View
@@ -294,9 +296,9 @@ const Database = () => {
                     Hospital
                   </div>
                   <div className="dataset-description">
-                    Sports-related TBI study
+                    Mock data generated from a sports-related TBI study
                   </div>
-                  <div className="dataset-description">302 Sequences</div>
+                  <div className="dataset-description">302 Voxels</div>
                 </div>
                 <button className="button" onClick={() => setView("viewer")}>
                   View
@@ -345,7 +347,7 @@ const Database = () => {
             <div className="database-table-container">
               <DatabaseTable
                 data={Object.assign({}, data, { data: filteredItems })}
-                defaultPageSize={15}
+                defaultPageSize={18}
                 setFilterModalOpen={setFilterModalOpen}
               />
             </div>
