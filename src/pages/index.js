@@ -53,8 +53,7 @@ const Container = styled.div`
     align-self: top;
     z-index: 10;
     opacity: 0;
-    margin: 0 5rem;
-    margin-bottom: 2rem;
+    margin: 2rem 5rem;
     text-align: left;
 
     font-weight: bold;
@@ -63,10 +62,14 @@ const Container = styled.div`
 
     transition: opacity 1s ease;
 
-    text-shadow: 5px 5px rgba(0, 0, 0, 0.25);
+    text-shadow: 0.2rem 0.2rem rgba(0, 0, 0, 0.25);
 
     &.loaded {
       opacity: 1;
+    }
+
+    @media screen and (max-width: 1024px) {
+      font-size: 7rem;
     }
 
     @media screen and (max-width: 768px) {
@@ -96,9 +99,10 @@ const Container = styled.div`
 
     transition: opacity 1s ease;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1024px) {
       flex-direction: column;
-      margin: 0 4rem;
+      margin: 0;
+      box-shadow: none;
     }
 
     @media screen and (max-width: 480px) {
@@ -116,7 +120,7 @@ const Container = styled.div`
       text-align: justify;
       margin-bottom: 1rem;
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 1024px) {
         font-size: 1rem;
       }
 
@@ -139,7 +143,7 @@ const Container = styled.div`
       padding: 1rem;
       text-decoration: none;
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 1024px) {
         margin: 1rem 0 0;
         align-self: flex-start;
       }

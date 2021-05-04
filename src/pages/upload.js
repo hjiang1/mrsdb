@@ -9,9 +9,10 @@ import { FaWrench } from "react-icons/fa"
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
+  margin-top: 2rem;
 
   .page-title {
     color: var(--primaryColor);
@@ -23,7 +24,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 1rem;
+    margin: 2rem;
 
     .wip-icon {
       margin-right: 1rem;
