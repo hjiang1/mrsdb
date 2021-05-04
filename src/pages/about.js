@@ -8,6 +8,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+
+  margin-top: 2rem;
 
   .page-title {
     color: var(--primaryColor);
@@ -22,6 +25,10 @@ const Container = styled.div`
     align-items: center;
     padding: 0 20%;
     margin-bottom: 5rem;
+
+    @media screen and (max-width: 768px) {
+      padding: 0 10%;
+    }
 
     .paragraph-title {
       color: var(--primaryColor);

@@ -7,14 +7,16 @@ import Seo from "../components/Seo"
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
+  margin-top: 2rem;
 
   .page-title {
     color: var(--primaryColor);
     font-weight: bold;
     font-size: 2rem;
+    margin: 2rem;
   }
 
   .page-description {
