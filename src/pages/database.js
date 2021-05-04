@@ -26,12 +26,6 @@ const Database = () => {
   const [filteredItems, setFilteredItems] = useState([])
   const [isFilterModalOpen, setFilterModalOpen] = useState(false)
 
-  useEffect(() => {
-    const windowHeight = window.innerHeight
-
-    console.log("WH:", windowHeight)
-  }, [])
-
   // Filter rows when filters change
   useEffect(() => {
     let newFilteredItems = [...data.data]

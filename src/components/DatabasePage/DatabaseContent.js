@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import {
   FaDownload,
@@ -124,6 +124,15 @@ const DatasetContent = ({
   setFilterModalOpen,
   setView,
 }) => {
+  const [defaultPageSize, setDefaultPageSize] = useState(false)
+
+  useEffect(() => {
+    const windowHeight = window.innerHeight
+    const numRows = parseInt(windowHeight / 60)
+
+    setDefaultPageSize(numRows)
+  }, [])
+
   return (
     <Container className="database-content">
       <div className="database-header">
@@ -155,11 +164,15 @@ const DatasetContent = ({
         </button>
       </div>
       <div className="database-table-container">
-        <DatabaseTable
-          data={Object.assign({}, data, { data: filteredItems })}
-          defaultPageSize={18}
-          setFilterModalOpen={setFilterModalOpen}
-        />
+        {defaultPageSize ? (
+          <DatabaseTable
+            data={Object.assign({}, data, { data: filteredItems })}
+            defaultPageSize={defaultPageSize}
+            setFilterModalOpen={setFilterModalOpen}
+          />
+        ) : (
+          <div>Loading...</div>
+        )}
       </div>
       {!filtersMatchDefault && filteredItems.length === 0 && (
         <div className="no-data-warning">
