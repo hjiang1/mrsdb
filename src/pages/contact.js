@@ -60,7 +60,14 @@ const ContactPage = () => {
           https://mrsdb.spectroscopy.org
         </a>
         <div className="item-title">Email</div>
-        <div className="item-value">hjiang@bwh.harvard.edu</div>
+        <div className="item-value">
+          <a
+            href="mailto: hjiang@bwh.harvard.edu?subject=MRSDB Inquiry"
+            target="_blank"
+          >
+            hjiang@bwh.harvard.edu
+          </a>
+        </div>
         <div className="item-title">Phone</div>
         <div className="item-value">+1 (617) 525-5801</div>
         <div className="item-title">Address</div>
