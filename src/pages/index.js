@@ -53,8 +53,9 @@ const Container = styled.div`
     align-self: top;
     z-index: 10;
     opacity: 0;
-    margin-left: 5rem;
+    margin: 0 5rem;
     margin-bottom: 2rem;
+    text-align: left;
 
     font-weight: bold;
     font-size: 10rem;
@@ -67,6 +68,15 @@ const Container = styled.div`
     &.loaded {
       opacity: 1;
     }
+
+    @media screen and (max-width: 768px) {
+      font-size: 5.25rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 2.75rem;
+      text-align: center;
+    }
   }
 
   .landing-card {
@@ -78,13 +88,22 @@ const Container = styled.div`
     background-color: white;
     padding: 2rem 3rem;
     opacity: 0;
-    margin-left: 5rem;
-    width: 75rem;
+    margin: 0 5rem;
+    max-width: 75rem;
 
     border: 1px solid gray;
     box-shadow: 5px 5px rgba(0, 0, 0, 0.25);
 
     transition: opacity 1s ease;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      margin: 0 4rem;
+    }
+
+    @media screen and (max-width: 480px) {
+      margin: 0;
+    }
 
     &.loaded {
       opacity: 1;
@@ -96,6 +115,14 @@ const Container = styled.div`
       font-size: 1.15rem;
       text-align: justify;
       margin-bottom: 1rem;
+
+      @media screen and (max-width: 768px) {
+        font-size: 1rem;
+      }
+
+      @media screen and (max-width: 480px) {
+        font-size: 0.75rem;
+      }
     }
 
     .image-ref {
@@ -111,6 +138,15 @@ const Container = styled.div`
       height: 3rem;
       padding: 1rem;
       text-decoration: none;
+
+      @media screen and (max-width: 768px) {
+        margin: 1rem 0 0;
+        align-self: flex-start;
+      }
+
+      @media screen and (max-width: 480px) {
+        align-self: center;
+      }
 
       .button-text {
         color: white;

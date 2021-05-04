@@ -14,6 +14,10 @@ const Container = styled.footer`
   justify-content: space-between;
   padding: 5rem 10%;
 
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+
   .footer-content {
     display: flex;
     flex-direction: column;
@@ -37,6 +41,10 @@ const Container = styled.footer`
     flex-direction: column;
     align-items: flex-start;
 
+    @media screen and (max-width: 768px) {
+      margin-top: 2rem;
+    }
+
     .logo {
       flex-grow: 0;
 
@@ -47,6 +55,7 @@ const Container = styled.footer`
 
       &.hms {
         height: 2rem;
+        margin-bottom: 0;
       }
     }
   }
