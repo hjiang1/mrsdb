@@ -161,50 +161,47 @@ const Container = styled.header`
     }
   }
 
-  .dropdown-menu-container {
-    overflow: hidden;
+  .dropdown-menu-content {
     position: absolute;
     left: 0;
     width: 100%;
     z-index: 100;
 
-    .dropdown-menu-content {
+    display: flex;
+    flex-direction: column;
+
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 0.1s ease;
+
+    &.open {
+      transform: scaleY(1);
+    }
+
+    .nav-button {
+      width: 100%;
+      height: 5rem;
+
+      background-color: white;
+      border-bottom: 1px solid var(--primaryColor);
+
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      color: var(--primaryColor);
+      white-space: nowrap;
+      padding: 0 1rem;
 
-      transform-origin: top;
-      transform: scaleY(0);
-      transition: transform 0.1s ease;
+      font-size: 16px;
+      text-decoration: none;
 
-      &.open {
-        transform: scaleY(1);
+      &.current {
+        font-weight: bold;
+        text-decoration: underline;
+        background-color: #d9f0ff;
       }
 
-      .nav-button {
-        width: 100%;
-        height: 5rem;
-
-        background-color: white;
-        border-bottom: 1px solid var(--primaryColor);
-
-        display: flex;
-        align-items: center;
-        color: var(--primaryColor);
-        white-space: nowrap;
-        padding: 0 1rem;
-
-        font-size: 16px;
-        text-decoration: none;
-
-        &.current {
-          font-weight: bold;
-          text-decoration: underline;
-          background-color: #d9f0ff;
-        }
-
-        :hover {
-          background-color: #d9f0ff;
-        }
+      :hover {
+        background-color: #d9f0ff;
       }
     }
   }
@@ -305,49 +302,47 @@ const Header = ({ siteTitle, pageTitle }) => {
           </div>
         </div>
       </div>
-      <div className="dropdown-menu-container">
-        <div className={cn("dropdown-menu-content", { open: isDropdownOpen })}>
-          <Link
-            className={cn("nav-button", {
-              current: pageTitle === "Home",
-            })}
-            to="/"
-          >
-            Home
-          </Link>
-          <Link
-            className={cn("nav-button", {
-              current: pageTitle === "Database",
-            })}
-            to="/database/"
-          >
-            Database
-          </Link>
-          <Link
-            className={cn("nav-button", {
-              current: pageTitle === "Upload",
-            })}
-            to="/upload/"
-          >
-            Upload
-          </Link>
-          <Link
-            className={cn("nav-button", {
-              current: pageTitle === "About",
-            })}
-            to="/about/"
-          >
-            About
-          </Link>
-          <Link
-            className={cn("nav-button", {
-              current: pageTitle === "Contact",
-            })}
-            to="/contact/"
-          >
-            Contact
-          </Link>
-        </div>
+      <div className={cn("dropdown-menu-content", { open: isDropdownOpen })}>
+        <Link
+          className={cn("nav-button", {
+            current: pageTitle === "Home",
+          })}
+          to="/"
+        >
+          Home
+        </Link>
+        <Link
+          className={cn("nav-button", {
+            current: pageTitle === "Database",
+          })}
+          to="/database/"
+        >
+          Database
+        </Link>
+        <Link
+          className={cn("nav-button", {
+            current: pageTitle === "Upload",
+          })}
+          to="/upload/"
+        >
+          Upload
+        </Link>
+        <Link
+          className={cn("nav-button", {
+            current: pageTitle === "About",
+          })}
+          to="/about/"
+        >
+          About
+        </Link>
+        <Link
+          className={cn("nav-button", {
+            current: pageTitle === "Contact",
+          })}
+          to="/contact/"
+        >
+          Contact
+        </Link>
       </div>
     </Container>
   )
