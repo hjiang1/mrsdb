@@ -16,6 +16,11 @@ const GlobalStyle = createGlobalStyle`
     --primaryColor: #0f4c75;
     --headerHeight: 4rem;
 
+    /* --mobile: 480px;
+    --tablet: 768px;
+    --laptop: 1024px;
+    --desktop: 1200px; */
+
     margin: 0;
   }
   
