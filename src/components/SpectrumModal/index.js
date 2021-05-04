@@ -186,6 +186,7 @@ const SpectrumModal = ({ isOpen, closeModal, data }) => {
             <div className="spectrum-container">
               {spectrumSeries.map((spectrum, i) => (
                 <img
+                  key={i}
                   className={cn("spectrum-image", {
                     active: i === spectrumIndex,
                   })}
