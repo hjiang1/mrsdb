@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useMemo, useState, useEffect } from "react"
 import styled from "styled-components"
 import {
   useTable,
@@ -100,10 +100,29 @@ const Container = styled.div`
 `
 
 const DatabaseTable = ({
-  data: { data, columns },
+  data,
+  metadata,
   defaultPageSize,
   setFilterModalOpen,
 }) => {
+  const [dataTypes, setDataTypes] = useState([])
+
+  useEffect(() => {
+    if (metadata) {
+      setDataTypes([...new Set(metadata.types)])
+    }
+  }, [metadata])
+
+  const columns = useMemo(
+    () =>
+      metadata.accessors.map((a, i) => ({
+        accessor: a,
+        Header: metadata.headers[i],
+        type: metadata.types[i],
+      })),
+    [metadata]
+  )
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -153,21 +172,32 @@ const DatabaseTable = ({
   }
 
   const onTableScroll = e => {
-    const scrollPos = e.target.scrollLeft
-    const metadata = document.getElementsByClassName("header-cell metadata")[0]
-      .offsetLeft
-    const mrs = document.getElementsByClassName("header-cell mrs")[0].offsetLeft
+    if (dataTypes.length > 1) {
+      const scrollPos = e.target.scrollLeft
+      const numTypes = dataTypes.length
 
-    if (scrollPos < metadata && activeType !== "clinical") {
-      setActiveType("clinical")
-    } else if (scrollPos >= mrs && activeType !== "mrs") {
-      setActiveType("mrs")
-    } else if (
-      scrollPos >= metadata &&
-      scrollPos < mrs &&
-      activeType !== "metadata"
-    ) {
-      setActiveType("metadata")
+      const elementList = dataTypes.map(
+        type =>
+          document.getElementsByClassName(`header-cell ${type}`)[0].offsetLeft
+      )
+
+      dataTypes.some((type, i) => {
+        if (i == numTypes - 1 && activeType !== dataTypes[numTypes - 1]) {
+          setActiveType(dataTypes[numTypes - 1])
+
+          return true
+        } else if (
+          scrollPos >= elementList[i] &&
+          scrollPos < elementList[i + 1] &&
+          activeType !== elementList[i]
+        ) {
+          setActiveType(type)
+
+          return true
+        } else {
+          return false
+        }
+      })
     }
   }
 
@@ -176,30 +206,36 @@ const DatabaseTable = ({
       <div className="search-bar-container">
         <div className="database-scroll-button-container">
           Jump to:
-          <button
-            className={cn("scroll-button clinical", {
-              "active-type": activeType === "clinical",
-            })}
-            onClick={() => jumpTo("clinical")}
-          >
-            Clinical Data
-          </button>
-          <button
-            className={cn("scroll-button metadata", {
-              "active-type": activeType === "metadata",
-            })}
-            onClick={() => jumpTo("metadata")}
-          >
-            Scan Metadata
-          </button>
-          <button
-            className={cn("scroll-button mrs", {
-              "active-type": activeType === "mrs",
-            })}
-            onClick={() => jumpTo("mrs")}
-          >
-            MRS Data
-          </button>
+          {metadata && metadata.types.includes("clinical") && (
+            <button
+              className={cn("scroll-button clinical", {
+                "active-type": activeType === "clinical",
+              })}
+              onClick={() => jumpTo("clinical")}
+            >
+              Clinical Data
+            </button>
+          )}
+          {metadata && metadata.types.includes("metadata") && (
+            <button
+              className={cn("scroll-button metadata", {
+                "active-type": activeType === "metadata",
+              })}
+              onClick={() => jumpTo("metadata")}
+            >
+              Scan Metadata
+            </button>
+          )}
+          {metadata && metadata.types.includes("mrs") && (
+            <button
+              className={cn("scroll-button mrs", {
+                "active-type": activeType === "mrs",
+              })}
+              onClick={() => jumpTo("mrs")}
+            >
+              MRS Data
+            </button>
+          )}
         </div>
         <button
           className="button white filter-button"

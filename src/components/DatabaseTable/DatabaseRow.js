@@ -47,21 +47,21 @@ const DatabaseRow = ({ row, alternate }) => {
   const [isSpectrumOpen, setSpectrumOpen] = useState(false)
 
   const modalData = {
-    pid: row.cells[1].value,
-    sex: row.cells[2].value,
-    age: row.cells[3].value,
-    height: row.cells[4].value,
-    weight: row.cells[5].value,
-    sport: row.cells[6].value,
-    group: row.cells[7].value,
-    date: row.cells[8].value,
-    site: row.cells[9].value,
-    vendor: row.cells[10].value,
-    software: row.cells[11].value,
-    voxel_type: row.cells[12].value,
-    brain_location: row.cells[13].value,
-    TE: row.cells[14].value,
-    TR: row.cells[15].value,
+    // pid: row.cells[1].value,
+    // sex: row.cells[2].value,
+    // age: row.cells[3].value,
+    // height: row.cells[4].value,
+    // weight: row.cells[5].value,
+    // sport: row.cells[6].value,
+    // group: row.cells[7].value,
+    // date: row.cells[8].value,
+    // site: row.cells[9].value,
+    // vendor: row.cells[10].value,
+    // software: row.cells[11].value,
+    // voxel_type: row.cells[12].value,
+    // brain_location: row.cells[13].value,
+    // TE: row.cells[14].value,
+    // TR: row.cells[15].value,
   }
 
   const closeSpectrumModal = () => {
@@ -93,11 +93,11 @@ const DatabaseRow = ({ row, alternate }) => {
           )
         })}
       </Container>
-      <SpectrumModal
+      {/* <SpectrumModal
         isOpen={isSpectrumOpen}
         closeModal={closeSpectrumModal}
         data={modalData}
-      />
+      /> */}
     </Fragment>
   )
 }

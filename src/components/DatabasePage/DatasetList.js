@@ -1,7 +1,10 @@
-import React from "react"
+import React, { useState, useEffect, Fragment } from "react"
 import styled from "styled-components"
 
 import { FaSearch } from "react-icons/fa"
+
+import LoadingCard from "../LoadingCard"
+import ErrorCard from "../ErrorCard"
 
 const Container = styled.div`
   width: 100%;
@@ -90,7 +93,26 @@ const Container = styled.div`
   }
 `
 
-const DatasetList = ({ setView }) => {
+const DatasetList = ({ datasetList, setDatasetList, setView, setMetadata }) => {
+  useEffect(() => {
+    fetch("https://mrsdb.bwh.harvard.edu/datasets", {
+      method: "GET",
+    })
+      .then(res => {
+        res.json().then(data => {
+          setDatasetList(data)
+        })
+      })
+      .catch(error => {
+        setDatasetList("Error")
+      })
+  }, [])
+
+  const selectDataset = metadata => {
+    setView(metadata.table_name)
+    setMetadata(metadata)
+  }
+
   return (
     <Container className="dataset-container">
       <div className="dataset-header">
@@ -107,36 +129,34 @@ const DatasetList = ({ setView }) => {
         </div>
       </div>
       <div className="dataset-list">
-        <div className="dataset-item">
-          <div className="dataset-data">
-            <div className="dataset-name">CCS Normative Data</div>
-            <div className="dataset-site">
-              Center for Clinical Spectroscopy, Brigham and Women's Hospital
-            </div>
-            <div className="dataset-description">
-              Combined normative data from multiple 3T studies
-            </div>
-            <div className="dataset-description">200 Voxels</div>
-          </div>
-          <button className="button" onClick={() => setView("viewer")}>
-            View
-          </button>
-        </div>
-        <div className="dataset-item">
-          <div className="dataset-data">
-            <div className="dataset-name">CCS Concussion Study (Mock Data)</div>
-            <div className="dataset-site">
-              Center for Clinical Spectroscopy, Brigham and Women's Hospital
-            </div>
-            <div className="dataset-description">
-              Mock data generated from a sports-related TBI study
-            </div>
-            <div className="dataset-description">302 Voxels</div>
-          </div>
-          <button className="button" onClick={() => setView("viewer")}>
-            View
-          </button>
-        </div>
+        {datasetList ? (
+          datasetList === "Error" ? (
+            <ErrorCard />
+          ) : (
+            <Fragment>
+              {datasetList.map((dataset, i) => (
+                <div key={i} className="dataset-item">
+                  <div className="dataset-data">
+                    <div className="dataset-name">{dataset.name}</div>
+                    <div className="dataset-site">{dataset.site}</div>
+                    <div className="dataset-description">
+                      {dataset.description}
+                    </div>
+                    <div className="dataset-description">{dataset.size}</div>
+                  </div>
+                  <button
+                    className="button"
+                    onClick={() => selectDataset(dataset)}
+                  >
+                    View
+                  </button>
+                </div>
+              ))}
+            </Fragment>
+          )
+        ) : (
+          <LoadingCard />
+        )}
       </div>
     </Container>
   )
