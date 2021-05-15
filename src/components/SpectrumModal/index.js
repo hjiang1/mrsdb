@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, Fragment } from "react"
 import styled from "styled-components"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 import cn from "classnames"
@@ -106,74 +106,32 @@ const SpectrumModal = ({ isOpen, closeModal, data }) => {
         <SpectrumModalHeader closeModal={closeModal} />
         <div className="modal-content">
           <div className="metadata-widget">
-            <div className="metadata-type">Participant Info</div>
-            <ul className="metadata-list">
-              <li className="metadata-item">
-                <div className="item-label">ID:</div>
-                <div className="item-value">{data.pid}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Age:</div>
-                <div className="item-value">{data.age}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Sex:</div>
-                <div className="item-value">{data.sex}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Height:</div>
-                <div className="item-value">{data.height}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Weight:</div>
-                <div className="item-value">{data.weight}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Sport:</div>
-                <div className="item-value">{data.sport}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Group:</div>
-                <div className="item-value">{data.group}</div>
-              </li>
-            </ul>
-            <div className="metadata-type">Scan Info</div>
-            <ul className="metadata-list">
-              <li className="metadata-item">
-                <div className="item-label">Scan Date:</div>
-                <div className="item-value">{data.date}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Scan Site:</div>
-                <div className="item-value">{data.site}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Scanner Vendor:</div>
-                <div className="item-value">{data.vendor}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Scanner Software:</div>
-                <div className="item-value">{data.software}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Sequence Type:</div>
-                <div className="item-value">{data.voxel_type}</div>
-              </li>
-              <li className="metadata-item">
-                <div className="item-label">Brain Location:</div>
-                <div className="item-value">{data.brain_location}</div>
-              </li>
-              <li className="metadata-item">
-                {" "}
-                <div className="item-label">TE:</div>
-                <div className="item-value">{data.TE}</div>
-              </li>
-              <li className="metadata-item">
-                {" "}
-                <div className="item-label">TR:</div>
-                <div className="item-value">{data.TR}</div>
-              </li>
-            </ul>
+            {"clinical" in data && (
+              <Fragment>
+                <div className="metadata-type">Clinical Info</div>
+                <ul className="metadata-list">
+                  {Object.keys(data.clinical).map((key, i) => (
+                    <li key={i} className="metadata-item">
+                      <div className="item-label">{`${key}:`}</div>
+                      <div className="item-value">{data.clinical[key]}</div>
+                    </li>
+                  ))}
+                </ul>
+              </Fragment>
+            )}
+            {"metadata" in data && (
+              <Fragment>
+                <div className="metadata-type">Scan Metadata</div>
+                <ul className="metadata-list">
+                  {Object.keys(data.metadata).map((key, i) => (
+                    <li key={i} className="metadata-item">
+                      <div className="item-label">{`${key}:`}</div>
+                      <div className="item-value">{data.metadata[key]}</div>
+                    </li>
+                  ))}
+                </ul>
+              </Fragment>
+            )}
           </div>
           <div className="spectrum-widget">
             <button

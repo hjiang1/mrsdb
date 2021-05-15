@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, Fragment } from "react"
 import styled from "styled-components"
 import {
   FaDownload,
@@ -9,6 +9,8 @@ import {
 } from "react-icons/fa"
 
 import DatabaseTable from "../DatabaseTable"
+
+import LoadingCard from "../LoadingCard"
 
 const Container = styled.div`
   flex: 1;
@@ -119,12 +121,13 @@ const Container = styled.div`
 
 const DatasetContent = ({
   data,
-  filteredItems,
+  metadata,
+  defaultFilters,
   filtersMatchDefault,
   setFilterModalOpen,
   setView,
 }) => {
-  const [defaultPageSize, setDefaultPageSize] = useState(false)
+  const [defaultPageSize, setDefaultPageSize] = useState(null)
 
   useEffect(() => {
     const windowHeight = window.innerHeight
@@ -144,19 +147,23 @@ const DatasetContent = ({
           <div className="button-text">Back to Dataset List</div>
         </button>
         <div className="dataset-info">
-          <span className="dataset-title">
-            {data.title}
-            <button className="info-button">
-              <FaInfoCircle
-                className="button-icon"
-                size="2rem"
-                color="#0f4c75"
-              />
-            </button>
-          </span>
-          <span className="dataset-metadata">
-            Center for Clinical Spectroscopy, Brigham and Women's Hospital
-          </span>
+          {metadata && (
+            <Fragment>
+              <span className="dataset-title">
+                {metadata.name}
+                <button className="info-button">
+                  <FaInfoCircle
+                    className="button-icon"
+                    size="2rem"
+                    color="#0f4c75"
+                  />
+                </button>
+              </span>
+              <span className="dataset-metadata">
+                {metadata ? metadata.site : ""}
+              </span>
+            </Fragment>
+          )}
         </div>
         <button className="button white download-button">
           <FaDownload className="button-icon" size="1rem" color="#0f4c75" />
@@ -164,17 +171,18 @@ const DatasetContent = ({
         </button>
       </div>
       <div className="database-table-container">
-        {defaultPageSize ? (
+        {data && defaultPageSize && defaultFilters ? (
           <DatabaseTable
-            data={Object.assign({}, data, { data: filteredItems })}
+            data={data}
+            metadata={metadata}
             defaultPageSize={defaultPageSize}
             setFilterModalOpen={setFilterModalOpen}
           />
         ) : (
-          <div>Loading...</div>
+          <LoadingCard />
         )}
       </div>
-      {!filtersMatchDefault && filteredItems.length === 0 && (
+      {!filtersMatchDefault && data.length === 0 && (
         <div className="no-data-warning">
           <FaExclamation size="2rem" color="var(--primaryColor)" />
           <div className="warning-text">
