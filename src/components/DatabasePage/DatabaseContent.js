@@ -11,7 +11,6 @@ import {
 import DatabaseTable from "../DatabaseTable"
 
 import LoadingCard from "../LoadingCard"
-import ErrorCard from "../ErrorCard"
 
 const Container = styled.div`
   flex: 1;
@@ -123,6 +122,7 @@ const Container = styled.div`
 const DatasetContent = ({
   data,
   metadata,
+  defaultFilters,
   filtersMatchDefault,
   setFilterModalOpen,
   setView,
@@ -171,7 +171,7 @@ const DatasetContent = ({
         </button>
       </div>
       <div className="database-table-container">
-        {data && defaultPageSize ? (
+        {data && defaultPageSize && defaultFilters ? (
           <DatabaseTable
             data={data}
             metadata={metadata}

@@ -37,17 +37,27 @@ const Container = styled.div`
   }
 `
 
-const HeightFilter = ({
+const RangeFilter = ({
+  accessor,
+  name,
+  description,
+  unit,
   filters,
   defaultFilters,
   setFilterSettings,
   showUncategorized,
 }) => {
-  // Update height range filter
-  const changeHeightRange = range => {
+  // Update range filter
+  const changeRange = range => {
     const newFilters = Object.assign({}, filters)
-    newFilters.height.min = inToFt(range[0])
-    newFilters.height.max = inToFt(range[1])
+
+    if (unit === "in") {
+      newFilters[accessor].min = inToFt(range[0])
+      newFilters[accessor].max = inToFt(range[1])
+    } else {
+      newFilters[accessor].min = range[0]
+      newFilters[accessor].max = range[1]
+    }
 
     setFilterSettings(newFilters)
   }
@@ -55,38 +65,46 @@ const HeightFilter = ({
   // Toggle uncategorized feature
   const toggleUncategorized = () => {
     const newFilters = Object.assign({}, filters)
-    newFilters.height["Uncategorized"] = !filters.height["Uncategorized"]
+    newFilters[accessor]["Uncategorized"] = !filters[accessor]["Uncategorized"]
 
     setFilterSettings(newFilters)
   }
 
+  const convertUnits = val => {
+    if (unit === "in") {
+      return ftToIn(val)
+    } else {
+      return val
+    }
+  }
+
   return (
-    <Filter name="Height" description="Participant height">
+    <Filter name={name} description={description}>
       <Container>
         <div className="slider-container">
-          <div className="range-indicator start">{`${filters.height.min}`}</div>
+          <div className="range-indicator start">{filters[accessor].min}</div>
           <Slider
-            scaledValue={[
-              ftToIn(filters.height.min),
-              ftToIn(filters.height.max),
+            value={[
+              convertUnits(filters[accessor].min),
+              convertUnits(filters[accessor].max),
             ]}
             bounds={[
-              ftToIn(defaultFilters.height.min),
-              ftToIn(defaultFilters.height.max),
+              convertUnits(defaultFilters[accessor].min),
+              convertUnits(defaultFilters[accessor].max),
             ]}
-            onChange={changeHeightRange}
+            onChange={changeRange}
           />
-          <div className="range-indicator end">{`${filters.height.max}`}</div>
+          <div className="range-indicator end">{filters[accessor].max}</div>
         </div>
         {showUncategorized && (
           <div className="checkbox-container">
             <Checkbox
               id="Uncategorized"
-              name="height"
-              checked={filters.height["Uncategorized"]}
+              name={accessor}
+              checked={filters[accessor]["Uncategorized"]}
               onChange={toggleUncategorized}
             >
-              Uncategorized
+              Unspecified
             </Checkbox>
           </div>
         )}
@@ -95,4 +113,4 @@ const HeightFilter = ({
   )
 }
 
-export default HeightFilter
+export default RangeFilter

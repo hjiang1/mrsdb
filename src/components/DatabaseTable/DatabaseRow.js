@@ -1,4 +1,4 @@
-import React, { Fragment, useState, createRef } from "react"
+import React, { Fragment, useState, useEffect, createRef } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import cn from "classnames"
@@ -43,26 +43,33 @@ const Container = styled.tr`
   }
 `
 
-const DatabaseRow = ({ row, alternate }) => {
+const DatabaseRow = ({ row, alternate, metadata }) => {
   const [isSpectrumOpen, setSpectrumOpen] = useState(false)
+  const [modalData, setModalData] = useState({})
 
-  const modalData = {
-    // pid: row.cells[1].value,
-    // sex: row.cells[2].value,
-    // age: row.cells[3].value,
-    // height: row.cells[4].value,
-    // weight: row.cells[5].value,
-    // sport: row.cells[6].value,
-    // group: row.cells[7].value,
-    // date: row.cells[8].value,
-    // site: row.cells[9].value,
-    // vendor: row.cells[10].value,
-    // software: row.cells[11].value,
-    // voxel_type: row.cells[12].value,
-    // brain_location: row.cells[13].value,
-    // TE: row.cells[14].value,
-    // TR: row.cells[15].value,
-  }
+  useEffect(() => {
+    const newModalData = {}
+
+    metadata.types.forEach((type, i) => {
+      if (type === "clinical") {
+        if (!("clinical" in newModalData)) {
+          newModalData["clinical"] = {}
+        }
+
+        newModalData.clinical[metadata.headers[i]] =
+          row.values[metadata.accessors[i]]
+      } else if (type === "metadata") {
+        if (!("metadata" in newModalData)) {
+          newModalData["metadata"] = {}
+        }
+
+        newModalData.metadata[metadata.headers[i]] =
+          row.values[metadata.accessors[i]]
+      }
+
+      setModalData(newModalData)
+    })
+  }, [metadata, row.values])
 
   const closeSpectrumModal = () => {
     setSpectrumOpen(false)
@@ -93,11 +100,11 @@ const DatabaseRow = ({ row, alternate }) => {
           )
         })}
       </Container>
-      {/* <SpectrumModal
+      <SpectrumModal
         isOpen={isSpectrumOpen}
         closeModal={closeSpectrumModal}
         data={modalData}
-      /> */}
+      />
     </Fragment>
   )
 }

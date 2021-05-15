@@ -8,10 +8,10 @@ import FiltersModal from "../components/FiltersModal"
 import DatasetList from "../components/DatabasePage/DatasetList"
 import DatabaseContent from "../components/DatabasePage/DatabaseContent"
 
-import {
-  defaultFilters,
-  filterFunctions,
-} from "../components/FiltersModal/filters"
+import api from "../api"
+import filterFunctions, {
+  parseFiltersFromApi,
+} from "../components/FiltersModal/filterFunctions"
 
 const Container = styled.div`
   display: flex;
@@ -20,49 +20,64 @@ const Container = styled.div`
 `
 
 const Database = () => {
+  // From API
   const [datasetList, setDatasetList] = useState(null)
-  const [data, setData] = useState([])
-  const [filteredData, setFilteredData] = useState([])
+  const [data, setData] = useState(null)
   const [metadata, setMetadata] = useState(null)
+  const [datasetFilters, setDatasetFilters] = useState(null)
+
   const [view, setView] = useState("datasets")
-  const [filters, setFilters] = useState(defaultFilters)
+  const [filteredData, setFilteredData] = useState(null)
+  const [defaultFilters, setDefaultFilters] = useState(null)
+  const [activeFilters, setActiveFilters] = useState(null)
   const [isFilterModalOpen, setFilterModalOpen] = useState(false)
 
   useEffect(() => {
-    if (view !== "datasets") {
-      fetch(`https://mrsdb.bwh.harvard.edu/datasets/${view}`, {
-        method: "GET",
-      })
-        .then(res => {
-          res.json().then(data => {
-            setData(data)
-          })
-        })
-        .catch(error => {
-          setData("Error")
-        })
+    if (datasetFilters) {
+      const parsedFilters = parseFiltersFromApi(datasetFilters)
+      console.log("filters loaded", parsedFilters)
+
+      setDefaultFilters(parsedFilters)
+      setActiveFilters(parsedFilters)
+    }
+  }, [datasetFilters])
+
+  useEffect(() => {
+    if (view === "datasets") {
+      setData(null)
+      setDatasetFilters(null)
+      setActiveFilters(null)
+    } else {
+      api.getDataset(view, setData, () => setData("Error"))
+      api.getDatasetFilters(view, setDatasetFilters, () =>
+        setDatasetFilters("Error")
+      )
     }
   }, [view])
 
   // Filter rows when filters change
   useEffect(() => {
-    console.log("applying filters")
-    let newFilteredData = data
+    console.log(activeFilters)
 
-    // Iterate through and run each filter
-    Object.keys(filters).forEach(filterName => {
-      newFilteredData = filterFunctions[filterName](
-        newFilteredData,
-        filters[filterName]
-      )
-    })
+    if (activeFilters && data && datasetFilters) {
+      console.log("filtering")
+      let newFilteredData = data
 
-    setFilteredData(newFilteredData)
-  }, [filters, data])
+      datasetFilters.forEach(filterMetadata => {
+        newFilteredData = filterFunctions[filterMetadata.type](
+          filterMetadata,
+          newFilteredData,
+          activeFilters[filterMetadata.accessor]
+        )
+      })
+
+      setFilteredData(newFilteredData)
+    }
+  }, [activeFilters, data, datasetFilters])
 
   // Check if table filters match default filters
   const filtersMatchDefault =
-    JSON.stringify(defaultFilters) === JSON.stringify(filters)
+    JSON.stringify(defaultFilters) === JSON.stringify(activeFilters)
 
   return (
     <Layout pageTitle="Database">
@@ -79,6 +94,7 @@ const Database = () => {
           <DatabaseContent
             data={filteredData}
             metadata={metadata}
+            defaultFilters={defaultFilters}
             filtersMatchDefault={filtersMatchDefault}
             setFilterModalOpen={setFilterModalOpen}
             setView={setView}
@@ -88,9 +104,10 @@ const Database = () => {
       <FiltersModal
         isOpen={isFilterModalOpen}
         setOpen={setFilterModalOpen}
-        filters={filters}
-        setFilters={setFilters}
+        datasetFilters={datasetFilters}
+        activeFilters={activeFilters}
         defaultFilters={defaultFilters}
+        setFilters={setActiveFilters}
       />
     </Layout>
   )

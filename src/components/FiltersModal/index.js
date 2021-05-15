@@ -4,17 +4,11 @@ import styled from "styled-components"
 import Modal from "../Modal"
 import FiltersModalHeader from "./FiltersModalHeader"
 import FiltersModalActions from "./FiltersModalActions"
-// import PartialFilter from "./PartialFilter"
-// import ThreeFilter from "./ThreeFilter"
-import SexFilter from "./SexFilter"
-import ControlFilter from "./ControlFilter"
-import SportFilter from "./SportFilter"
-import AgeFilter from "./AgeFilter"
-import HeightFilter from "./HeightFilter"
-import WeightFilter from "./WeightFilter"
+import DynamicFilter from "./DynamicFilter"
 
 const Container = styled.div`
   width: 100%;
+  height: fit-content;
 
   .filter-modal-content {
     margin: 0 2rem;
@@ -24,69 +18,52 @@ const Container = styled.div`
   }
 `
 
-const FiltersModal = ({ isOpen, setOpen, filters, setFilters }) => {
+const FiltersModal = ({
+  isOpen,
+  setOpen,
+  datasetFilters,
+  activeFilters,
+  defaultFilters,
+  setFilters,
+}) => {
   // Filter settings (separate from filters on table)
   const [filterSettings, setFilterSettings] = useState(undefined)
 
   // Deep copy filters into state on open and reset on close
   useEffect(() => {
     if (isOpen) {
-      setFilterSettings(JSON.parse(JSON.stringify(filters)))
+      setFilterSettings(JSON.parse(JSON.stringify(activeFilters)))
     } else {
       setFilterSettings(undefined)
     }
-  }, [isOpen, filters])
+  }, [isOpen, activeFilters])
 
   // Show table filters on first render before they are copied to state
-  const loadedFilters = filterSettings ? filterSettings : filters
-  const showUncategorized = !loadedFilters.complete.remove
+  const loadedFilters = filterSettings ? filterSettings : activeFilters
+  const showUncategorized = false //!loadedFilters.complete.remove
 
   return (
     <Modal isOpen={isOpen}>
       <Container>
         <FiltersModalHeader setOpen={setOpen} />
         <div className="filter-modal-content">
-          {/* <PartialFilter
-            filters={loadedFilters}
-            setFilterSettings={setFilterSettings}
-          />
-          <ThreeFilter
-            filters={loadedFilters}
-            setFilterSettings={setFilterSettings}
-          /> */}
-          <SexFilter
-            filters={loadedFilters}
-            setFilterSettings={setFilterSettings}
-            showUncategorized={showUncategorized}
-          />
-          <ControlFilter
-            filters={loadedFilters}
-            setFilterSettings={setFilterSettings}
-            showUncategorized={showUncategorized}
-          />
-          <SportFilter
-            filters={loadedFilters}
-            setFilterSettings={setFilterSettings}
-            showUncategorized={showUncategorized}
-          />
-          <AgeFilter
-            filters={loadedFilters}
-            setFilterSettings={setFilterSettings}
-            showUncategorized={showUncategorized}
-          />
-          <HeightFilter
-            filters={loadedFilters}
-            setFilterSettings={setFilterSettings}
-            showUncategorized={showUncategorized}
-          />
-          <WeightFilter
-            filters={loadedFilters}
-            setFilterSettings={setFilterSettings}
-            showUncategorized={showUncategorized}
-          />
+          {datasetFilters &&
+            datasetFilters.map((datasetFilter, i) => {
+              return (
+                <DynamicFilter
+                  key={i}
+                  filterMetadata={datasetFilter}
+                  loadedFilters={loadedFilters}
+                  defaultFilters={defaultFilters}
+                  setFilterSettings={setFilterSettings}
+                  showUncategorized={showUncategorized}
+                />
+              )
+            })}
         </div>
         <FiltersModalActions
-          filters={filters}
+          filters={activeFilters}
+          defaultFilters={defaultFilters}
           filterSettings={filterSettings}
           loadedFilters={loadedFilters}
           setFilters={setFilters}

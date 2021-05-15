@@ -3,8 +3,6 @@ import styled from "styled-components"
 import { FaRedo } from "react-icons/fa"
 import cn from "classnames"
 
-import { defaultFilters } from "./filters"
-
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -23,6 +21,7 @@ const Container = styled.div`
 
 const FiltersModalActions = ({
   filters,
+  defaultFilters,
   filterSettings,
   loadedFilters,
   setFilters,
@@ -46,21 +45,21 @@ const FiltersModalActions = ({
   // Check if modal filters match default filters; disregard Uncategorized if they are hidden
   // TODO: implement manual recursirve compare that ignores Uncategorized
   const doFiltersMatchDefault = () => {
-    let modalFilters
+    let modalFilters = loadedFilters
 
     // If uncategorized are hidden and value was changed, deep copy filters and set that value true
-    if (
-      !showUncategorized &&
-      loadedFilters.sport["Uncategorized"] !==
-        defaultFilters.sport["Uncategorized"]
-    ) {
-      modalFilters = JSON.parse(JSON.stringify(loadedFilters))
-      modalFilters.sport["Uncategorized"] = true
-    }
-    // Else use unloaded filters
-    else {
-      modalFilters = loadedFilters
-    }
+    // if (
+    //   !showUncategorized &&
+    //   loadedFilters.sport["Uncategorized"] !==
+    //     defaultFilters.sport["Uncategorized"]
+    // ) {
+    //   modalFilters = JSON.parse(JSON.stringify(loadedFilters))
+    //   modalFilters.sport["Uncategorized"] = true
+    // }
+    // // Else use unloaded filters
+    // else {
+    //   modalFilters = loadedFilters
+    // }
 
     return JSON.stringify(defaultFilters) === JSON.stringify(modalFilters)
   }

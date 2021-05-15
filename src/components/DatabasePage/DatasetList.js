@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react"
+import React, { useEffect, Fragment } from "react"
 import styled from "styled-components"
 
 import { FaSearch } from "react-icons/fa"
@@ -106,7 +106,7 @@ const DatasetList = ({ datasetList, setDatasetList, setView, setMetadata }) => {
       .catch(error => {
         setDatasetList("Error")
       })
-  }, [])
+  }, [setDatasetList])
 
   const selectDataset = metadata => {
     setView(metadata.table_name)

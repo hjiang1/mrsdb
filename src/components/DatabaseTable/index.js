@@ -182,7 +182,7 @@ const DatabaseTable = ({
       )
 
       dataTypes.some((type, i) => {
-        if (i == numTypes - 1 && activeType !== dataTypes[numTypes - 1]) {
+        if (i === numTypes - 1 && activeType !== dataTypes[numTypes - 1]) {
           setActiveType(dataTypes[numTypes - 1])
 
           return true
@@ -259,7 +259,14 @@ const DatabaseTable = ({
         <tbody {...getTableBodyProps()}>
           {page.map((row, i) => {
             prepareRow(row)
-            return <DatabaseRow key={i} row={row} alternate={i % 2 === 1} />
+            return (
+              <DatabaseRow
+                key={i}
+                row={row}
+                metadata={metadata}
+                alternate={i % 2 === 1}
+              />
+            )
           })}
         </tbody>
       </table>

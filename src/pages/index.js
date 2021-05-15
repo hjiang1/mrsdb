@@ -212,8 +212,9 @@ const IndexPage = () => {
             </p>
             <p className="image-ref">
               This site is a prototype for the Internation Society for Magnetic
-              Resonance in Medicine 2021 Annual Meeting and Exhibition and is
-              subject to change.
+              Resonance in Medicine 2021 Annual Meeting and Exhibition. Not all
+              features are guaranteed to work and the content of this site is
+              subject to change in the future.
             </p>
             <p className="image-ref">
               Background image by Idris Oulmane:
