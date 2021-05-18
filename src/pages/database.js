@@ -35,7 +35,6 @@ const Database = () => {
   useEffect(() => {
     if (datasetFilters) {
       const parsedFilters = parseFiltersFromApi(datasetFilters)
-      console.log("filters loaded", parsedFilters)
 
       setDefaultFilters(parsedFilters)
       setActiveFilters(parsedFilters)
@@ -57,10 +56,7 @@ const Database = () => {
 
   // Filter rows when filters change
   useEffect(() => {
-    console.log(activeFilters)
-
     if (activeFilters && data && datasetFilters) {
-      console.log("filtering")
       let newFilteredData = data
 
       datasetFilters.forEach(filterMetadata => {

@@ -32,8 +32,7 @@ export const parseFiltersFromApi = filters => {
           }
         }
         break
-      default:
-        console.log("Missing filter type")
+      default: // do nothing
     }
 
     filtersObject[filter.accessor] = filterObject

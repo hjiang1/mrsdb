@@ -7,6 +7,7 @@ import {
   FaInfoCircle,
   FaArrowLeft,
 } from "react-icons/fa"
+import { Parser } from 'json2csv'
 
 import DatabaseTable from "../DatabaseTable"
 
@@ -136,6 +137,16 @@ const DatasetContent = ({
     setDefaultPageSize(numRows)
   }, [])
 
+  const downloadCSV = () => {
+    const parser = new Parser({fields: metadata.accessors})
+    const csv = parser.parse(data)
+    
+    const link = document.createElement('a')
+    link.href = 'data:text/csv,' + encodeURIComponent(csv)
+    link.download = `${metadata.table_name}.csv`
+    link.click()
+  }
+
   return (
     <Container className="database-content">
       <div className="database-header">
@@ -165,7 +176,7 @@ const DatasetContent = ({
             </Fragment>
           )}
         </div>
-        <button className="button white download-button">
+        <button className="button white download-button" onClick={downloadCSV}>
           <FaDownload className="button-icon" size="1rem" color="#0f4c75" />
           <div className="button-text">Download Dataset</div>
         </button>
