@@ -108,7 +108,7 @@ const DatasetList = ({ datasetList, setDatasetList, setView, setMetadata }) => {
     })
       .then(res => {
         res.json().then(data => {
-          setDatasetList()
+          setDatasetList(data)
         })
       })
       .catch(error => {
