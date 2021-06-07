@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react"
+import React, { useEffect, useState, useRef, Fragment } from "react"
 import styled from "styled-components"
 
 import { FaSearch } from "react-icons/fa"
@@ -94,6 +94,14 @@ const Container = styled.div`
 `
 
 const DatasetList = ({ datasetList, setDatasetList, setView, setMetadata }) => {
+  const [fetchTries, setFetchTries] = useState(0)
+  const timeouts = useRef([])
+
+  const reloadError = () => {
+    setDatasetList(null)
+    setFetchTries(0)
+  }
+
   useEffect(() => {
     fetch("https://mrsdb.bwh.harvard.edu/datasets", {
       method: "GET",
@@ -104,9 +112,25 @@ const DatasetList = ({ datasetList, setDatasetList, setView, setMetadata }) => {
         })
       })
       .catch(error => {
-        setDatasetList("Error")
+        if (fetchTries < 10) {
+          const newTimeout = setTimeout(() => {
+            setFetchTries(fetchTries + 1)
+          }, 1000)
+
+          timeouts.current = timeouts.current.concat([newTimeout])
+        } else {
+          setDatasetList("Error")
+        }
       })
-  }, [setDatasetList])
+
+    return () => {
+      timeouts.current.forEach(timeout => {
+        clearTimeout(timeout)
+      })
+
+      timeouts.current = []
+    }
+  }, [setDatasetList, fetchTries, setFetchTries])
 
   const selectDataset = metadata => {
     setView(metadata.table_name)
@@ -131,7 +155,7 @@ const DatasetList = ({ datasetList, setDatasetList, setView, setMetadata }) => {
       <div className="dataset-list">
         {datasetList ? (
           datasetList === "Error" ? (
-            <ErrorCard />
+            <ErrorCard onReload={reloadError} />
           ) : (
             <Fragment>
               {datasetList.map((dataset, i) => (

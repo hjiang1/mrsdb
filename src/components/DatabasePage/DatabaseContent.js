@@ -7,7 +7,7 @@ import {
   FaInfoCircle,
   FaArrowLeft,
 } from "react-icons/fa"
-import { Parser } from 'json2csv'
+import { Parser } from "json2csv"
 
 import DatabaseTable from "../DatabaseTable"
 
@@ -138,11 +138,11 @@ const DatasetContent = ({
   }, [])
 
   const downloadCSV = () => {
-    const parser = new Parser({fields: metadata.accessors})
+    const parser = new Parser({ fields: metadata.accessors })
     const csv = parser.parse(data)
-    
-    const link = document.createElement('a')
-    link.href = 'data:text/csv,' + encodeURIComponent(csv)
+
+    const link = document.createElement("a")
+    link.href = "data:text/csv," + encodeURIComponent(csv)
     link.download = `${metadata.table_name}.csv`
     link.click()
   }
