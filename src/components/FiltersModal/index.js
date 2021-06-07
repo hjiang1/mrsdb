@@ -48,6 +48,7 @@ const FiltersModal = ({
         <FiltersModalHeader setOpen={setOpen} />
         <div className="filter-modal-content">
           {datasetFilters &&
+            datasetFilters !== "Error" &&
             datasetFilters.map((datasetFilter, i) => {
               return (
                 <DynamicFilter

@@ -154,7 +154,7 @@ const DatasetList = ({ datasetList, setDatasetList, setView, setMetadata }) => {
       </div>
       <div className="dataset-list">
         {datasetList ? (
-          datasetList === "Error" ? (
+          datasetList === "Error" || !Array.isArray(datasetList) ? ( // TODO: remedy hotfix
             <ErrorCard onReload={reloadError} />
           ) : (
             <Fragment>
